@@ -16,6 +16,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final TextEditingController _emailController = TextEditingController();
 
   String _selectedDate = '';
+  bool _isDatePickerVisible = false;
 
   bool get _isNameValid => _nameController.text.length >= 6;
 
@@ -80,33 +81,43 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   }
 
   void _showDatePicker() {
-    DateTime initialDate = DateTime(2000, 1, 1);
+    setState(() {
+      _isDatePickerVisible = !_isDatePickerVisible;
+    });
 
-    showCupertinoModalPopup(
-      context: context,
-      barrierColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return Container(
-          height: 216,
-          color: CupertinoColors.systemBackground.resolveFrom(context),
-          child: SafeArea(
-            top: false,
-            child: CupertinoDatePicker(
-              mode: CupertinoDatePickerMode.date,
-              initialDateTime: initialDate,
-              maximumDate: DateTime.now(),
-              minimumDate: DateTime(1900),
-              onDateTimeChanged: (DateTime newDate) {
-                setState(() {
-                  _selectedDate =
-                      '${_getMonthName(newDate.month)} ${newDate.day}, ${newDate.year}';
-                });
-              },
+    if (_isDatePickerVisible) {
+      DateTime initialDate = DateTime(2000, 1, 1);
+
+      showCupertinoModalPopup(
+        context: context,
+        barrierColor: Colors.transparent,
+        builder: (BuildContext context) {
+          return Container(
+            height: 216,
+            color: CupertinoColors.systemBackground.resolveFrom(context),
+            child: SafeArea(
+              top: false,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                initialDateTime: initialDate,
+                maximumDate: DateTime.now(),
+                minimumDate: DateTime(1900),
+                onDateTimeChanged: (DateTime newDate) {
+                  setState(() {
+                    _selectedDate =
+                        '${_getMonthName(newDate.month)} ${newDate.day}, ${newDate.year}';
+                  });
+                },
+              ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      ).then((_) {
+        setState(() {
+          _isDatePickerVisible = false;
+        });
+      });
+    }
   }
 
   String _getMonthName(int month) {
@@ -305,11 +316,17 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                 ),
               ),
-              // Next button - always at bottom
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Sizes.size32,
-                  vertical: Sizes.size20,
+              // Next button with animated padding
+              AnimatedPadding(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+                padding: EdgeInsets.only(
+                  left: Sizes.size32,
+                  right: Sizes.size32,
+                  top: Sizes.size20,
+                  bottom: _isDatePickerVisible
+                      ? 216 + Sizes.size20
+                      : Sizes.size20,
                 ),
                 child: Align(
                   alignment: Alignment.centerRight,
