@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
+import 'package:tiktok_challenge/features/authentication/customize_experience_screen.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({super.key});
@@ -71,12 +72,15 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   void _onNextTap() {
     if (_isFormValid) {
-      // TODO: Navigate to Customize Experience screen
-      // Navigator.of(context).push(
-      //   MaterialPageRoute(
-      //     builder: (context) => const CustomizeExperienceScreen(),
-      //   ),
-      // );
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => CustomizeExperienceScreen(
+            name: _nameController.text,
+            email: _emailController.text,
+            dateOfBirth: _selectedDate,
+          ),
+        ),
+      );
     }
   }
 
@@ -318,7 +322,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               ),
               // Next button with animated padding
               AnimatedPadding(
-                duration: const Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 150),
                 curve: Curves.easeInOut,
                 padding: EdgeInsets.only(
                   left: Sizes.size32,
