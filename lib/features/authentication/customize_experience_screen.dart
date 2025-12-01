@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
@@ -80,37 +81,40 @@ class _CustomizeExperienceScreenState extends State<CustomizeExperienceScreen> {
                         ),
                       ),
                       Gaps.v32,
-                      const Text(
-                        'Track where you see Twitter content across the web',
-                        style: TextStyle(
-                          fontSize: Sizes.size20,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black,
-                        ),
+                      const Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Track where you see Twitter content across the web',
+                              style: TextStyle(
+                                fontSize: Sizes.size20,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black,
+                                height: 1.2,
+                              ),
+                            ),
+                          ),
+                          Gaps.h16,
+
+                        ],
                       ),
                       Gaps.v16,
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
-                            child: RichText(
-                              text: TextSpan(
-                                style: TextStyle(
-                                  fontSize: Sizes.size14,
-                                  color: Colors.grey.shade700,
-                                  height: 1.4,
-                                ),
-                                children: const [
-                                  TextSpan(
-                                    text:
-                                        'Twitter uses this data to personalize your experience. This web browsing history will never be stored with your name, email, or phone number.',
-                                  ),
-                                ],
+                            child: Text(
+                              'Twitter uses this data to personalize your experience. This web browsing history will never be stored with your name, email, or phone number.',
+                              style: TextStyle(
+                                fontSize: Sizes.size14,
+                                color: Colors.grey.shade700,
+                                height: 1.4,
                               ),
                             ),
                           ),
                           Gaps.h16,
-                          Switch(
+                          CupertinoSwitch(
                             value: _trackingEnabled,
                             onChanged: (value) {
                               setState(() {
