@@ -18,7 +18,14 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   String _selectedDate = '';
 
   bool get _isNameValid => _nameController.text.isNotEmpty;
-  bool get _isEmailValid => _emailController.text.isNotEmpty && _emailController.text.contains('@');
+
+  bool get _isEmailValid {
+    if (_emailController.text.isEmpty) return false;
+    final regExp = RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    return regExp.hasMatch(_emailController.text);
+  }
+
   bool get _isDateValid => _selectedDate.isNotEmpty;
   bool get _isFormValid => _isNameValid && _isEmailValid && _isDateValid;
 
@@ -38,6 +45,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     _nameController.dispose();
     _emailController.dispose();
     super.dispose();
+  }
+
+  void _onScaffoldTap() {
+    FocusScope.of(context).unfocus();
   }
 
   void _onCancelTap() {
@@ -62,31 +73,22 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: 300,
-          color: Colors.white,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 250,
-                child: CupertinoDatePicker(
-                  mode: CupertinoDatePickerMode.date,
-                  initialDateTime: initialDate,
-                  maximumDate: DateTime.now(),
-                  minimumDate: DateTime(1900),
-                  onDateTimeChanged: (DateTime newDate) {
-                    setState(() {
-                      _selectedDate = '${_getMonthName(newDate.month)} ${newDate.day}, ${newDate.year}';
-                    });
-                  },
-                ),
-              ),
-              CupertinoButton(
-                child: const Text('Done'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
+          height: 216,
+          padding: const EdgeInsets.only(top: 6.0),
+          color: CupertinoColors.systemBackground.resolveFrom(context),
+          child: SafeArea(
+            top: false,
+            child: CupertinoDatePicker(
+              mode: CupertinoDatePickerMode.date,
+              initialDateTime: initialDate,
+              maximumDate: DateTime.now(),
+              minimumDate: DateTime(1900),
+              onDateTimeChanged: (DateTime newDate) {
+                setState(() {
+                  _selectedDate = '${_getMonthName(newDate.month)} ${newDate.day}, ${newDate.year}';
+                });
+              },
+            ),
           ),
         );
       },
@@ -103,9 +105,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
+    return GestureDetector(
+      onTap: _onScaffoldTap,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: TextButton(
@@ -127,13 +131,17 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: Sizes.size32,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: Sizes.size32,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
               Gaps.v32,
               const Text(
                 'Create your account',
@@ -206,32 +214,40 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               // Date of birth
               GestureDetector(
                 onTap: _showDatePicker,
-                child: AbsorbPointer(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Date of birth',
-                      labelStyle: TextStyle(
-                        color: _selectedDate.isEmpty
-                            ? Colors.grey.shade600
-                            : const Color(0xFF1DA1F2),
-                        fontSize: Sizes.size16,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.grey.shade300,
+                        width: 1,
                       ),
-                      hintText: _selectedDate.isEmpty ? '' : _selectedDate,
-                      hintStyle: const TextStyle(
-                        color: Color(0xFF1DA1F2),
-                        fontSize: Sizes.size16,
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.grey.shade300,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: Sizes.size16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Date of birth',
+                          style: TextStyle(
+                            color: _selectedDate.isEmpty
+                                ? Colors.grey.shade600
+                                : Colors.grey.shade600,
+                            fontSize: Sizes.size12,
+                          ),
                         ),
-                      ),
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFF1DA1F2),
-                          width: 2,
-                        ),
-                      ),
+                        if (_selectedDate.isNotEmpty) ...[
+                          Gaps.v5,
+                          Text(
+                            _selectedDate,
+                            style: const TextStyle(
+                              color: Color(0xFF1DA1F2),
+                              fontSize: Sizes.size16,
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
                   ),
                 ),
@@ -247,9 +263,18 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                 ),
               ],
-              const Spacer(),
-              // Next button
-              Align(
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            // Next button - always visible at bottom
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: Sizes.size32,
+                vertical: Sizes.size20,
+              ),
+              child: Align(
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
                   onTap: _isFormValid ? _onNextTap : null,
@@ -273,10 +298,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                 ),
               ),
-              Gaps.v32,
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
       ),
     );
   }
