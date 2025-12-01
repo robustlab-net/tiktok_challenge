@@ -21,9 +21,22 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   bool get _isEmailValid {
     if (_emailController.text.isEmpty) return false;
-    final regExp = RegExp(
+
+    // Email validation
+    final emailRegExp = RegExp(
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-    return regExp.hasMatch(_emailController.text);
+    if (emailRegExp.hasMatch(_emailController.text)) {
+      return true;
+    }
+
+    // Phone number validation (숫자만 10자리 이상)
+    final phoneRegExp = RegExp(r'^[0-9]{10,}$');
+    final digitsOnly = _emailController.text.replaceAll(RegExp(r'[^0-9]'), '');
+    if (phoneRegExp.hasMatch(digitsOnly)) {
+      return true;
+    }
+
+    return false;
   }
 
   bool get _isDateValid => _selectedDate.isNotEmpty;
@@ -201,12 +214,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         ),
                       ),
                       Gaps.v10,
-                      // Email input
+                      // Email or Phone input
                       TextField(
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          labelText: 'Email',
+                          labelText: 'Phone number or email address',
                           labelStyle: TextStyle(
                             color: Colors.grey.shade600,
                             fontSize: Sizes.size16,
