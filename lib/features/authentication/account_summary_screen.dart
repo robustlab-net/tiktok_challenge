@@ -67,58 +67,76 @@ class AccountSummaryScreen extends StatelessWidget {
                       _buildReadOnlyField('Name', name),
                       Gaps.v10,
                       // Email/Phone field (read-only)
-                      _buildReadOnlyField('Phone number or email address', email),
+                      _buildReadOnlyField(
+                          'Phone number or email address', email),
                       Gaps.v10,
                       // Date of birth field (read-only)
                       _buildReadOnlyField('Date of birth', dateOfBirth),
-                      Gaps.v32,
-                      RichText(
-                        text: TextSpan(
-                          style: TextStyle(
-                            fontSize: Sizes.size12,
-                            color: Colors.grey.shade600,
-                            height: 1.4,
-                          ),
-                          children: const [
-                            TextSpan(text: 'By signing up, you agree to our '),
-                            TextSpan(
-                              text: 'Terms',
-                              style: TextStyle(
-                                color: Color(0xFF1DA1F2),
-                              ),
-                            ),
-                            TextSpan(text: ', '),
-                            TextSpan(
-                              text: 'Privacy Policy',
-                              style: TextStyle(
-                                color: Color(0xFF1DA1F2),
-                              ),
-                            ),
-                            TextSpan(text: ', and '),
-                            TextSpan(
-                              text: 'Cookie Use',
-                              style: TextStyle(
-                                color: Color(0xFF1DA1F2),
-                              ),
-                            ),
-                            TextSpan(
-                              text:
-                                  '. Twitter may use your contact information, including your email address and phone number for purposes outlined in our Privacy Policy. ',
-                            ),
-                            TextSpan(
-                              text: 'Learn more',
-                              style: TextStyle(
-                                color: Color(0xFF1DA1F2),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ),
               ),
             ),
+            // Terms and privacy text
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: Sizes.size32,
+              ),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(
+                    fontSize: Sizes.size12,
+                    color: Colors.grey.shade600,
+                    height: 1.4,
+                  ),
+                  children: const [
+                    TextSpan(text: 'By signing up, you agree to the '),
+                    TextSpan(
+                      text: 'Terms of Service',
+                      style: TextStyle(
+                        color: Color(0xFF1DA1F2),
+                      ),
+                    ),
+                    TextSpan(text: ' and '),
+                    TextSpan(
+                      text: 'Privacy Policy',
+                      style: TextStyle(
+                        color: Color(0xFF1DA1F2),
+                      ),
+                    ),
+                    TextSpan(text: ', including '),
+                    TextSpan(
+                      text: 'Cookie Use',
+                      style: TextStyle(
+                        color: Color(0xFF1DA1F2),
+                      ),
+                    ),
+                    TextSpan(
+                      text:
+                          '. Twitter may use your contact information, including your email address and phone number for purposes outlined in our Privacy Policy, like keeping your account secure and personalizing our services, including ads. ',
+                    ),
+                    TextSpan(
+                      text: 'Learn more',
+                      style: TextStyle(
+                        color: Color(0xFF1DA1F2),
+                      ),
+                    ),
+                    TextSpan(
+                      text:
+                          '. Others will be able to find you by email or phone number, when provided, unless you choose otherwise ',
+                    ),
+                    TextSpan(
+                      text: 'here',
+                      style: TextStyle(
+                        color: Color(0xFF1DA1F2),
+                      ),
+                    ),
+                    TextSpan(text: '.'),
+                  ],
+                ),
+              ),
+            ),
+            Gaps.v20,
             // Sign up button
             Padding(
               padding: const EdgeInsets.symmetric(
