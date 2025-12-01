@@ -17,7 +17,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   String _selectedDate = '';
 
-  bool get _isNameValid => _nameController.text.isNotEmpty;
+  bool get _isNameValid => _nameController.text.length >= 6;
 
   bool get _isEmailValid {
     if (_emailController.text.isEmpty) return false;
@@ -71,9 +71,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
     showCupertinoModalPopup(
       context: context,
+      barrierColor: Colors.black.withOpacity(0.3),
       builder: (BuildContext context) {
         return Container(
-          height: 216,
+          height: 250,
+          margin: const EdgeInsets.only(
+            bottom: 80, // Space for Next button
+          ),
           padding: const EdgeInsets.only(top: 6.0),
           color: CupertinoColors.systemBackground.resolveFrom(context),
           child: SafeArea(
@@ -85,7 +89,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               minimumDate: DateTime(1900),
               onDateTimeChanged: (DateTime newDate) {
                 setState(() {
-                  _selectedDate = '${_getMonthName(newDate.month)} ${newDate.day}, ${newDate.year}';
+                  _selectedDate =
+                      '${_getMonthName(newDate.month)} ${newDate.day}, ${newDate.year}';
                 });
               },
             ),
@@ -97,8 +102,18 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   String _getMonthName(int month) {
     const months = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
     ];
     return months[month - 1];
   }
@@ -110,31 +125,33 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: TextButton(
-          onPressed: _onCancelTap,
-          child: const Text(
-            'Cancel',
-            style: TextStyle(
-              fontSize: Sizes.size16,
-              color: Colors.black,
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: TextButton(
+            onPressed: _onCancelTap,
+            child: const Text(
+              'Cancel',
+              style: TextStyle(
+                fontSize: Sizes.size16,
+                color: Colors.black,
+              ),
             ),
           ),
+          leadingWidth: 80,
+          title: const FaIcon(
+            FontAwesomeIcons.twitter,
+            color: Color(0xFF1DA1F2),
+            size: 30,
+          ),
+          centerTitle: true,
         ),
-        leadingWidth: 80,
-        title: const FaIcon(
-          FontAwesomeIcons.twitter,
-          color: Color(0xFF1DA1F2),
-          size: 30,
-        ),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        child: Column(
+        body: Stack(
           children: [
-            Expanded(
+            SafeArea(
               child: SingleChildScrollView(
+                padding: const EdgeInsets.only(
+                  bottom: 100, // Space for Next button
+                ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: Sizes.size32,
@@ -142,161 +159,174 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-              Gaps.v20,
-              const Text(
-                'Create your account',
-                style: TextStyle(
-                  fontSize: Sizes.size28,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.black,
-                ),
-              ),
-              Gaps.v40,
-              // Name input
-              TextField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: 'Name',
-                  labelStyle: TextStyle(
-                    color: Colors.grey.shade600,
-                    fontSize: Sizes.size16,
-                  ),
-                  suffixIcon: _isNameValid
-                      ? const Icon(
-                          Icons.check_circle,
-                          color: Color(0xFF34A853),
-                        )
-                      : null,
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey.shade300,
-                    ),
-                  ),
-                  focusedBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFF1DA1F2),
-                      width: 2,
-                    ),
-                  ),
-                ),
-              ),
-              Gaps.v20,
-              // Email input
-              TextField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  labelStyle: TextStyle(
-                    color: Colors.grey.shade600,
-                    fontSize: Sizes.size16,
-                  ),
-                  suffixIcon: _isEmailValid
-                      ? const Icon(
-                          Icons.check_circle,
-                          color: Color(0xFF34A853),
-                        )
-                      : null,
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey.shade300,
-                    ),
-                  ),
-                  focusedBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFF1DA1F2),
-                      width: 2,
-                    ),
-                  ),
-                ),
-              ),
-              Gaps.v20,
-              // Date of birth
-              GestureDetector(
-                onTap: _showDatePicker,
-                child: AbsorbPointer(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Colors.grey.shade300,
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                        padding: const EdgeInsets.only(bottom: Sizes.size8, top: Sizes.size8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Date of birth',
-                              style: TextStyle(
-                                color: Colors.grey.shade600,
-                                fontSize: Sizes.size12,
-                              ),
-                            ),
-                            if (_selectedDate.isNotEmpty) ...[
-                              Gaps.v5,
-                              Text(
-                                _selectedDate,
-                                style: const TextStyle(
-                                  color: Color(0xFF1DA1F2),
-                                  fontSize: Sizes.size16,
-                                ),
-                              ),
-                            ],
-                          ],
+                      Gaps.v20,
+                      const Text(
+                        'Create your account',
+                        style: TextStyle(
+                          fontSize: Sizes.size28,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.black,
                         ),
                       ),
-                      if (_selectedDate.isNotEmpty) ...[
-                        Gaps.v10,
-                        Text(
-                          'This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.',
-                          style: TextStyle(
-                            fontSize: Sizes.size14,
+                      Gaps.v40,
+                      // Name input
+                      TextField(
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                          labelText: 'Name',
+                          labelStyle: TextStyle(
                             color: Colors.grey.shade600,
-                            height: 1.3,
+                            fontSize: Sizes.size16,
+                          ),
+                          suffixIcon: _isNameValid
+                              ? const Icon(
+                                  Icons.check_circle,
+                                  color: Color(0xFF34A853),
+                                )
+                              : null,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey.shade300,
+                            ),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF1DA1F2),
+                              width: 2,
+                            ),
                           ),
                         ),
-                      ],
-                    ],
-                  ),
-                ),
-              ),
+                      ),
+                      Gaps.v20,
+                      // Email input
+                      TextField(
+                        controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          labelStyle: TextStyle(
+                            color: Colors.grey.shade600,
+                            fontSize: Sizes.size16,
+                          ),
+                          suffixIcon: _isEmailValid
+                              ? const Icon(
+                                  Icons.check_circle,
+                                  color: Color(0xFF34A853),
+                                )
+                              : null,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey.shade300,
+                            ),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF1DA1F2),
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Gaps.v20,
+                      // Date of birth
+                      GestureDetector(
+                        onTap: _showDatePicker,
+                        child: AbsorbPointer(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      color: Colors.grey.shade300,
+                                      width: 1,
+                                    ),
+                                  ),
+                                ),
+                                padding: const EdgeInsets.only(
+                                    bottom: Sizes.size8, top: Sizes.size8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Date of birth',
+                                      style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontSize: Sizes.size16,
+                                      ),
+                                    ),
+                                    if (_selectedDate.isNotEmpty) ...[
+                                      Gaps.v5,
+                                      Text(
+                                        _selectedDate,
+                                        style: const TextStyle(
+                                          color: Color(0xFF1DA1F2),
+                                          fontSize: Sizes.size16,
+                                        ),
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                              if (_selectedDate.isNotEmpty) ...[
+                                Gaps.v10,
+                                Text(
+                                  'This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.',
+                                  style: TextStyle(
+                                    fontSize: Sizes.size14,
+                                    color: Colors.grey.shade600,
+                                    height: 1.3,
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
-            // Next button - always visible at bottom
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: Sizes.size32,
-                vertical: Sizes.size20,
-              ),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  onTap: _isFormValid ? _onNextTap : null,
-                  child: Container(
+            // Next button - positioned at bottom, always on top
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                color: Colors.white,
+                child: SafeArea(
+                  child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: Sizes.size32,
-                      vertical: Sizes.size14,
+                      vertical: Sizes.size20,
                     ),
-                    decoration: BoxDecoration(
-                      color: _isFormValid ? Colors.black : Colors.grey.shade400,
-                      borderRadius: BorderRadius.circular(Sizes.size24),
-                    ),
-                    child: const Text(
-                      'Next',
-                      style: TextStyle(
-                        fontSize: Sizes.size16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: _isFormValid ? _onNextTap : null,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: Sizes.size32,
+                            vertical: Sizes.size14,
+                          ),
+                          decoration: BoxDecoration(
+                            color: _isFormValid
+                                ? Colors.black
+                                : Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(Sizes.size24),
+                          ),
+                          child: const Text(
+                            'Next',
+                            style: TextStyle(
+                              fontSize: Sizes.size16,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -305,7 +335,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             ),
           ],
         ),
-      ),
       ),
     );
   }
