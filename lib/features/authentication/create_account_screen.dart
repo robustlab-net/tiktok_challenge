@@ -178,6 +178,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                             color: Colors.grey.shade600,
                             fontSize: Sizes.size16,
                           ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: Sizes.size16,
+                          ),
                           suffixIcon: _isNameValid
                               ? const Icon(
                                   Icons.check_circle,
@@ -197,7 +200,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           ),
                         ),
                       ),
-                      Gaps.v20,
+                      Gaps.v10,
                       // Email input
                       TextField(
                         controller: _emailController,
@@ -207,6 +210,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           labelStyle: TextStyle(
                             color: Colors.grey.shade600,
                             fontSize: Sizes.size16,
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: Sizes.size16,
                           ),
                           suffixIcon: _isEmailValid
                               ? const Icon(
@@ -245,8 +251,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                                     ),
                                   ),
                                 ),
-                                padding: const EdgeInsets.only(
-                                    bottom: Sizes.size8, top: Sizes.size8),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: Sizes.size16),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
