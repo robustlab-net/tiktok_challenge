@@ -158,20 +158,18 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           ),
           centerTitle: true,
         ),
-        body: Stack(
-          children: [
-            SafeArea(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.only(
-                  bottom: 100, // Space for Next button
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: Sizes.size32,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: Sizes.size32,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                       Gaps.v20,
                       const Text(
                         'Create your account',
@@ -306,55 +304,47 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           ),
                         ),
                       ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            // Next button - positioned at bottom, always on top
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
+              // Next button - always at bottom
+              Container(
                 color: Colors.white,
-                child: SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: Sizes.size32,
-                      vertical: Sizes.size20,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        onTap: _isFormValid ? _onNextTap : null,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: Sizes.size32,
-                            vertical: Sizes.size14,
-                          ),
-                          decoration: BoxDecoration(
-                            color: _isFormValid
-                                ? Colors.black
-                                : Colors.grey.shade400,
-                            borderRadius: BorderRadius.circular(Sizes.size24),
-                          ),
-                          child: const Text(
-                            'Next',
-                            style: TextStyle(
-                              fontSize: Sizes.size16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
-                          ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Sizes.size32,
+                  vertical: Sizes.size20,
+                ),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: _isFormValid ? _onNextTap : null,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: Sizes.size32,
+                        vertical: Sizes.size14,
+                      ),
+                      decoration: BoxDecoration(
+                        color: _isFormValid
+                            ? Colors.black
+                            : Colors.grey.shade400,
+                        borderRadius: BorderRadius.circular(Sizes.size24),
+                      ),
+                      child: const Text(
+                        'Next',
+                        style: TextStyle(
+                          fontSize: Sizes.size16,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
