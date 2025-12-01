@@ -254,7 +254,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                                       'Date of birth',
                                       style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontSize: Sizes.size16,
+                                        fontSize: _selectedDate.isEmpty
+                                            ? Sizes.size16
+                                            : Sizes.size12,
                                       ),
                                     ),
                                     if (_selectedDate.isNotEmpty) ...[
