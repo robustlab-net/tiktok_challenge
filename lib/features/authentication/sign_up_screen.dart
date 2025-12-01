@@ -70,14 +70,17 @@ class SignUpScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () => _onEmailTap(context),
                   child: const AuthButton(
-                    icon: FaIcon(FontAwesomeIcons.google),
+                    icon: GoogleColorIcon(size: 24),
                     text: "Continue with Google",
                   ),
                 ),
                 Gaps.v16,
                 // Continue with Apple button
                 const AuthButton(
-                  icon: FaIcon(FontAwesomeIcons.apple),
+                  icon: FaIcon(
+                    FontAwesomeIcons.apple,
+                    size: 30,
+                  ),
                   text: "Continue with Apple",
                 ),
                 Gaps.v24,

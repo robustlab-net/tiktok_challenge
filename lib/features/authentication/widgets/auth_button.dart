@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
+
+class GoogleColorIcon extends StatelessWidget {
+  final double size;
+
+  const GoogleColorIcon({
+    super.key,
+    this.size = 20,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SvgPicture.asset(
+      'assets/icons/google-color-icon.svg',
+      width: size,
+      height: size,
+    );
+  }
+}
 
 class AuthButton extends StatelessWidget {
   final String text;
-  final FaIcon icon;
+  final Widget icon;
 
   const AuthButton({
     super.key,
@@ -32,7 +50,7 @@ class AuthButton extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: const EdgeInsets.only(left: Sizes.size28),
+                padding: const EdgeInsets.only(left: Sizes.size40),
                 child: icon,
               ),
             ),
