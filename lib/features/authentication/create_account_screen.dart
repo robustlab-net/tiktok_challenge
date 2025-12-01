@@ -142,7 +142,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-              Gaps.v32,
+              Gaps.v20,
               const Text(
                 'Create your account',
                 style: TextStyle(
@@ -151,7 +151,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   color: Colors.black,
                 ),
               ),
-              Gaps.v32,
+              Gaps.v40,
               // Name input
               TextField(
                 controller: _nameController,
@@ -214,55 +214,59 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               // Date of birth
               GestureDetector(
                 onTap: _showDatePicker,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Colors.grey.shade300,
-                        width: 1,
-                      ),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: Sizes.size16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Date of birth',
-                          style: TextStyle(
-                            color: _selectedDate.isEmpty
-                                ? Colors.grey.shade600
-                                : Colors.grey.shade600,
-                            fontSize: Sizes.size12,
-                          ),
-                        ),
-                        if (_selectedDate.isNotEmpty) ...[
-                          Gaps.v5,
-                          Text(
-                            _selectedDate,
-                            style: const TextStyle(
-                              color: Color(0xFF1DA1F2),
-                              fontSize: Sizes.size16,
+                child: AbsorbPointer(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Colors.grey.shade300,
+                              width: 1,
                             ),
                           ),
-                        ],
+                        ),
+                        padding: const EdgeInsets.only(bottom: Sizes.size8, top: Sizes.size8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Date of birth',
+                              style: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontSize: Sizes.size12,
+                              ),
+                            ),
+                            if (_selectedDate.isNotEmpty) ...[
+                              Gaps.v5,
+                              Text(
+                                _selectedDate,
+                                style: const TextStyle(
+                                  color: Color(0xFF1DA1F2),
+                                  fontSize: Sizes.size16,
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                      if (_selectedDate.isNotEmpty) ...[
+                        Gaps.v10,
+                        Text(
+                          'This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.',
+                          style: TextStyle(
+                            fontSize: Sizes.size14,
+                            color: Colors.grey.shade600,
+                            height: 1.3,
+                          ),
+                        ),
                       ],
-                    ),
+                    ],
                   ),
                 ),
               ),
-              if (_selectedDate.isNotEmpty) ...[
-                Gaps.v10,
-                Text(
-                  'This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.',
-                  style: TextStyle(
-                    fontSize: Sizes.size14,
-                    color: Colors.grey.shade600,
-                    height: 1.3,
-                  ),
-                ),
-              ],
                     ],
                   ),
                 ),
