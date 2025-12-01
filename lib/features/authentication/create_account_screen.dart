@@ -87,26 +87,23 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       barrierColor: Colors.black.withOpacity(0.3),
       builder: (BuildContext context) {
         return Container(
-          height: 250,
-          margin: const EdgeInsets.only(
-            bottom: 80, // Space for Next button
+          height: 216,
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).padding.bottom + 100, // Space for Next button (increased)
           ),
           padding: const EdgeInsets.only(top: 6.0),
           color: CupertinoColors.systemBackground.resolveFrom(context),
-          child: SafeArea(
-            top: false,
-            child: CupertinoDatePicker(
-              mode: CupertinoDatePickerMode.date,
-              initialDateTime: initialDate,
-              maximumDate: DateTime.now(),
-              minimumDate: DateTime(1900),
-              onDateTimeChanged: (DateTime newDate) {
-                setState(() {
-                  _selectedDate =
-                      '${_getMonthName(newDate.month)} ${newDate.day}, ${newDate.year}';
-                });
-              },
-            ),
+          child: CupertinoDatePicker(
+            mode: CupertinoDatePickerMode.date,
+            initialDateTime: initialDate,
+            maximumDate: DateTime.now(),
+            minimumDate: DateTime(1900),
+            onDateTimeChanged: (DateTime newDate) {
+              setState(() {
+                _selectedDate =
+                    '${_getMonthName(newDate.month)} ${newDate.day}, ${newDate.year}';
+              });
+            },
           ),
         );
       },
@@ -310,8 +307,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 ),
               ),
               // Next button - always at bottom
-              Container(
-                color: Colors.white,
+              Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: Sizes.size32,
                   vertical: Sizes.size20,
