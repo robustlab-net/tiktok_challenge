@@ -1,0 +1,283 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_challenge/constants/gaps.dart';
+import 'package:tiktok_challenge/constants/sizes.dart';
+
+class CreateAccountScreen extends StatefulWidget {
+  const CreateAccountScreen({super.key});
+
+  @override
+  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
+}
+
+class _CreateAccountScreenState extends State<CreateAccountScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+
+  String _selectedDate = '';
+
+  bool get _isNameValid => _nameController.text.isNotEmpty;
+  bool get _isEmailValid => _emailController.text.isNotEmpty && _emailController.text.contains('@');
+  bool get _isDateValid => _selectedDate.isNotEmpty;
+  bool get _isFormValid => _isNameValid && _isEmailValid && _isDateValid;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController.addListener(() {
+      setState(() {});
+    });
+    _emailController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  void _onCancelTap() {
+    Navigator.of(context).pop();
+  }
+
+  void _onNextTap() {
+    if (_isFormValid) {
+      // TODO: Navigate to Customize Experience screen
+      // Navigator.of(context).push(
+      //   MaterialPageRoute(
+      //     builder: (context) => const CustomizeExperienceScreen(),
+      //   ),
+      // );
+    }
+  }
+
+  void _showDatePicker() {
+    DateTime initialDate = DateTime(2000, 1, 1);
+
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 300,
+          color: Colors.white,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 250,
+                child: CupertinoDatePicker(
+                  mode: CupertinoDatePickerMode.date,
+                  initialDateTime: initialDate,
+                  maximumDate: DateTime.now(),
+                  minimumDate: DateTime(1900),
+                  onDateTimeChanged: (DateTime newDate) {
+                    setState(() {
+                      _selectedDate = '${_getMonthName(newDate.month)} ${newDate.day}, ${newDate.year}';
+                    });
+                  },
+                ),
+              ),
+              CupertinoButton(
+                child: const Text('Done'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  String _getMonthName(int month) {
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return months[month - 1];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: TextButton(
+          onPressed: _onCancelTap,
+          child: const Text(
+            'Cancel',
+            style: TextStyle(
+              fontSize: Sizes.size16,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        leadingWidth: 80,
+        title: const FaIcon(
+          FontAwesomeIcons.twitter,
+          color: Color(0xFF1DA1F2),
+          size: 30,
+        ),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: Sizes.size32,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Gaps.v32,
+              const Text(
+                'Create your account',
+                style: TextStyle(
+                  fontSize: Sizes.size28,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black,
+                ),
+              ),
+              Gaps.v32,
+              // Name input
+              TextField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                  labelStyle: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: Sizes.size16,
+                  ),
+                  suffixIcon: _isNameValid
+                      ? const Icon(
+                          Icons.check_circle,
+                          color: Color(0xFF34A853),
+                        )
+                      : null,
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade300,
+                    ),
+                  ),
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFF1DA1F2),
+                      width: 2,
+                    ),
+                  ),
+                ),
+              ),
+              Gaps.v20,
+              // Email input
+              TextField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  labelStyle: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: Sizes.size16,
+                  ),
+                  suffixIcon: _isEmailValid
+                      ? const Icon(
+                          Icons.check_circle,
+                          color: Color(0xFF34A853),
+                        )
+                      : null,
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade300,
+                    ),
+                  ),
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFF1DA1F2),
+                      width: 2,
+                    ),
+                  ),
+                ),
+              ),
+              Gaps.v20,
+              // Date of birth
+              GestureDetector(
+                onTap: _showDatePicker,
+                child: AbsorbPointer(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Date of birth',
+                      labelStyle: TextStyle(
+                        color: _selectedDate.isEmpty
+                            ? Colors.grey.shade600
+                            : const Color(0xFF1DA1F2),
+                        fontSize: Sizes.size16,
+                      ),
+                      hintText: _selectedDate.isEmpty ? '' : _selectedDate,
+                      hintStyle: const TextStyle(
+                        color: Color(0xFF1DA1F2),
+                        fontSize: Sizes.size16,
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.grey.shade300,
+                        ),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFF1DA1F2),
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              if (_selectedDate.isNotEmpty) ...[
+                Gaps.v10,
+                Text(
+                  'This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.',
+                  style: TextStyle(
+                    fontSize: Sizes.size14,
+                    color: Colors.grey.shade600,
+                    height: 1.3,
+                  ),
+                ),
+              ],
+              const Spacer(),
+              // Next button
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: _isFormValid ? _onNextTap : null,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: Sizes.size32,
+                      vertical: Sizes.size14,
+                    ),
+                    decoration: BoxDecoration(
+                      color: _isFormValid ? Colors.black : Colors.grey.shade400,
+                      borderRadius: BorderRadius.circular(Sizes.size24),
+                    ),
+                    child: const Text(
+                      'Next',
+                      style: TextStyle(
+                        fontSize: Sizes.size16,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Gaps.v32,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -4,6 +4,7 @@ import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
 import 'package:tiktok_challenge/features/authentication/username_screen.dart';
 import 'package:tiktok_challenge/features/authentication/login_screen.dart';
+import 'package:tiktok_challenge/features/authentication/create_account_screen.dart';
 import 'package:tiktok_challenge/features/authentication/widgets/auth_button.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -28,7 +29,7 @@ class SignUpScreen extends StatelessWidget {
   void _onCreateAccountTap(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const UsernameScreen(),
+        builder: (context) => const CreateAccountScreen(),
       ),
     );
   }
