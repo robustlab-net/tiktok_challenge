@@ -31,16 +31,18 @@ class AuthButton extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.centerLeft,
-              child: icon,
+              child: Padding(
+                padding: const EdgeInsets.only(left: Sizes.size28),
+                child: icon,
+              ),
             ),
             Text(
               text,
               style: const TextStyle(
                 fontSize: Sizes.size16,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w800,
                 color: Colors.black,
               ),
-              textAlign: TextAlign.center,
             ),
           ],
         ),

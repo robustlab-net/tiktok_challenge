@@ -59,7 +59,7 @@ class SignUpScreen extends StatelessWidget {
                   "See what's happening\nin the world right now.",
                   style: TextStyle(
                     fontSize: Sizes.size28,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w800,
                     color: Colors.black,
                     height: 1.2,
                   ),
