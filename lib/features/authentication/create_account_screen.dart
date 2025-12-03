@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
-import 'package:tiktok_challenge/features/authentication/customize_experience_screen.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({super.key});
@@ -17,7 +16,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final TextEditingController _emailController = TextEditingController();
 
   String _selectedDate = '';
-  bool _isDatePickerVisible = false;
 
   bool get _isNameValid => _nameController.text.length >= 6;
 
@@ -72,56 +70,43 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   void _onNextTap() {
     if (_isFormValid) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => CustomizeExperienceScreen(
-            name: _nameController.text,
-            email: _emailController.text,
-            dateOfBirth: _selectedDate,
-          ),
-        ),
-      );
+      // TODO: Navigate to Customize Experience screen
+      // Navigator.of(context).push(
+      //   MaterialPageRoute(
+      //     builder: (context) => const CustomizeExperienceScreen(),
+      //   ),
+      // );
     }
   }
 
   void _showDatePicker() {
-    setState(() {
-      _isDatePickerVisible = !_isDatePickerVisible;
-    });
+    DateTime initialDate = DateTime(2000, 1, 1);
 
-    if (_isDatePickerVisible) {
-      DateTime initialDate = DateTime(2000, 1, 1);
-
-      showCupertinoModalPopup(
-        context: context,
-        barrierColor: Colors.transparent,
-        builder: (BuildContext context) {
-          return Container(
-            height: 216,
-            color: CupertinoColors.systemBackground.resolveFrom(context),
-            child: SafeArea(
-              top: false,
-              child: CupertinoDatePicker(
-                mode: CupertinoDatePickerMode.date,
-                initialDateTime: initialDate,
-                maximumDate: DateTime.now(),
-                minimumDate: DateTime(1900),
-                onDateTimeChanged: (DateTime newDate) {
-                  setState(() {
-                    _selectedDate =
-                        '${_getMonthName(newDate.month)} ${newDate.day}, ${newDate.year}';
-                  });
-                },
-              ),
+    showCupertinoModalPopup(
+      context: context,
+      barrierColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Container(
+          height: 216,
+          color: CupertinoColors.systemBackground.resolveFrom(context),
+          child: SafeArea(
+            top: false,
+            child: CupertinoDatePicker(
+              mode: CupertinoDatePickerMode.date,
+              initialDateTime: initialDate,
+              maximumDate: DateTime.now(),
+              minimumDate: DateTime(1900),
+              onDateTimeChanged: (DateTime newDate) {
+                setState(() {
+                  _selectedDate =
+                      '${_getMonthName(newDate.month)} ${newDate.day}, ${newDate.year}';
+                });
+              },
             ),
-          );
-        },
-      ).then((_) {
-        setState(() {
-          _isDatePickerVisible = false;
-        });
-      });
-    }
+          ),
+        );
+      },
+    );
   }
 
   String _getMonthName(int month) {
@@ -320,17 +305,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                 ),
               ),
-              // Next button with animated padding
-              AnimatedPadding(
-                duration: const Duration(milliseconds: 150),
-                curve: Curves.easeInOut,
-                padding: EdgeInsets.only(
-                  left: Sizes.size32,
-                  right: Sizes.size32,
-                  top: Sizes.size20,
-                  bottom: _isDatePickerVisible
-                      ? 216 + Sizes.size20
-                      : Sizes.size20,
+              // Next button - always at bottom
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Sizes.size32,
+                  vertical: Sizes.size20,
                 ),
                 child: Align(
                   alignment: Alignment.centerRight,
