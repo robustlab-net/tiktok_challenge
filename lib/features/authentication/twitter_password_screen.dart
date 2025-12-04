@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
+import 'package:tiktok_challenge/features/authentication/interests_screen.dart';
 
 class TwitterPasswordScreen extends StatefulWidget {
   const TwitterPasswordScreen({super.key});
@@ -45,8 +46,11 @@ class _TwitterPasswordScreenState extends State<TwitterPasswordScreen> {
 
   void _onNextTap() {
     if (_isPasswordValid) {
-      // TODO: Handle password submission
-      print('Password: ${_passwordController.text}');
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const InterestsScreen(),
+        ),
+      );
     }
   }
 
@@ -118,16 +122,27 @@ class _TwitterPasswordScreenState extends State<TwitterPasswordScreen> {
                           _obscureText
                               ? Icons.visibility_off_outlined
                               : Icons.visibility_outlined,
-                          color: Colors.grey.shade600,
+                          color: Colors.grey.shade400,
                           size: 24,
                         ),
                       ),
                       if (_isPasswordValid) ...[
                         Gaps.h10,
-                        const Icon(
-                          Icons.check_circle,
-                          color: Color(0xFF34A853),
-                          size: 24,
+                        const Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Icon(
+                              Icons.circle,
+                              color: Color(0xFF34A853),
+                              size: 24,
+                            ),
+                            Icon(
+                              Icons.check,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              size: 12,
+                            ),
+                          ],
                         ),
                       ],
                       Gaps.h10,
