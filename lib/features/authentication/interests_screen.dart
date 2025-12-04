@@ -103,128 +103,126 @@ class _InterestsScreenState extends State<InterestsScreen> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Scrollable interests grid
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: Sizes.size16, vertical: Sizes.size40),
-                  child: Wrap(
-                    spacing: 12,
-                    runSpacing: 12,
-                    children: _interests.map((interest) {
-                      final isSelected = _selectedInterests.contains(interest);
-                      return GestureDetector(
-                        onTap: () => _toggleInterest(interest),
-                        child: Container(
-                          width: (MediaQuery.of(context).size.width - 44) / 2,
-                          height: 90,
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? const Color(0xFF1DA1F2)
-                                : Colors.white,
-                            border: Border.all(
-                              color: isSelected
-                                  ? const Color(0xFF1DA1F2)
-                                  : Colors.grey.shade300,
-                              width: 1,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: Sizes.size16, vertical: Sizes.size40),
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: _interests.map((interest) {
+              final isSelected = _selectedInterests.contains(interest);
+              return GestureDetector(
+                onTap: () => _toggleInterest(interest),
+                child: Container(
+                  width: (MediaQuery.of(context).size.width - 44) / 2,
+                  height: 90,
+                  decoration: BoxDecoration(
+                    color: isSelected ? const Color(0xFF1DA1F2) : Colors.white,
+                    border: Border.all(
+                      color: isSelected
+                          ? const Color(0xFF1DA1F2)
+                          : Colors.grey.shade300,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            interest,
+                            style: TextStyle(
+                              fontSize: Sizes.size16,
+                              fontWeight: FontWeight.w600,
+                              color: isSelected ? Colors.white : Colors.black,
                             ),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Text(
-                                    interest,
-                                    style: TextStyle(
-                                      fontSize: Sizes.size16,
-                                      fontWeight: FontWeight.w600,
-                                      color: isSelected
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                              if (isSelected)
-                                const Positioned(
-                                  top: 8,
-                                  right: 8,
-                                  child: Icon(
-                                    Icons.check_circle,
-                                    color: Colors.white,
-                                    size: 20,
-                                  ),
-                                ),
-                            ],
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                      );
-                    }).toList(),
+                      ),
+                      if (isSelected)
+                        const Positioned(
+                          top: 8,
+                          right: 8,
+                          child: Icon(
+                            Icons.check_circle,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
+                    ],
                   ),
                 ),
-              ),
+              );
+            }).toList(),
+          ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            top: BorderSide(
+              color: Colors.grey.shade300,
+              width: 1,
             ),
-            // Bottom section with counter and Next button in same row
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: Sizes.size32,
-                vertical: Sizes.size20,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Counter or "Great work" message
-                  if (isComplete)
-                    const Text(
-                      'Great work 🎉',
-                      style: TextStyle(
-                        fontSize: Sizes.size14,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )
-                  else
-                    Text(
-                      '${_selectedInterests.length} of 3 selected',
-                      style: TextStyle(
-                        fontSize: Sizes.size14,
-                        color: Colors.grey.shade600,
-                      ),
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: Sizes.size32,
+              vertical: Sizes.size10,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Counter or "Great work" message
+                if (isComplete)
+                  const Text(
+                    'Great work 🎉',
+                    style: TextStyle(
+                      fontSize: Sizes.size14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
                     ),
-                  // Next button
-                  GestureDetector(
-                    onTap: isComplete ? _onNextTap : null,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: Sizes.size32,
-                        vertical: Sizes.size14,
-                      ),
-                      decoration: BoxDecoration(
-                        color: isComplete ? Colors.black : Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(Sizes.size24),
-                      ),
-                      child: Text(
-                        'Next',
-                        style: TextStyle(
-                          fontSize: Sizes.size16,
-                          fontWeight: FontWeight.w700,
-                          color:
-                              isComplete ? Colors.white : Colors.grey.shade500,
-                        ),
+                  )
+                else
+                  Text(
+                    '${_selectedInterests.length} of 3 selected',
+                    style: TextStyle(
+                      fontSize: Sizes.size14,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                // Next button
+                GestureDetector(
+                  onTap: isComplete ? _onNextTap : null,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: Sizes.size32,
+                      vertical: Sizes.size14,
+                    ),
+                    decoration: BoxDecoration(
+                      color: isComplete ? Colors.black : Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(Sizes.size24),
+                    ),
+                    child: Text(
+                      'Next',
+                      style: TextStyle(
+                        fontSize: Sizes.size16,
+                        fontWeight: FontWeight.w700,
+                        color: isComplete ? Colors.white : Colors.grey.shade500,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
