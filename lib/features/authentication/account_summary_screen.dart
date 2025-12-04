@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
+import 'package:tiktok_challenge/features/authentication/verification_code_screen.dart';
 
 class AccountSummaryScreen extends StatelessWidget {
   final String name;
@@ -19,8 +20,14 @@ class AccountSummaryScreen extends StatelessWidget {
     Navigator.of(context).pop();
   }
 
-  void _onSignUpTap() {
-    // TODO: Handle sign up
+  void _onSignUpTap(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => VerificationCodeScreen(
+          email: email,
+        ),
+      ),
+    );
   }
 
   @override
@@ -146,7 +153,7 @@ class AccountSummaryScreen extends StatelessWidget {
               child: FractionallySizedBox(
                 widthFactor: 1,
                 child: GestureDetector(
-                  onTap: _onSignUpTap,
+                  onTap: () => _onSignUpTap(context),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       vertical: Sizes.size16,
