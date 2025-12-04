@@ -34,7 +34,9 @@ class _InterestsScreenState extends State<InterestsScreen> {
       if (_selectedInterests.contains(interest)) {
         _selectedInterests.remove(interest);
       } else {
-        _selectedInterests.add(interest);
+        if (_selectedInterests.length < 3) {
+          _selectedInterests.add(interest);
+        }
       }
     });
   }

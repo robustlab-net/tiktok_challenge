@@ -114,7 +114,7 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
               color: Colors.grey.shade300,
             ),
             Gaps.v24,
-            // Build each category section
+            // Build each category section with horizontal scroll
             ..._categoryInterests.entries
                 .toList()
                 .asMap()
@@ -123,6 +123,10 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
               final index = mapEntry.key;
               final entry = mapEntry.value;
               final isLastCategory = index == _categoryInterests.length - 1;
+              final interests = entry.value;
+
+              // Calculate number of columns needed (3 items per column)
+              final columnCount = (interests.length / 3).ceil();
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,58 +134,74 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: Sizes.size32),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          entry.key,
-                          style: const TextStyle(
-                            fontSize: Sizes.size20,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.black,
-                          ),
-                        ),
-                        Gaps.v16,
-                        Wrap(
-                          spacing: 8,
-                          runSpacing: 8,
-                          children: entry.value.map((interest) {
+                    child: Text(
+                      entry.key,
+                      style: const TextStyle(
+                        fontSize: Sizes.size20,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  Gaps.v16,
+                  SizedBox(
+                    height: 165,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: Sizes.size32),
+                      itemCount: columnCount,
+                      separatorBuilder: (context, index) => Gaps.h8,
+                      itemBuilder: (context, columnIndex) {
+                        final startIndex = columnIndex * 3;
+                        final endIndex =
+                            (startIndex + 3).clamp(0, interests.length);
+                        final columnInterests =
+                            interests.sublist(startIndex, endIndex);
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: columnInterests.map((interest) {
                             final isSelected =
                                 _selectedInterests.contains(interest);
-                            return GestureDetector(
-                              onTap: () => _toggleInterest(interest),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: Sizes.size16,
-                                  vertical: Sizes.size12,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: isSelected
-                                      ? const Color(0xFF1DA1F2)
-                                      : Colors.white,
-                                  border: Border.all(
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: GestureDetector(
+                                onTap: () => _toggleInterest(interest),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: Sizes.size16,
+                                    vertical: Sizes.size12,
+                                  ),
+                                  decoration: BoxDecoration(
                                     color: isSelected
                                         ? const Color(0xFF1DA1F2)
-                                        : Colors.grey.shade300,
-                                    width: 1,
+                                        : Colors.white,
+                                    border: Border.all(
+                                      color: isSelected
+                                          ? const Color(0xFF1DA1F2)
+                                          : Colors.grey.shade300,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Text(
-                                  interest,
-                                  style: TextStyle(
-                                    fontSize: Sizes.size14,
-                                    fontWeight: FontWeight.w600,
-                                    color: isSelected
-                                        ? Colors.white
-                                        : Colors.black,
+                                  child: Text(
+                                    interest,
+                                    style: TextStyle(
+                                      fontSize: Sizes.size14,
+                                      fontWeight: FontWeight.w600,
+                                      color: isSelected
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
                                   ),
                                 ),
                               ),
                             );
                           }).toList(),
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   ),
                   if (!isLastCategory) ...[
@@ -197,14 +217,7 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
                 ],
               );
             }),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: Sizes.size32),
-              child: Column(
-                children: [
-                  Gaps.v40,
-                ],
-              ),
-            ),
+            Gaps.v40,
           ],
         ),
       ),
