@@ -55,49 +55,63 @@ class _InterestsScreenState extends State<InterestsScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const FaIcon(
-          FontAwesomeIcons.twitter,
-          color: Color(0xFF1DA1F2),
-          size: 30,
+        flexibleSpace: SafeArea(
+          child: Column(
+            children: [
+              Gaps.v10,
+              const FaIcon(
+                FontAwesomeIcons.twitter,
+                color: Color(0xFF1DA1F2),
+                size: 30,
+              ),
+              Gaps.v20,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: Sizes.size32),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'What do you want to see on Twitter?',
+                      style: TextStyle(
+                        fontSize: Sizes.size28,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Gaps.v16,
+                    Text(
+                      'Select at least 3 interests to personalize your Twitter experience. They will be visible on your profile.',
+                      style: TextStyle(
+                        fontSize: Sizes.size16,
+                        color: Colors.grey.shade600,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Gaps.v20,
+            ],
+          ),
         ),
-        centerTitle: true,
+        toolbarHeight: 240,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(2),
+          child: Container(
+            color: Colors.grey.shade300,
+            height: 1,
+          ),
+        ),
       ),
       body: SafeArea(
         child: Column(
           children: [
-            // Header section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Sizes.size32),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Gaps.v20,
-                  const Text(
-                    'What do you want to see on Twitter?',
-                    style: TextStyle(
-                      fontSize: Sizes.size28,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.black,
-                    ),
-                  ),
-                  Gaps.v16,
-                  Text(
-                    'Select at least 3 interests to personalize your Twitter experience. They will be visible on your profile.',
-                    style: TextStyle(
-                      fontSize: Sizes.size14,
-                      color: Colors.grey.shade600,
-                      height: 1.4,
-                    ),
-                  ),
-                  Gaps.v24,
-                ],
-              ),
-            ),
             // Scrollable interests grid
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: Sizes.size16),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: Sizes.size16, vertical: Sizes.size40),
                   child: Wrap(
                     spacing: 12,
                     runSpacing: 12,
