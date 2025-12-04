@@ -43,12 +43,13 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
     Navigator.of(context).pop();
   }
 
-  void _toggleInterest(String interest) {
+  void _toggleInterest(String category, String interest) {
     setState(() {
-      if (_selectedInterests.contains(interest)) {
-        _selectedInterests.remove(interest);
+      final key = '$category-$interest';
+      if (_selectedInterests.contains(key)) {
+        _selectedInterests.remove(key);
       } else {
-        _selectedInterests.add(interest);
+        _selectedInterests.add(key);
       }
     });
   }
@@ -163,12 +164,13 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: columnInterests.map((interest) {
+                            final key = '${entry.key}-$interest';
                             final isSelected =
-                                _selectedInterests.contains(interest);
+                                _selectedInterests.contains(key);
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 8),
                               child: GestureDetector(
-                                onTap: () => _toggleInterest(interest),
+                                onTap: () => _toggleInterest(entry.key, interest),
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: Sizes.size16,
