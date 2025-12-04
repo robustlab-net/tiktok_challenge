@@ -92,7 +92,7 @@ class _TwitterPasswordScreenState extends State<TwitterPasswordScreen> {
                   height: 1.4,
                 ),
               ),
-              Gaps.v20,
+              Gaps.v24,
               // Password input field
               TextField(
                 controller: _passwordController,
@@ -103,11 +103,11 @@ class _TwitterPasswordScreenState extends State<TwitterPasswordScreen> {
                 decoration: InputDecoration(
                   labelText: 'Password',
                   labelStyle: TextStyle(
-                    color: Colors.grey.shade600,
+                    color: Colors.grey.shade800,
                     fontSize: Sizes.size16,
                   ),
                   contentPadding: const EdgeInsets.symmetric(
-                    vertical: Sizes.size16,
+                    vertical: Sizes.size1,
                   ),
                   suffixIcon: Row(
                     mainAxisSize: MainAxisSize.min,
