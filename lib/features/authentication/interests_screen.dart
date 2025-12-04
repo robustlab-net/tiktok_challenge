@@ -94,12 +94,12 @@ class _InterestsScreenState extends State<InterestsScreen> {
             ],
           ),
         ),
-        toolbarHeight: 240,
+        toolbarHeight: 245,
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(2),
+          preferredSize: const Size.fromHeight(0.5),
           child: Container(
             color: Colors.grey.shade300,
-            height: 1,
+            height: 0.5,
           ),
         ),
       ),
@@ -167,7 +167,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
           border: Border(
             top: BorderSide(
               color: Colors.grey.shade300,
-              width: 1,
+              width: 0.5,
             ),
           ),
         ),
