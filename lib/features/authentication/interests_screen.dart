@@ -28,10 +28,6 @@ class _InterestsScreenState extends State<InterestsScreen> {
 
   final Set<String> _selectedInterests = {};
 
-  void _onBackTap(BuildContext context) {
-    Navigator.of(context).pop();
-  }
-
   void _toggleInterest(String interest) {
     setState(() {
       if (_selectedInterests.contains(interest)) {
@@ -58,10 +54,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => _onBackTap(context),
-        ),
+        automaticallyImplyLeading: false,
         title: const FaIcon(
           FontAwesomeIcons.twitter,
           color: Color(0xFF1DA1F2),
@@ -152,7 +145,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                                   child: Icon(
                                     Icons.check_circle,
                                     color: Colors.white,
-                                    size: 24,
+                                    size: 20,
                                   ),
                                 ),
                             ],
@@ -164,59 +157,52 @@ class _InterestsScreenState extends State<InterestsScreen> {
                 ),
               ),
             ),
-            // Bottom section with counter and Next button
+            // Bottom section with counter and Next button in same row
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: Sizes.size32,
                 vertical: Sizes.size20,
               ),
-              child: Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Counter or "Great work" message
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      if (isComplete)
-                        const Text(
-                          'Great work 🎉',
-                          style: TextStyle(
-                            fontSize: Sizes.size14,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )
-                      else
-                        Text(
-                          '${_selectedInterests.length} of 3 selected',
-                          style: TextStyle(
-                            fontSize: Sizes.size14,
-                            color: Colors.grey.shade600,
-                          ),
-                        ),
-                    ],
-                  ),
-                  Gaps.v14,
+                  if (isComplete)
+                    const Text(
+                      'Great work 🎉',
+                      style: TextStyle(
+                        fontSize: Sizes.size14,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )
+                  else
+                    Text(
+                      '${_selectedInterests.length} of 3 selected',
+                      style: TextStyle(
+                        fontSize: Sizes.size14,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
                   // Next button
-                  FractionallySizedBox(
-                    widthFactor: 1,
-                    child: GestureDetector(
-                      onTap: isComplete ? _onNextTap : null,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: Sizes.size16,
-                        ),
-                        decoration: BoxDecoration(
-                          color: isComplete ? Colors.black : Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(Sizes.size24),
-                        ),
-                        child: Text(
-                          'Next',
-                          style: TextStyle(
-                            fontSize: Sizes.size16,
-                            fontWeight: FontWeight.w700,
-                            color: isComplete ? Colors.white : Colors.grey.shade500,
-                          ),
-                          textAlign: TextAlign.center,
+                  GestureDetector(
+                    onTap: isComplete ? _onNextTap : null,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: Sizes.size32,
+                        vertical: Sizes.size14,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isComplete ? Colors.black : Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(Sizes.size24),
+                      ),
+                      child: Text(
+                        'Next',
+                        style: TextStyle(
+                          fontSize: Sizes.size16,
+                          fontWeight: FontWeight.w700,
+                          color:
+                              isComplete ? Colors.white : Colors.grey.shade500,
                         ),
                       ),
                     ),
