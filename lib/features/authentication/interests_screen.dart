@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
+import 'package:tiktok_challenge/features/authentication/interests_detail_screen.dart';
 
 class InterestsScreen extends StatefulWidget {
   const InterestsScreen({super.key});
@@ -40,8 +41,11 @@ class _InterestsScreenState extends State<InterestsScreen> {
 
   void _onNextTap() {
     if (_selectedInterests.length >= 3) {
-      // TODO: Navigate to next screen
-      print('Selected interests: $_selectedInterests');
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const InterestsDetailScreen(),
+        ),
+      );
     }
   }
 
