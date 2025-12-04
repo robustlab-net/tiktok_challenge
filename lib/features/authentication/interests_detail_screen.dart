@@ -75,13 +75,6 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
           size: 30,
         ),
         centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(0.5),
-          child: Container(
-            color: Colors.grey.shade300,
-            height: 0.5,
-          ),
-        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -105,17 +98,27 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
                   Text(
                     'Interests are used to personalize your experience and will be visible on your profile.',
                     style: TextStyle(
-                      fontSize: Sizes.size14,
+                      fontSize: Sizes.size16,
                       color: Colors.grey.shade600,
                       height: 1.4,
                     ),
                   ),
-                  Gaps.v40,
+                  Gaps.v20,
                 ],
               ),
             ),
+            Container(
+              width: double.infinity,
+              height: 0.5,
+              color: Colors.grey.shade300,
+            ),
+            Gaps.v24,
             // Build each category section
-            ..._categoryInterests.entries.toList().asMap().entries.map((mapEntry) {
+            ..._categoryInterests.entries
+                .toList()
+                .asMap()
+                .entries
+                .map((mapEntry) {
               final index = mapEntry.key;
               final entry = mapEntry.value;
               final isLastCategory = index == _categoryInterests.length - 1;
@@ -124,7 +127,8 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: Sizes.size32),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: Sizes.size32),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -141,7 +145,8 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
                           spacing: 8,
                           runSpacing: 8,
                           children: entry.value.map((interest) {
-                            final isSelected = _selectedInterests.contains(interest);
+                            final isSelected =
+                                _selectedInterests.contains(interest);
                             return GestureDetector(
                               onTap: () => _toggleInterest(interest),
                               child: Container(
@@ -166,7 +171,9 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
                                   style: TextStyle(
                                     fontSize: Sizes.size14,
                                     fontWeight: FontWeight.w600,
-                                    color: isSelected ? Colors.white : Colors.black,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                 ),
                               ),
