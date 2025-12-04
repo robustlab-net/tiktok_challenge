@@ -173,6 +173,8 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                 ),
               ),
               Gaps.v40,
+
+              const Spacer(),
               GestureDetector(
                 onTap: () {
                   // TODO: Handle resend email
@@ -185,8 +187,8 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                   ),
                 ),
               ),
-              const Spacer(),
               // Next button
+              Gaps.v14,
               FractionallySizedBox(
                 widthFactor: 1,
                 child: GestureDetector(
