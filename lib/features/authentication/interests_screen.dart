@@ -59,6 +59,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
+        scrolledUnderElevation: 0,
         flexibleSpace: SafeArea(
           child: Column(
             children: [

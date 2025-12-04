@@ -65,6 +65,7 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        scrolledUnderElevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => _onBackTap(context),
@@ -221,29 +222,34 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: Sizes.size32,
-              vertical: Sizes.size16,
+              vertical: Sizes.size10,
             ),
-            child: GestureDetector(
-              onTap: _onNextTap,
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  vertical: Sizes.size16,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(Sizes.size24),
-                ),
-                child: const Text(
-                  'Next',
-                  style: TextStyle(
-                    fontSize: Sizes.size16,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox.shrink(),
+                GestureDetector(
+                  onTap: _onNextTap,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: Sizes.size32,
+                      vertical: Sizes.size14,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(Sizes.size24),
+                    ),
+                    child: const Text(
+                      'Next',
+                      style: TextStyle(
+                        fontSize: Sizes.size16,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                  textAlign: TextAlign.center,
                 ),
-              ),
+              ],
             ),
           ),
         ),
