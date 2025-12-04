@@ -41,7 +41,8 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
   }
 
   void _onCodeChanged() {
-    final isComplete = _controllers.every((controller) => controller.text.isNotEmpty);
+    final isComplete =
+        _controllers.every((controller) => controller.text.isNotEmpty);
     if (isComplete != _isCodeComplete) {
       setState(() {
         _isCodeComplete = isComplete;
@@ -172,8 +173,25 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                   ),
                 ),
               ),
-              Gaps.v40,
-
+              Gaps.v20,
+              // Check icon when code is complete
+              if (_isCodeComplete)
+                Center(
+                  child: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF34A853),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.check,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      size: 20,
+                    ),
+                  ),
+                ),
               const Spacer(),
               GestureDetector(
                 onTap: () {
@@ -208,7 +226,9 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                       style: TextStyle(
                         fontSize: Sizes.size16,
                         fontWeight: FontWeight.w700,
-                        color: _isCodeComplete ? Colors.white : Colors.grey.shade500,
+                        color: _isCodeComplete
+                            ? Colors.white
+                            : Colors.grey.shade500,
                       ),
                       textAlign: TextAlign.center,
                     ),
