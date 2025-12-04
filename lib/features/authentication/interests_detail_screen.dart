@@ -84,87 +84,120 @@ class _InterestsDetailScreenState extends State<InterestsDetailScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Sizes.size32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Gaps.v20,
-              const Text(
-                'What do you want to see on Twitter?',
-                style: TextStyle(
-                  fontSize: Sizes.size28,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.black,
-                ),
-              ),
-              Gaps.v10,
-              Text(
-                'Interests are used to personalize your experience and will be visible on your profile.',
-                style: TextStyle(
-                  fontSize: Sizes.size14,
-                  color: Colors.grey.shade600,
-                  height: 1.4,
-                ),
-              ),
-              Gaps.v40,
-              // Build each category section
-              ..._categoryInterests.entries.map((entry) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      entry.key,
-                      style: const TextStyle(
-                        fontSize: Sizes.size20,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.black,
-                      ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Sizes.size32),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Gaps.v20,
+                  const Text(
+                    'What do you want to see on Twitter?',
+                    style: TextStyle(
+                      fontSize: Sizes.size28,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black,
                     ),
-                    Gaps.v16,
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: entry.value.map((interest) {
-                        final isSelected = _selectedInterests.contains(interest);
-                        return GestureDetector(
-                          onTap: () => _toggleInterest(interest),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: Sizes.size16,
-                              vertical: Sizes.size12,
-                            ),
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? const Color(0xFF1DA1F2)
-                                  : Colors.white,
-                              border: Border.all(
-                                color: isSelected
-                                    ? const Color(0xFF1DA1F2)
-                                    : Colors.grey.shade300,
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Text(
-                              interest,
-                              style: TextStyle(
-                                fontSize: Sizes.size14,
-                                fontWeight: FontWeight.w600,
-                                color: isSelected ? Colors.white : Colors.black,
-                              ),
-                            ),
+                  ),
+                  Gaps.v10,
+                  Text(
+                    'Interests are used to personalize your experience and will be visible on your profile.',
+                    style: TextStyle(
+                      fontSize: Sizes.size14,
+                      color: Colors.grey.shade600,
+                      height: 1.4,
+                    ),
+                  ),
+                  Gaps.v40,
+                ],
+              ),
+            ),
+            // Build each category section
+            ..._categoryInterests.entries.toList().asMap().entries.map((mapEntry) {
+              final index = mapEntry.key;
+              final entry = mapEntry.value;
+              final isLastCategory = index == _categoryInterests.length - 1;
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: Sizes.size32),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          entry.key,
+                          style: const TextStyle(
+                            fontSize: Sizes.size20,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.black,
                           ),
-                        );
-                      }).toList(),
+                        ),
+                        Gaps.v16,
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: entry.value.map((interest) {
+                            final isSelected = _selectedInterests.contains(interest);
+                            return GestureDetector(
+                              onTap: () => _toggleInterest(interest),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: Sizes.size16,
+                                  vertical: Sizes.size12,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: isSelected
+                                      ? const Color(0xFF1DA1F2)
+                                      : Colors.white,
+                                  border: Border.all(
+                                    color: isSelected
+                                        ? const Color(0xFF1DA1F2)
+                                        : Colors.grey.shade300,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Text(
+                                  interest,
+                                  style: TextStyle(
+                                    fontSize: Sizes.size14,
+                                    fontWeight: FontWeight.w600,
+                                    color: isSelected ? Colors.white : Colors.black,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (!isLastCategory) ...[
+                    Gaps.v32,
+                    Container(
+                      width: double.infinity,
+                      height: 0.5,
+                      color: Colors.grey.shade300,
                     ),
                     Gaps.v32,
-                  ],
-                );
-              }),
-              Gaps.v40,
-            ],
-          ),
+                  ] else
+                    Gaps.v32,
+                ],
+              );
+            }),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: Sizes.size32),
+              child: Column(
+                children: [
+                  Gaps.v40,
+                ],
+              ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: Container(
