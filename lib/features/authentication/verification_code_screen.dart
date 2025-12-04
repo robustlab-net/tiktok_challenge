@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
+import 'package:tiktok_challenge/features/authentication/twitter_password_screen.dart';
 
 class VerificationCodeScreen extends StatefulWidget {
   final String email;
@@ -56,9 +57,11 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
 
   void _onNextTap() {
     if (_isCodeComplete) {
-      final code = _controllers.map((c) => c.text).join();
-      // TODO: Handle verification
-      print('Verification code: $code');
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const TwitterPasswordScreen(),
+        ),
+      );
     }
   }
 
