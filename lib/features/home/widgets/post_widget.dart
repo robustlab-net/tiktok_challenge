@@ -93,7 +93,8 @@ class _PostWidgetState extends State<PostWidget> {
                             child: Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border: Border.all(color: Colors.white, width: 1.5),
+                                border:
+                                    Border.all(color: Colors.white, width: 1.5),
                               ),
                               child: CircleAvatar(
                                 radius: 10,
@@ -108,7 +109,8 @@ class _PostWidgetState extends State<PostWidget> {
                             child: Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border: Border.all(color: Colors.white, width: 1.5),
+                                border:
+                                    Border.all(color: Colors.white, width: 1.5),
                               ),
                               child: CircleAvatar(
                                 radius: 10,
@@ -181,7 +183,8 @@ class _PostWidgetState extends State<PostWidget> {
                       ),
                     ),
                   // Images
-                  if (widget.post.images != null && widget.post.images!.isNotEmpty)
+                  if (widget.post.images != null &&
+                      widget.post.images!.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(top: 12),
                       child: Column(
@@ -215,7 +218,8 @@ class _PostWidgetState extends State<PostWidget> {
                                 children: List.generate(
                                   widget.post.images!.length,
                                   (index) => Container(
-                                    margin: const EdgeInsets.symmetric(horizontal: 3),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 3),
                                     width: 6,
                                     height: 6,
                                     decoration: BoxDecoration(
