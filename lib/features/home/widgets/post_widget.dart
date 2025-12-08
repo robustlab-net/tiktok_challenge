@@ -22,9 +22,10 @@ class _PostWidgetState extends State<PostWidget> {
   void initState() {
     super.initState();
     _pageController = PageController(
-      viewportFraction: widget.post.images != null && widget.post.images!.length > 1
-        ? 0.92
-        : 1.0,
+      viewportFraction:
+          widget.post.images != null && widget.post.images!.length > 1
+              ? 0.92
+              : 1.0,
     );
   }
 
@@ -98,10 +99,29 @@ class _PostWidgetState extends State<PostWidget> {
                   if (hasStats)
                     SizedBox(
                       width: 40,
-                      height: 24,
+                      height: widget.post.replies > 10 ? 38 : 24,
                       child: Stack(
                         children: [
+                          if (widget.post.replies > 10)
+                            Positioned(
+                              top: 0,
+                              left: 12,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: Colors.white, width: 1.5),
+                                ),
+                                child: CircleAvatar(
+                                  radius: 9,
+                                  backgroundImage: NetworkImage(
+                                    'https://picsum.photos/50/50?random=${widget.post.username}3',
+                                  ),
+                                ),
+                              ),
+                            ),
                           Positioned(
+                            bottom: 0,
                             left: 2,
                             child: Container(
                               decoration: BoxDecoration(
@@ -118,6 +138,7 @@ class _PostWidgetState extends State<PostWidget> {
                             ),
                           ),
                           Positioned(
+                            bottom: 0,
                             left: 18,
                             child: Container(
                               decoration: BoxDecoration(
