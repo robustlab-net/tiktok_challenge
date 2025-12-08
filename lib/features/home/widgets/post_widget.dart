@@ -15,8 +15,18 @@ class PostWidget extends StatefulWidget {
 }
 
 class _PostWidgetState extends State<PostWidget> {
-  final PageController _pageController = PageController();
+  late final PageController _pageController;
   int _currentImageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(
+      viewportFraction: widget.post.images != null && widget.post.images!.length > 1
+        ? 0.92
+        : 1.0,
+    );
+  }
 
   @override
   void dispose() {
@@ -191,25 +201,30 @@ class _PostWidgetState extends State<PostWidget> {
                         padding: const EdgeInsets.only(top: 12),
                         child: Column(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: SizedBox(
-                                height: 300,
-                                child: PageView.builder(
-                                  controller: _pageController,
-                                  onPageChanged: (index) {
-                                    setState(() {
-                                      _currentImageIndex = index;
-                                    });
-                                  },
-                                  itemCount: widget.post.images!.length,
-                                  itemBuilder: (context, index) {
-                                    return Image.network(
-                                      widget.post.images![index],
-                                      fit: BoxFit.cover,
-                                    );
-                                  },
-                                ),
+                            SizedBox(
+                              height: 300,
+                              child: PageView.builder(
+                                controller: _pageController,
+                                padEnds: false,
+                                pageSnapping: true,
+                                onPageChanged: (index) {
+                                  setState(() {
+                                    _currentImageIndex = index;
+                                  });
+                                },
+                                itemCount: widget.post.images!.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 8),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Image.network(
+                                        widget.post.images![index],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                             if (widget.post.images!.length > 1)
