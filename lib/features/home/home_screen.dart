@@ -74,16 +74,41 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            const SliverAppBar(
+            SliverAppBar(
               backgroundColor: Colors.white,
+              surfaceTintColor: Colors.white,
               elevation: 0,
               floating: false,
-              pinned: false,
-              centerTitle: true,
-              title: FaIcon(
-                FontAwesomeIcons.at,
-                color: Colors.black,
-                size: 32,
+              pinned: true,
+              expandedHeight: 80,
+              collapsedHeight: 56,
+              flexibleSpace: LayoutBuilder(
+                builder: (context, constraints) {
+                  // Calculate icon size based on available height
+                  const double maxHeight = 80;
+                  const double minHeight = 56;
+                  final double currentHeight = constraints.maxHeight;
+
+                  // Interpolate icon size between 32 (expanded) and 24 (collapsed)
+                  final double iconSize = 24 +
+                      (8 *
+                          ((currentHeight - minHeight) /
+                              (maxHeight - minHeight)));
+
+                  // Position icon at top when collapsed
+                  final double topPadding = currentHeight < maxHeight ? 16 : 24;
+
+                  return Container(
+                    color: Colors.white,
+                    alignment: Alignment.topCenter,
+                    padding: EdgeInsets.only(top: topPadding),
+                    child: FaIcon(
+                      FontAwesomeIcons.at,
+                      color: Colors.black,
+                      size: iconSize.clamp(24, 32),
+                    ),
+                  );
+                },
               ),
             ),
             SliverList(
