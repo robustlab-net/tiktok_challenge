@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_challenge/features/home/models/post_model.dart';
 import 'package:tiktok_challenge/features/home/widgets/post_widget.dart';
 
@@ -51,7 +52,8 @@ class HomeScreen extends StatelessWidget {
         profileImage: 'https://picsum.photos/100/100?random=5',
         isVerified: true,
         timeAgo: '2h',
-        text: 'If you\'re reading this, go water that thirsty plant. You\'re welcome 😊',
+        text:
+            'If you\'re reading this, go water that thirsty plant. You\'re welcome 😊',
         replies: 8,
         likes: 74,
       ),
@@ -69,21 +71,31 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: const Icon(
-          Icons.diamond_outlined,
-          color: Colors.black,
-          size: 32,
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            const SliverAppBar(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              floating: false,
+              pinned: false,
+              centerTitle: true,
+              title: FaIcon(
+                FontAwesomeIcons.at,
+                color: Colors.black,
+                size: 32,
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return PostWidget(post: posts[index]);
+                },
+                childCount: posts.length,
+              ),
+            ),
+          ],
         ),
-      ),
-      body: ListView.builder(
-        itemCount: posts.length,
-        itemBuilder: (context, index) {
-          return PostWidget(post: posts[index]);
-        },
       ),
     );
   }
