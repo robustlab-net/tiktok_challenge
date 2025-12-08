@@ -69,7 +69,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
   void _onNextTap() {
     if (_formKey.currentState?.validate() ?? false) {
       if (_isCodeComplete) {
-        Navigator.of(context).push(
+        Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => const TwitterPasswordScreen(),
           ),

@@ -46,7 +46,7 @@ class _TwitterPasswordScreenState extends State<TwitterPasswordScreen> {
 
   void _onNextTap() {
     if (_isPasswordValid) {
-      Navigator.of(context).push(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const InterestsScreen(),
         ),
@@ -61,10 +61,7 @@ class _TwitterPasswordScreenState extends State<TwitterPasswordScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => _onBackTap(context),
-        ),
+        automaticallyImplyLeading: false,
         title: const FaIcon(
           FontAwesomeIcons.twitter,
           color: Color(0xFF1DA1F2),
