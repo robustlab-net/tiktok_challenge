@@ -65,7 +65,8 @@ class _PostWidgetState extends State<PostWidget> {
                             decoration: BoxDecoration(
                               color: Colors.black,
                               shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white, width: 1.5),
+                              border:
+                                  Border.all(color: Colors.white, width: 1.5),
                             ),
                             child: const Icon(
                               Icons.add,
@@ -225,7 +226,7 @@ class _PostWidgetState extends State<PostWidget> {
                     // Reply avatars on the left
                     SizedBox(
                       width: 40,
-                      height: 20,
+                      height: 24,
                       child: Stack(
                         children: [
                           Positioned(
