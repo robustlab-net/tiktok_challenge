@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PostsScreen extends StatelessWidget {
   const PostsScreen({super.key});
@@ -97,56 +98,82 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Profile image
-                        const CircleAvatar(
-                          radius: 20,
-                          backgroundImage: NetworkImage(
-                            'https://picsum.photos/100/100?random=user',
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        // Content
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    IntrinsicHeight(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Left side - Profile and line
+                          Column(
                             children: [
-                              // Username
-                              const Text(
-                                'jane_mobbin',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
+                              // Profile image
+                              const CircleAvatar(
+                                radius: 20,
+                                backgroundImage: NetworkImage(
+                                  'https://picsum.photos/100/100?random=user',
                                 ),
                               ),
-                              const SizedBox(height: 8),
-                              // Text input
-                              TextField(
-                                controller: _textController,
-                                maxLines: null,
-                                decoration: const InputDecoration(
-                                  hintText: 'Start a thread...',
-                                  hintStyle: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 15,
+                              // Vertical line
+                              Expanded(
+                                child: Container(
+                                  width: 2,
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade300,
                                   ),
-                                  border: InputBorder.none,
                                 ),
-                                style: const TextStyle(fontSize: 15),
                               ),
-                              const SizedBox(height: 12),
-                              // Attachment icon
-                              Icon(
-                                Icons.attach_file,
-                                color: Colors.grey.shade400,
-                                size: 20,
+                              // Small avatar at bottom
+                              CircleAvatar(
+                                radius: 12,
+                                backgroundColor: Colors.grey.shade200,
+                                backgroundImage: const NetworkImage(
+                                  'https://picsum.photos/50/50?random=small',
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                          const SizedBox(width: 12),
+                          // Content
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Username
+                                const Text(
+                                  'jane_mobbin',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                // Text input
+                                TextField(
+                                  controller: _textController,
+                                  maxLines: null,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Start a thread...',
+                                    hintStyle: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                    ),
+                                    border: InputBorder.none,
+                                  ),
+                                  style: const TextStyle(fontSize: 15),
+                                ),
+                                const SizedBox(height: 16),
+                                // Attachment icon
+                                Icon(
+                                  FontAwesomeIcons.paperclip,
+                                  color: Colors.grey.shade400,
+                                  size: 24,
+                                  weight: 300,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
