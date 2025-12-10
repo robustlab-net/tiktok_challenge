@@ -128,7 +128,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                                 radius: 12,
                                 backgroundColor: Colors.grey.shade200,
                                 backgroundImage: const NetworkImage(
-                                  'https://picsum.photos/50/50?random=small',
+                                  'https://picsum.photos/100/100?random=user',
                                 ),
                               ),
                             ],
@@ -166,8 +166,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                                 Icon(
                                   FontAwesomeIcons.paperclip,
                                   color: Colors.grey.shade400,
-                                  size: 24,
-                                  weight: 300,
+                                  size: 20,
                                 ),
                               ],
                             ),
