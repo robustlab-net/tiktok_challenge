@@ -35,6 +35,17 @@ class _PostWidgetState extends State<PostWidget> {
     super.dispose();
   }
 
+  void _showPostOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.grey.shade50,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+      ),
+      builder: (context) => _PostOptionsSheet(username: widget.post.username),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final hasStats = widget.post.replies > 0 || widget.post.likes > 0;
@@ -198,10 +209,13 @@ class _PostWidgetState extends State<PostWidget> {
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Icon(
-                          Icons.more_horiz,
-                          color: Colors.grey.shade600,
-                          size: 20,
+                        GestureDetector(
+                          onTap: () => _showPostOptions(context),
+                          child: Icon(
+                            Icons.more_horiz,
+                            color: Colors.grey.shade600,
+                            size: 20,
+                          ),
                         ),
                       ],
                     ),
@@ -303,6 +317,281 @@ class _PostWidgetState extends State<PostWidget> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// Bottom Sheet for Post Options
+class _PostOptionsSheet extends StatefulWidget {
+  final String username;
+
+  const _PostOptionsSheet({required this.username});
+
+  @override
+  State<_PostOptionsSheet> createState() => _PostOptionsSheetState();
+}
+
+class _PostOptionsSheetState extends State<_PostOptionsSheet> {
+  bool _showReportScreen = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      child: _showReportScreen
+          ? _ReportScreen(
+              onBack: () => setState(() => _showReportScreen = false),
+            )
+          : _buildMainOptions(),
+    );
+  }
+
+  Widget _buildMainOptions() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Handle bar
+          Container(
+            width: 40,
+            height: 4,
+            margin: const EdgeInsets.only(bottom: 8),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          // Group 1: Unfollow, Mute
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.all(2),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Column(
+                children: [
+                  _OptionTile(
+                    title: 'Unfollow',
+                    onTap: () {
+                      Navigator.pop(context);
+                      // Handle unfollow
+                    },
+                  ),
+                  Divider(height: 1, color: Colors.grey.shade200, thickness: 1),
+                  _OptionTile(
+                    title: 'Mute',
+                    onTap: () {
+                      Navigator.pop(context);
+                      // Handle mute
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // Group 2: Hide, Report
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.all(2),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Column(
+                children: [
+                  _OptionTile(
+                    title: 'Hide',
+                    onTap: () {
+                      Navigator.pop(context);
+                      // Handle hide
+                    },
+                  ),
+                  Divider(height: 1, color: Colors.grey.shade200, thickness: 1),
+                  _OptionTile(
+                    title: 'Report',
+                    isDestructive: true,
+                    onTap: () => setState(() => _showReportScreen = true),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+}
+
+// Report Screen
+class _ReportScreen extends StatelessWidget {
+  final VoidCallback onBack;
+
+  const _ReportScreen({required this.onBack});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.8,
+      child: Column(
+        children: [
+          // Header
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Colors.grey.shade200),
+              ),
+            ),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: onBack,
+                  child: const Icon(Icons.arrow_back, size: 24),
+                ),
+                const SizedBox(width: 16),
+                const Text(
+                  '신고',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Report options list
+          Expanded(
+            child: ListView(
+              children: [
+                _ReportOptionTile(
+                  title: '스팸',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Handle report
+                  },
+                ),
+                _ReportOptionTile(
+                  title: '부적절한 콘텐츠',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Handle report
+                  },
+                ),
+                _ReportOptionTile(
+                  title: '혐오 발언',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Handle report
+                  },
+                ),
+                _ReportOptionTile(
+                  title: '괴롭힘 또는 폭력',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Handle report
+                  },
+                ),
+                _ReportOptionTile(
+                  title: '거짓 정보',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Handle report
+                  },
+                ),
+                _ReportOptionTile(
+                  title: '사기 또는 사칭',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Handle report
+                  },
+                ),
+                _ReportOptionTile(
+                  title: '기타',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Handle report
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Option Tile for main options
+class _OptionTile extends StatelessWidget {
+  final String title;
+  final VoidCallback onTap;
+  final bool isDestructive;
+
+  const _OptionTile({
+    required this.title,
+    required this.onTap,
+    this.isDestructive = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        color: Colors.white,
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 16,
+            color: isDestructive ? Colors.red : Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Report Option Tile
+class _ReportOptionTile extends StatelessWidget {
+  final String title;
+  final VoidCallback onTap;
+
+  const _ReportOptionTile({
+    required this.title,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: Colors.grey.shade200),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(fontSize: 16),
+            ),
+            Icon(Icons.chevron_right, color: Colors.grey.shade400),
+          ],
         ),
       ),
     );
