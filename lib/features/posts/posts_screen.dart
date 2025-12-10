@@ -149,7 +149,6 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                               TextField(
                                 controller: _textController,
                                 maxLines: null,
-                                minLines: 3,
                                 decoration: const InputDecoration(
                                   hintText: 'Start a thread...',
                                   hintStyle: TextStyle(
@@ -157,26 +156,21 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                                     fontSize: 15,
                                   ),
                                   border: InputBorder.none,
+                                  contentPadding: EdgeInsets.zero,
                                 ),
                                 style: const TextStyle(fontSize: 15),
+                              ),
+                              const SizedBox(height: 8),
+                              // Attachment icon
+                              Icon(
+                                FontAwesomeIcons.paperclip,
+                                color: Colors.grey.shade400,
+                                size: 20,
                               ),
                             ],
                           ),
                         ),
                       ],
-                    ),
-                    const SizedBox(height: 4),
-                    // Attachment icon - independent position
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 52),
-                        child: Icon(
-                          FontAwesomeIcons.paperclip,
-                          color: Colors.grey.shade400,
-                          size: 20,
-                        ),
-                      ),
                     ),
                   ],
                 ),
