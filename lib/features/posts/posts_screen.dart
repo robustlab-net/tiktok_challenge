@@ -98,80 +98,84 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    IntrinsicHeight(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Left side - Profile and line
-                          Column(
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Left side - Profile, line, and avatar
+                        Column(
+                          children: [
+                            // Profile image
+                            const CircleAvatar(
+                              radius: 20,
+                              backgroundImage: NetworkImage(
+                                'https://picsum.photos/100/100?random=user',
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            // Vertical line with fixed height
+                            Container(
+                              width: 2,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade300,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            // Small avatar at bottom
+                            CircleAvatar(
+                              radius: 12,
+                              backgroundColor: Colors.grey.shade200,
+                              backgroundImage: const NetworkImage(
+                                'https://picsum.photos/100/100?random=user',
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 12),
+                        // Content
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Profile image
-                              const CircleAvatar(
-                                radius: 20,
-                                backgroundImage: NetworkImage(
-                                  'https://picsum.photos/100/100?random=user',
+                              // Username
+                              const Text(
+                                'jane_mobbin',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              // Vertical line
-                              Expanded(
-                                child: Container(
-                                  width: 2,
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 8),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade300,
+                              // Text input
+                              TextField(
+                                controller: _textController,
+                                maxLines: null,
+                                minLines: 3,
+                                decoration: const InputDecoration(
+                                  hintText: 'Start a thread...',
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 15,
                                   ),
+                                  border: InputBorder.none,
                                 ),
-                              ),
-                              // Small avatar at bottom
-                              CircleAvatar(
-                                radius: 12,
-                                backgroundColor: Colors.grey.shade200,
-                                backgroundImage: const NetworkImage(
-                                  'https://picsum.photos/100/100?random=user',
-                                ),
+                                style: const TextStyle(fontSize: 15),
                               ),
                             ],
                           ),
-                          const SizedBox(width: 12),
-                          // Content
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Username
-                                const Text(
-                                  'jane_mobbin',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                // Text input
-                                TextField(
-                                  controller: _textController,
-                                  maxLines: null,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Start a thread...',
-                                    hintStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 15,
-                                    ),
-                                    border: InputBorder.none,
-                                  ),
-                                  style: const TextStyle(fontSize: 15),
-                                ),
-                                const SizedBox(height: 16),
-                                // Attachment icon
-                                Icon(
-                                  FontAwesomeIcons.paperclip,
-                                  color: Colors.grey.shade400,
-                                  size: 20,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    // Attachment icon - independent position
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 52),
+                        child: Icon(
+                          FontAwesomeIcons.paperclip,
+                          color: Colors.grey.shade400,
+                          size: 20,
+                        ),
                       ),
                     ),
                   ],
