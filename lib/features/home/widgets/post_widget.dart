@@ -38,7 +38,7 @@ class _PostWidgetState extends State<PostWidget> {
   void _showPostOptions(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
       ),
@@ -367,13 +367,11 @@ class _PostOptionsSheetState extends State<_PostOptionsSheet> {
           // Group 1: Unfollow, Mute
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
-              color: Colors.grey.shade100,
               borderRadius: BorderRadius.circular(12),
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(12),
               child: Column(
                 children: [
                   _OptionTile(
@@ -398,13 +396,11 @@ class _PostOptionsSheetState extends State<_PostOptionsSheet> {
           // Group 2: Hide, Report
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
-              color: Colors.grey.shade100,
               borderRadius: BorderRadius.circular(12),
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(12),
               child: Column(
                 children: [
                   _OptionTile(
@@ -439,88 +435,143 @@ class _ReportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.8,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.9,
       child: Column(
         children: [
-          // Header
+          // Handle bar
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            margin: const EdgeInsets.only(top: 8, bottom: 16),
+            width: 40,
+            height: 4,
             decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.grey.shade200),
-              ),
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(2),
             ),
-            child: Row(
+          ),
+          // Title
+          const Text(
+            'Report',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 24),
+          // Report content
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               children: [
-                GestureDetector(
-                  onTap: onBack,
-                  child: const Icon(Icons.arrow_back, size: 24),
-                ),
-                const SizedBox(width: 16),
                 const Text(
-                  '신고',
+                  'Why are you reporting this thread?',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-              ],
-            ),
-          ),
-          // Report options list
-          Expanded(
-            child: ListView(
-              children: [
+                const SizedBox(height: 12),
+                Text(
+                  "Your report is anonymous, except if you're reporting an intellectual property infringement. If someone is in immediate danger, call the local emergency services - don't wait.",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey.shade600,
+                    height: 1.4,
+                  ),
+                ),
+                const SizedBox(height: 24),
                 _ReportOptionTile(
-                  title: '스팸',
+                  title: "I just don't like it",
                   onTap: () {
                     Navigator.pop(context);
                     // Handle report
                   },
                 ),
                 _ReportOptionTile(
-                  title: '부적절한 콘텐츠',
+                  title: "It's unlawful content under NetzDG",
                   onTap: () {
                     Navigator.pop(context);
                     // Handle report
                   },
                 ),
                 _ReportOptionTile(
-                  title: '혐오 발언',
+                  title: "It's spam",
                   onTap: () {
                     Navigator.pop(context);
                     // Handle report
                   },
                 ),
                 _ReportOptionTile(
-                  title: '괴롭힘 또는 폭력',
+                  title: 'Hate speech or symbols',
                   onTap: () {
                     Navigator.pop(context);
                     // Handle report
                   },
                 ),
                 _ReportOptionTile(
-                  title: '거짓 정보',
+                  title: 'Nudity or sexual activity',
                   onTap: () {
                     Navigator.pop(context);
                     // Handle report
                   },
                 ),
                 _ReportOptionTile(
-                  title: '사기 또는 사칭',
+                  title: 'False information',
                   onTap: () {
                     Navigator.pop(context);
                     // Handle report
                   },
                 ),
                 _ReportOptionTile(
-                  title: '기타',
+                  title: 'Scam or fraud',
                   onTap: () {
                     Navigator.pop(context);
                     // Handle report
                   },
                 ),
+                _ReportOptionTile(
+                  title: 'Violence or dangerous organisations',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Handle report
+                  },
+                ),
+                _ReportOptionTile(
+                  title: 'Bullying or harassment',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Handle report
+                  },
+                ),
+                _ReportOptionTile(
+                  title: 'Intellectual property violation',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Handle report
+                  },
+                ),
+                _ReportOptionTile(
+                  title: 'Sale of illegal or regulated goods',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Handle report
+                  },
+                ),
+                _ReportOptionTile(
+                  title: 'Suicide or self-injury',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Handle report
+                  },
+                ),
+                _ReportOptionTile(
+                  title: 'Eating disorders',
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Handle report
+                  },
+                ),
+                const SizedBox(height: 24),
               ],
             ),
           ),
@@ -549,7 +600,7 @@ class _OptionTile extends StatelessWidget {
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        color: Colors.white,
+        color: Colors.grey.shade100,
         child: Text(
           title,
           style: TextStyle(
@@ -577,20 +628,22 @@ class _ReportOptionTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
           border: Border(
-            bottom: BorderSide(color: Colors.grey.shade200),
+            bottom: BorderSide(color: Colors.grey.shade200, width: 0.5),
           ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              title,
-              style: const TextStyle(fontSize: 16),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(fontSize: 16),
+              ),
             ),
-            Icon(Icons.chevron_right, color: Colors.grey.shade400),
+            Icon(Icons.chevron_right, color: Colors.grey.shade400, size: 20),
           ],
         ),
       ),
