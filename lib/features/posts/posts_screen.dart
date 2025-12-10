@@ -91,12 +91,14 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
             ),
           ),
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -227,6 +229,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
               ),
             ),
           ],
+          ),
         ),
       ),
     );
