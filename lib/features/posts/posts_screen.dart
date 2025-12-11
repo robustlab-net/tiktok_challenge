@@ -99,136 +99,128 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(16),
                   child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Left side - Profile, line, and avatar
-                        Column(
-                          children: [
-                            // Profile image
-                            const CircleAvatar(
-                              radius: 20,
-                              backgroundImage: NetworkImage(
-                                'https://picsum.photos/100/100?random=user',
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            // Vertical line with fixed height
-                            Container(
-                              width: 2,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            // Small avatar at bottom
-                            CircleAvatar(
-                              radius: 12,
-                              backgroundColor: Colors.grey.shade200,
-                              backgroundImage: const NetworkImage(
-                                'https://picsum.photos/100/100?random=user',
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(width: 12),
-                        // Content
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Left side - Profile, line, and avatar
+                          Column(
                             children: [
-                              // Username
-                              const Text(
-                                'jane_mobbin',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
+                              // Profile image
+                              const CircleAvatar(
+                                radius: 20,
+                                backgroundImage: NetworkImage(
+                                  'https://picsum.photos/100/100?random=user',
                                 ),
-                              ),
-                              // Text input
-                              TextField(
-                                controller: _textController,
-                                maxLines: null,
-                                decoration: const InputDecoration(
-                                  hintText: 'Start a thread...',
-                                  hintStyle: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 15,
-                                  ),
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.zero,
-                                ),
-                                style: const TextStyle(fontSize: 15),
                               ),
                               const SizedBox(height: 8),
-                              // Attachment icon
-                              Icon(
-                                FontAwesomeIcons.paperclip,
-                                color: Colors.grey.shade400,
-                                size: 20,
+                              // Vertical line with fixed height
+                              Container(
+                                width: 2,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              // Small avatar at bottom
+                              CircleAvatar(
+                                radius: 12,
+                                backgroundColor: Colors.grey.shade200,
+                                backgroundImage: const NetworkImage(
+                                  'https://picsum.photos/100/100?random=user',
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          const SizedBox(width: 12),
+                          // Content
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Username
+                                const Text(
+                                  'jane_mobbin',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                // Text input
+                                TextField(
+                                  controller: _textController,
+                                  maxLines: null,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Start a thread...',
+                                    hintStyle: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                    ),
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.zero,
+                                  ),
+                                  style: const TextStyle(fontSize: 15),
+                                ),
+                                const SizedBox(height: 8),
+                                // Attachment icon
+                                Icon(
+                                  FontAwesomeIcons.paperclip,
+                                  color: Colors.grey.shade400,
+                                  size: 20,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            // Bottom section
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: Colors.grey.shade200),
+              // Bottom section
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(color: Colors.grey.shade200),
+                  ),
                 ),
-              ),
-              child: SafeArea(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Anyone can reply',
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: 15,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: _hasText
-                          ? () {
-                              // Handle post
-                              Navigator.pop(context);
-                            }
-                          : null,
-                      style: TextButton.styleFrom(
-                        backgroundColor:
-                            _hasText ? Colors.blue : Colors.grey.shade200,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 8,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                      child: Text(
-                        'Post',
+                child: SafeArea(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Anyone can reply',
                         style: TextStyle(
-                          color: _hasText ? Colors.white : Colors.grey.shade400,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                          color: Colors.grey.shade600,
+                          fontSize: 15,
                         ),
                       ),
-                    ),
-                  ],
+                      GestureDetector(
+                        onTap: _hasText
+                            ? () {
+                                // Handle post
+                                Navigator.pop(context);
+                              }
+                            : null,
+                        child: Text(
+                          'Post',
+                          style: TextStyle(
+                            color: _hasText
+                                ? const Color(0xFF0095F6)
+                                : Colors.grey.shade400,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
           ),
         ),
       ),
