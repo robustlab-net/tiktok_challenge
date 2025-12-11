@@ -631,7 +631,7 @@ class _ReportOptionTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
           border: Border(
-            bottom: BorderSide(color: Colors.grey.shade200, width: 0.5),
+            bottom: BorderSide(color: Colors.grey.shade200, width: 1),
           ),
         ),
         child: Row(
