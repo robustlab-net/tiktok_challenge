@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -38,30 +39,14 @@ class _SearchScreenState extends State<SearchScreen> {
             // Search field
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    hintText: 'Search',
-                    hintStyle: TextStyle(
-                      color: Colors.grey.shade500,
-                      fontSize: 16,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Colors.grey.shade500,
-                    ),
-                    border: InputBorder.none,
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                  ),
-                ),
+              child: CupertinoSearchTextField(
+                controller: _searchController,
+                placeholder: 'Search',
+                style: const TextStyle(fontSize: 16),
+                backgroundColor: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(10),
+                prefixInsets: const EdgeInsets.symmetric(horizontal: 12),
+                suffixInsets: const EdgeInsets.symmetric(horizontal: 8),
               ),
             ),
             const SizedBox(height: 16),

@@ -7,8 +7,21 @@ class AlertsScreen extends StatefulWidget {
   State<AlertsScreen> createState() => _AlertsScreenState();
 }
 
-class _AlertsScreenState extends State<AlertsScreen> {
-  String _selectedTab = 'All';
+class _AlertsScreenState extends State<AlertsScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,60 +42,54 @@ class _AlertsScreenState extends State<AlertsScreen> {
                 ),
               ),
             ),
-            // Tab buttons
+            // TabBar
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    _TabButton(
-                      label: 'All',
-                      isSelected: _selectedTab == 'All',
-                      onTap: () {
-                        setState(() {
-                          _selectedTab = 'All';
-                        });
-                      },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.grey.shade200,
+                      width: 0.5,
                     ),
-                    const SizedBox(width: 8),
-                    _TabButton(
-                      label: 'Replies',
-                      isSelected: _selectedTab == 'Replies',
-                      onTap: () {
-                        setState(() {
-                          _selectedTab = 'Replies';
-                        });
-                      },
-                    ),
-                    const SizedBox(width: 8),
-                    _TabButton(
-                      label: 'Mentions',
-                      isSelected: _selectedTab == 'Mentions',
-                      onTap: () {
-                        setState(() {
-                          _selectedTab = 'Mentions';
-                        });
-                      },
-                    ),
-                    const SizedBox(width: 8),
-                    _TabButton(
-                      label: 'Verified',
-                      isSelected: _selectedTab == 'Verified',
-                      onTap: () {
-                        setState(() {
-                          _selectedTab = 'Verified';
-                        });
-                      },
-                    ),
+                  ),
+                ),
+                child: TabBar(
+                  controller: _tabController,
+                  isScrollable: true,
+                  labelColor: Colors.black,
+                  unselectedLabelColor: Colors.grey.shade600,
+                  labelStyle: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  unselectedLabelStyle: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  indicatorColor: Colors.black,
+                  indicatorWeight: 1,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  tabAlignment: TabAlignment.start,
+                  padding: EdgeInsets.zero,
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  tabs: const [
+                    Tab(text: 'All'),
+                    Tab(text: 'Replies'),
+                    Tab(text: 'Mentions'),
+                    Tab(text: 'Verified'),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            // Activity list
+            // TabBarView
             Expanded(
-              child: ListView(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  // All tab
+                  ListView(
                 children: [
                   _ActivityItem(
                     username: 'john_mobbin',
@@ -133,48 +140,34 @@ class _AlertsScreenState extends State<AlertsScreen> {
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _TabButton extends StatelessWidget {
-  final String label;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  const _TabButton({
-    required this.label,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-        decoration: BoxDecoration(
-          color: isSelected ? Colors.black : Colors.white,
-          border: Border.all(
-            color: isSelected ? Colors.black : Colors.grey.shade300,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.black,
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
+              // Replies tab
+              const Center(
+                child: Text(
+                  'Replies',
+                  style: TextStyle(fontSize: 18, color: Colors.grey),
+                ),
+              ),
+              // Mentions tab
+              const Center(
+                child: Text(
+                  'Mentions',
+                  style: TextStyle(fontSize: 18, color: Colors.grey),
+                ),
+              ),
+              // Verified tab
+              const Center(
+                child: Text(
+                  'Verified',
+                  style: TextStyle(fontSize: 18, color: Colors.grey),
+                ),
+              ),
+            ],
           ),
         ),
-      ),
-    );
+      ],
+    ),
+  ),
+);
   }
 }
 
