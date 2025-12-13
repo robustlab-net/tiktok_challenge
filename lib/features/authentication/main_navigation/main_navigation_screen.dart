@@ -25,9 +25,19 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   ];
 
   void _onTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index == 2) {
+      // Show new thread screen as modal
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const NewThreadScreen(),
+          fullscreenDialog: true,
+        ),
+      );
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override
@@ -42,24 +52,29 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         unselectedItemColor: Colors.grey,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(
+        items: [
+          const BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.house, size: 24),
             label: '',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.magnifyingGlass, size: 24),
             label: '',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.penToSquare, size: 24),
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.heart, size: 24),
+            icon: FaIcon(
+              _selectedIndex == 3
+                  ? FontAwesomeIcons.solidHeart
+                  : FontAwesomeIcons.heart,
+              size: 24,
+            ),
             label: '',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.user, size: 24),
             label: '',
           ),
