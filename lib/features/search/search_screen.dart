@@ -21,10 +21,12 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
             // Title
             const Padding(
               padding: EdgeInsets.all(16),
@@ -110,6 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ],
         ),
+      ),
       ),
     );
   }
