@@ -68,7 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
             // User list
             Expanded(
               child: ListView(
-                children: [
+                children: const [
                   _UserTile(
                     username: 'rjmithun',
                     displayName: 'Mithun',
@@ -150,95 +150,106 @@ class _UserTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Column(
         children: [
-          // Avatar
-          CircleAvatar(
-            radius: 24,
-            backgroundImage: NetworkImage(avatarUrl),
-          ),
-          const SizedBox(width: 12),
-          // User info
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Username with verification badge
-                Row(
+          Row(
+            children: [
+              // Avatar
+              CircleAvatar(
+                radius: 24,
+                backgroundImage: NetworkImage(avatarUrl),
+              ),
+              const SizedBox(width: 12),
+              // User info
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      username,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    // Username with verification badge
+                    Row(
+                      children: [
+                        Text(
+                          username,
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        if (verified) ...[
+                          const SizedBox(width: 4),
+                          Icon(
+                            Icons.verified,
+                            size: 16,
+                            color: Colors.blue.shade400,
+                          ),
+                        ],
+                      ],
                     ),
-                    if (verified) ...[
-                      const SizedBox(width: 4),
-                      Icon(
-                        Icons.verified,
-                        size: 16,
-                        color: Colors.blue.shade400,
-                      ),
-                    ],
-                  ],
-                ),
-                const SizedBox(height: 2),
-                // Display name
-                Text(
-                  displayName,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                // Followers
-                Row(
-                  children: [
-                    if (hasIcon) ...[
-                      Container(
-                        width: 16,
-                        height: 16,
-                        decoration: const BoxDecoration(
-                          color: Colors.black,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.circle,
-                          size: 8,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                    ],
+                    const SizedBox(height: 2),
+                    // Display name
                     Text(
-                      '$followers followers',
+                      displayName,
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey.shade600,
                       ),
                     ),
+                    const SizedBox(height: 4),
+                    // Followers
+                    Row(
+                      children: [
+                        if (hasIcon) ...[
+                          Container(
+                            width: 18,
+                            height: 18,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade800,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.business,
+                              size: 12,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                        ],
+                        Text(
+                          '$followers followers',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          // Follow button
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: const Text(
-              'Follow',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
               ),
-            ),
+              // Follow button
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade300),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Text(
+                  'Follow',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          // Border line with left padding
+          Container(
+            margin: const EdgeInsets.only(left: 60, top: 12),
+            height: 0.5,
+            color: Colors.grey.shade200,
           ),
         ],
       ),
