@@ -74,8 +74,13 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             ),
             label: '',
           ),
-          const BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.user, size: 24),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              _selectedIndex == 4
+                  ? FontAwesomeIcons.solidUser
+                  : FontAwesomeIcons.user,
+              size: 24,
+            ),
             label: '',
           ),
         ],
