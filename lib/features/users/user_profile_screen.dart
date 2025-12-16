@@ -148,8 +148,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   // Followers
                   Row(
                     children: [
-                      Stack(
-                        children: [
+                      SizedBox(
+                        width: 40,
+                        height: 24,
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          children: [
                           Container(
                             width: 24,
                             height: 24,
@@ -187,7 +191,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               ),
                             ),
                           ),
-                        ],
+                          ],
+                        ),
                       ),
                       const SizedBox(width: 10),
                       Text(
