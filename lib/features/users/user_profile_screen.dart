@@ -14,6 +14,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           // Top navigation bar
@@ -50,209 +51,212 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           ),
           // Profile information
           SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Name and avatar row
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Jane',
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Name and avatar row
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Jane',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                const Text(
+                                  'jane_mobbin',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade200,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Text(
+                                    'threads.net',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey.shade600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        // Profile avatar
+                        Container(
+                          width: 70,
+                          height: 70,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                'https://picsum.photos/200/200?random=profile',
+                              ),
+                              fit: BoxFit.cover,
                             ),
                           ),
-                          const SizedBox(height: 4),
-                          Row(
-                            children: [
-                              const Text(
-                                'jane_mobbin',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  '🪴',
+                                  style: TextStyle(fontSize: 18),
                                 ),
                               ),
-                              const SizedBox(width: 8),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    // Bio
+                    const Text(
+                      'Plant enthusiast!',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // Followers
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 40,
+                          height: 24,
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            children: [
                               Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 4,
-                                ),
+                                width: 24,
+                                height: 24,
                                 decoration: BoxDecoration(
-                                  color: Colors.grey.shade200,
-                                  borderRadius: BorderRadius.circular(12),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 2,
+                                  ),
+                                  image: const DecorationImage(
+                                    image: NetworkImage(
+                                      'https://picsum.photos/100/100?random=20',
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                                child: Text(
-                                  'threads.net',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey.shade600,
+                              ),
+                              Positioned(
+                                left: 12,
+                                child: Container(
+                                  width: 24,
+                                  height: 24,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 2,
+                                    ),
+                                    image: const DecorationImage(
+                                      image: NetworkImage(
+                                        'https://picsum.photos/100/100?random=21',
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                      // Profile avatar
-                      Container(
-                        width: 70,
-                        height: 70,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              'https://picsum.photos/200/200?random=profile',
-                            ),
-                            fit: BoxFit.cover,
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          '2 followers',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.grey.shade600,
                           ),
                         ),
-                        child: Align(
-                          alignment: Alignment.bottomRight,
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    // Action buttons
+                    Row(
+                      children: [
+                        Expanded(
                           child: Container(
-                            width: 30,
-                            height: 30,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.white,
+                            height: 36,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey.shade300,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             child: const Center(
                               child: Text(
-                                '🪴',
-                                style: TextStyle(fontSize: 18),
+                                'Edit profile',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  // Bio
-                  const Text(
-                    'Plant enthusiast!',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  // Followers
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 40,
-                        height: 24,
-                        child: Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                          Container(
-                            width: 24,
-                            height: 24,
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Container(
+                            height: 36,
                             decoration: BoxDecoration(
-                              shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.white,
-                                width: 2,
+                                color: Colors.grey.shade300,
                               ),
-                              image: const DecorationImage(
-                                image: NetworkImage(
-                                  'https://picsum.photos/100/100?random=20',
-                                ),
-                                fit: BoxFit.cover,
-                              ),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                          ),
-                          Positioned(
-                            left: 12,
-                            child: Container(
-                              width: 24,
-                              height: 24,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 2,
-                                ),
-                                image: const DecorationImage(
-                                  image: NetworkImage(
-                                    'https://picsum.photos/100/100?random=21',
-                                  ),
-                                  fit: BoxFit.cover,
+                            child: const Center(
+                              child: Text(
+                                'Share profile',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
                           ),
-                          ],
                         ),
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        '2 followers',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.grey.shade600,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  // Action buttons
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 36,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey.shade300,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              'Edit profile',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Container(
-                          height: 36,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey.shade300,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              'Share profile',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                ],
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
               ),
             ),
           ),
@@ -292,30 +296,59 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ]),
             )
           else
-            SliverList(
-              delegate: SliverChildListDelegate([
-                const _ReplyItem(
-                  username: 'john_mobbin',
-                  timeAgo: '5h',
-                  content: 'Always a dream to see the Medina in Morocco!',
-                  replyToUsername: 'earthpix',
-                  replyToContent:
-                      'What is one place you\'re absolutely traveling to by next year?',
-                  replyCount: '256 replies',
-                  avatarUrl: 'https://picsum.photos/100/100?random=30',
-                ),
-                const _ReplyItem(
-                  username: 'jane_mobbin',
-                  timeAgo: '5h',
-                  content: 'See you there!',
-                  replyToUsername: 'john_mobbin',
-                  replyToContent: 'Meet me at the coffee shop tomorrow',
-                  replyCount: null,
-                  avatarUrl: 'https://picsum.photos/200/200?random=profile',
-                ),
-              ]),
+            SliverToBoxAdapter(
+              child: _RepliesListView(),
             ),
         ],
+      ),
+    );
+  }
+}
+
+class _RepliesListView extends StatelessWidget {
+  const _RepliesListView();
+
+  @override
+  Widget build(BuildContext context) {
+    final replies = [
+      {
+        'username': 'john_mobbin',
+        'timeAgo': '5h',
+        'content': 'Always a dream to see the Medina in Morocco!',
+        'replyToUsername': 'earthpix',
+        'replyToContent':
+            'What is one place you\'re absolutely traveling to by next year?',
+        'replyCount': '256 replies',
+        'avatarUrl': 'https://picsum.photos/100/100?random=30',
+      },
+      {
+        'username': 'jane_mobbin',
+        'timeAgo': '5h',
+        'content': 'See you there!',
+        'replyToUsername': 'john_mobbin',
+        'replyToContent': 'Meet me at the coffee shop tomorrow',
+        'replyCount': null,
+        'avatarUrl': 'https://picsum.photos/200/200?random=profile',
+      },
+    ];
+
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: List.generate(replies.length, (index) {
+          final reply = replies[index];
+          final isLast = index == replies.length - 1;
+          return _ReplyItemConnected(
+            username: reply['username'],
+            timeAgo: reply['timeAgo'],
+            content: reply['content'],
+            replyToUsername: reply['replyToUsername'],
+            replyToContent: reply['replyToContent'],
+            replyCount: reply['replyCount'],
+            avatarUrl: reply['avatarUrl'],
+            showConnector: !isLast,
+          );
+        }),
       ),
     );
   }
@@ -521,7 +554,7 @@ class _ThreadItem extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            CircleAvatar(
+                            const CircleAvatar(
                               radius: 10,
                               backgroundImage: NetworkImage(
                                 'https://picsum.photos/100/100?random=40',
@@ -567,24 +600,24 @@ class _ThreadItem extends StatelessWidget {
                 ],
                 const SizedBox(height: 12),
                 // Actions
-                Row(
+                const Row(
                   children: [
-                    const FaIcon(
+                    FaIcon(
                       FontAwesomeIcons.heart,
                       size: 20,
                     ),
-                    const SizedBox(width: 16),
-                    const FaIcon(
+                    SizedBox(width: 16),
+                    FaIcon(
                       FontAwesomeIcons.comment,
                       size: 20,
                     ),
-                    const SizedBox(width: 16),
-                    const FaIcon(
+                    SizedBox(width: 16),
+                    FaIcon(
                       FontAwesomeIcons.repeat,
                       size: 20,
                     ),
-                    const SizedBox(width: 16),
-                    const FaIcon(
+                    SizedBox(width: 16),
+                    FaIcon(
                       FontAwesomeIcons.paperPlane,
                       size: 20,
                     ),
@@ -599,7 +632,7 @@ class _ThreadItem extends StatelessWidget {
   }
 }
 
-class _ReplyItem extends StatelessWidget {
+class _ReplyItemConnected extends StatelessWidget {
   final String username;
   final String timeAgo;
   final String content;
@@ -607,8 +640,9 @@ class _ReplyItem extends StatelessWidget {
   final String replyToContent;
   final String? replyCount;
   final String avatarUrl;
+  final bool showConnector;
 
-  const _ReplyItem({
+  const _ReplyItemConnected({
     required this.username,
     required this.timeAgo,
     required this.content,
@@ -616,160 +650,167 @@ class _ReplyItem extends StatelessWidget {
     required this.replyToContent,
     this.replyCount,
     required this.avatarUrl,
+    this.showConnector = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey.shade200,
-            width: 0.5,
-          ),
-        ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Avatar
-          CircleAvatar(
-            radius: 20,
-            backgroundImage: NetworkImage(avatarUrl),
-          ),
-          const SizedBox(width: 12),
-          // Content
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Avatar with connector line
+            Column(
               children: [
-                // Header
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      username,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          timeAgo,
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey.shade600,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Icon(
-                          Icons.more_horiz,
-                          size: 20,
-                          color: Colors.grey.shade600,
-                        ),
-                      ],
-                    ),
-                  ],
+                CircleAvatar(
+                  radius: 20,
+                  backgroundImage: NetworkImage(avatarUrl),
                 ),
-                const SizedBox(height: 4),
-                // Reply content
-                Text(
-                  content,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    height: 1.4,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                // Original thread
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    border: Border.all(
+                if (showConnector)
+                  Expanded(
+                    child: Container(
+                      width: 2,
+                      margin: const EdgeInsets.symmetric(vertical: 8),
                       color: Colors.grey.shade300,
                     ),
-                    borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              ],
+            ),
+            const SizedBox(width: 12),
+            // Content
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Header
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Text(
+                        username,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                       Row(
                         children: [
-                          CircleAvatar(
-                            radius: 10,
-                            backgroundImage: NetworkImage(
-                              'https://picsum.photos/100/100?random=50',
-                            ),
-                          ),
-                          const SizedBox(width: 6),
                           Text(
-                            replyToUsername,
-                            style: const TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w600,
+                            timeAgo,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.grey.shade600,
                             ),
                           ),
-                          const SizedBox(width: 4),
-                          const Icon(
-                            Icons.verified,
-                            size: 14,
-                            color: Colors.blue,
+                          const SizedBox(width: 8),
+                          Icon(
+                            Icons.more_horiz,
+                            size: 20,
+                            color: Colors.grey.shade600,
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        replyToContent,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          height: 1.4,
-                        ),
-                      ),
-                      if (replyCount != null) ...[
-                        const SizedBox(height: 8),
-                        Text(
-                          replyCount!,
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.grey.shade600,
-                          ),
-                        ),
-                      ],
                     ],
                   ),
-                ),
-                const SizedBox(height: 12),
-                // Actions
-                Row(
-                  children: [
-                    const FaIcon(
-                      FontAwesomeIcons.heart,
-                      size: 20,
+                  const SizedBox(height: 4),
+                  // Reply content
+                  Text(
+                    content,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      height: 1.4,
                     ),
-                    const SizedBox(width: 16),
-                    const FaIcon(
-                      FontAwesomeIcons.comment,
-                      size: 20,
+                  ),
+                  const SizedBox(height: 12),
+                  // Original thread
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey.shade300,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    const SizedBox(width: 16),
-                    const FaIcon(
-                      FontAwesomeIcons.repeat,
-                      size: 20,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const CircleAvatar(
+                              radius: 10,
+                              backgroundImage: NetworkImage(
+                                'https://picsum.photos/100/100?random=50',
+                              ),
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              replyToUsername,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            const Icon(
+                              Icons.verified,
+                              size: 14,
+                              color: Colors.blue,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          replyToContent,
+                          style: const TextStyle(
+                            fontSize: 13,
+                            height: 1.4,
+                          ),
+                        ),
+                        if (replyCount != null) ...[
+                          const SizedBox(height: 8),
+                          Text(
+                            replyCount!,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
-                    const SizedBox(width: 16),
-                    const FaIcon(
-                      FontAwesomeIcons.paperPlane,
-                      size: 20,
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                  const SizedBox(height: 12),
+                  // Actions
+                  Row(
+                    children: const [
+                      FaIcon(
+                        FontAwesomeIcons.heart,
+                        size: 20,
+                      ),
+                      SizedBox(width: 16),
+                      FaIcon(
+                        FontAwesomeIcons.comment,
+                        size: 20,
+                      ),
+                      SizedBox(width: 16),
+                      FaIcon(
+                        FontAwesomeIcons.repeat,
+                        size: 20,
+                      ),
+                      SizedBox(width: 16),
+                      FaIcon(
+                        FontAwesomeIcons.paperPlane,
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
