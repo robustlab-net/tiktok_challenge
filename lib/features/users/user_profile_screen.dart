@@ -482,7 +482,7 @@ class _ThreadItem extends StatelessWidget {
         border: Border(
           bottom: BorderSide(
             color: Colors.grey.shade200,
-            width: 0.5,
+            width: 1.5,
           ),
         ),
       ),
@@ -590,8 +590,13 @@ class _ThreadItem extends StatelessWidget {
                         Container(
                           height: 120,
                           decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
                             borderRadius: BorderRadius.circular(8),
+                            image: const DecorationImage(
+                              image: NetworkImage(
+                                'https://picsum.photos/400/300?random=100',
+                              ),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ],
