@@ -296,7 +296,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ]),
             )
           else
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: _RepliesListView(),
             ),
         ],
@@ -339,13 +339,13 @@ class _RepliesListView extends StatelessWidget {
           final reply = replies[index];
           final isLast = index == replies.length - 1;
           return _ReplyItemConnected(
-            username: reply['username'],
-            timeAgo: reply['timeAgo'],
-            content: reply['content'],
-            replyToUsername: reply['replyToUsername'],
-            replyToContent: reply['replyToContent'],
+            username: reply['username']!,
+            timeAgo: reply['timeAgo']!,
+            content: reply['content']!,
+            replyToUsername: reply['replyToUsername']!,
+            replyToContent: reply['replyToContent']!,
             replyCount: reply['replyCount'],
-            avatarUrl: reply['avatarUrl'],
+            avatarUrl: reply['avatarUrl']!,
             showConnector: !isLast,
           );
         }),
@@ -783,8 +783,8 @@ class _ReplyItemConnected extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   // Actions
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       FaIcon(
                         FontAwesomeIcons.heart,
                         size: 20,
