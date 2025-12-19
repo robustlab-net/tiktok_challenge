@@ -7,14 +7,22 @@ import 'package:tiktok_challenge/features/alerts/alerts_screen.dart';
 import 'package:tiktok_challenge/features/users/user_profile_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
-  const MainNavigationScreen({super.key});
+  final int? initialIndex;
+
+  const MainNavigationScreen({super.key, this.initialIndex});
 
   @override
   State<MainNavigationScreen> createState() => _MainNavigationScreenState();
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex ?? 0;
+  }
 
   final List<Widget> _screens = const [
     HomeScreen(),

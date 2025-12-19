@@ -1,7 +1,10 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_challenge/features/settings/privacy_screen.dart';
+import 'package:tiktok_challenge/features/authentication/main_navigation/main_navigation_screen.dart';
+import 'package:tiktok_challenge/features/posts/posts_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -61,12 +64,28 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
+        leadingWidth: 80,
+        leading: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => Navigator.of(context).pop(),
+          child: const Row(
+            children: [
+              SizedBox(width: 8),
+              Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              ),
+              SizedBox(width: 2),
+              Text(
+                'Back',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
           ),
-          onPressed: () => Navigator.of(context).pop(),
         ),
         title: const Text(
           'Settings',
@@ -82,7 +101,7 @@ class SettingsScreen extends StatelessWidget {
           const Divider(height: 1),
           ListTile(
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             leading: const Icon(Icons.person_add_outlined, size: 28),
             title: const Text(
               'Follow and invite friends',
@@ -97,7 +116,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           ListTile(
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             leading: const Icon(Icons.notifications_outlined, size: 28),
             title: const Text(
               'Notifications',
@@ -112,7 +131,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           ListTile(
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             leading: const Icon(Icons.lock_outline, size: 28),
             title: const Text(
               'Privacy',
@@ -131,7 +150,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           ListTile(
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             leading: const Icon(Icons.account_circle_outlined, size: 28),
             title: const Text(
               'Account',
@@ -146,7 +165,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           ListTile(
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             leading: const Icon(Icons.help_outline, size: 28),
             title: const Text(
               'Help',
@@ -161,7 +180,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           ListTile(
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             leading: const Icon(Icons.info_outline, size: 28),
             title: const Text(
               'About',
@@ -178,23 +197,78 @@ class SettingsScreen extends StatelessWidget {
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: TextButton(
-              onPressed: () => _showLogoutDialog(context),
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                alignment: Alignment.centerLeft,
-              ),
-              child: const Text(
-                'Log out',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.w400,
+            child: Row(
+              children: [
+                TextButton(
+                  onPressed: () => _showLogoutDialog(context),
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    alignment: Alignment.centerLeft,
+                  ),
+                  child: const Text(
+                    'Log out',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
                 ),
-              ),
+                const Spacer(),
+              ],
             ),
           ),
           const SizedBox(height: 32),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: 4,
+        onTap: (index) {
+          if (index == 2) {
+            // Show new thread screen as modal
+            Navigator.of(context).popUntil((route) => route.isFirst);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const NewThreadScreen(),
+                fullscreenDialog: true,
+              ),
+            );
+          } else {
+            // Navigate back to MainNavigationScreen with selected index
+            Navigator.of(context).popUntil((route) => route.isFirst);
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => MainNavigationScreen(initialIndex: index),
+              ),
+            );
+          }
+        },
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: const [
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.house, size: 24),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.magnifyingGlass, size: 24),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.penToSquare, size: 24),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.heart, size: 24),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.solidUser, size: 24),
+            label: '',
+          ),
         ],
       ),
     );
