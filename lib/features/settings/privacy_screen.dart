@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tiktok_challenge/features/authentication/main_navigation/main_navigation_screen.dart';
-import 'package:tiktok_challenge/features/posts/posts_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class PrivacyScreen extends StatefulWidget {
   const PrivacyScreen({super.key});
@@ -24,7 +23,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
         leadingWidth: 80,
         leading: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () => Navigator.of(context).pop(),
+          onTap: () => context.pop(),
           child: const Row(
             children: [
               SizedBox(width: 8),
@@ -222,21 +221,10 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
         onTap: (index) {
           if (index == 2) {
             // Show new thread screen as modal
-            Navigator.of(context).popUntil((route) => route.isFirst);
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const NewThreadScreen(),
-                fullscreenDialog: true,
-              ),
-            );
+            context.go('/new-thread');
           } else {
-            // Navigate back to MainNavigationScreen with selected index
-            Navigator.of(context).popUntil((route) => route.isFirst);
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => MainNavigationScreen(initialIndex: index),
-              ),
-            );
+            // Navigate back to home
+            context.go('/');
           }
         },
         selectedItemColor: Colors.black,
