@@ -97,7 +97,7 @@ class HomeScreen extends StatelessWidget {
           slivers: [
             SliverAppBar(
               backgroundColor: Colors.black,
-              surfaceTintColor: Colors.white,
+              surfaceTintColor: Colors.black,
               elevation: 0,
               floating: false,
               pinned: true,
@@ -120,12 +120,12 @@ class HomeScreen extends StatelessWidget {
                   final double topPadding = currentHeight < maxHeight ? 16 : 24;
 
                   return Container(
-                    color: Colors.white,
+                    color: Colors.black,
                     alignment: Alignment.topCenter,
                     padding: EdgeInsets.only(top: topPadding),
                     child: FaIcon(
                       FontAwesomeIcons.at,
-                      color: Colors.black,
+                      color: Colors.white,
                       size: iconSize.clamp(24, 32),
                     ),
                   );
