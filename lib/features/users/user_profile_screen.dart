@@ -88,14 +88,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     vertical: 4,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: Colors.grey.shade200,
+                                    color: Colors.grey.shade800,
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Text(
                                     'threads.net',
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: Colors.grey.shade600,
+                                      color: Colors.grey.shade400,
                                     ),
                                   ),
                                 ),
@@ -121,9 +121,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             child: Container(
                               width: 30,
                               height: 30,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.white,
+                                color: Colors.grey.shade800,
                               ),
                               child: const Center(
                                 child: Text(
@@ -161,7 +161,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     width: 2,
                                   ),
                                   image: const DecorationImage(
@@ -180,7 +180,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       width: 2,
                                     ),
                                     image: const DecorationImage(
@@ -200,7 +200,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           '2 followers',
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey.shade600,
+                            color: Colors.grey.shade400,
                           ),
                         ),
                       ],
@@ -214,7 +214,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             height: 36,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: Colors.grey.shade300,
+                                color: Colors.grey.shade700,
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -224,6 +224,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
@@ -235,7 +236,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             height: 36,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: Colors.grey.shade300,
+                                color: Colors.grey.shade700,
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -245,6 +246,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
@@ -330,7 +332,7 @@ class _RepliesListView extends StatelessWidget {
     ];
 
     return Container(
-      color: Colors.white,
+      color: Colors.black,
       child: Column(
         children: List.generate(replies.length, (index) {
           final reply = replies[index];
@@ -478,7 +480,7 @@ class _ThreadItem extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Colors.grey.shade200,
+            color: Colors.grey.shade800,
             width: 1.5,
           ),
         ),
@@ -514,14 +516,14 @@ class _ThreadItem extends StatelessWidget {
                           timeAgo,
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey.shade600,
+                            color: Colors.grey.shade400,
                           ),
                         ),
                         const SizedBox(width: 8),
                         Icon(
                           Icons.more_horiz,
                           size: 20,
-                          color: Colors.grey.shade600,
+                          color: Colors.grey.shade400,
                         ),
                       ],
                     ),
@@ -542,7 +544,7 @@ class _ThreadItem extends StatelessWidget {
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.grey.shade300,
+                        color: Colors.grey.shade700,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -674,7 +676,7 @@ class _ReplyItemConnected extends StatelessWidget {
                   width: 2,
                   height: 160,
                   margin: const EdgeInsets.only(top: 8),
-                  color: Colors.grey.shade300,
+                  color: Colors.grey.shade700,
                 ),
             ],
           ),
@@ -701,14 +703,14 @@ class _ReplyItemConnected extends StatelessWidget {
                           timeAgo,
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey.shade600,
+                            color: Colors.grey.shade400,
                           ),
                         ),
                         const SizedBox(width: 8),
                         Icon(
                           Icons.more_horiz,
                           size: 20,
-                          color: Colors.grey.shade600,
+                          color: Colors.grey.shade400,
                         ),
                       ],
                     ),
@@ -729,7 +731,7 @@ class _ReplyItemConnected extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.grey.shade300,
+                      color: Colors.grey.shade700,
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -774,7 +776,7 @@ class _ReplyItemConnected extends StatelessWidget {
                           replyCount!,
                           style: TextStyle(
                             fontSize: 13,
-                            color: Colors.grey.shade600,
+                            color: Colors.grey.shade400,
                           ),
                         ),
                       ],

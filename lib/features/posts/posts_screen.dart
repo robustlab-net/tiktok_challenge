@@ -48,7 +48,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
   Future<void> _showImageSourceDialog() async {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade900,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
@@ -98,22 +98,22 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Colors.grey.shade200,
+            color: Colors.grey.shade800,
             width: 0.5,
           ),
         ),
       ),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.black,
           elevation: 0,
           leading: TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text(
               'Cancel',
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 16,
               ),
             ),
@@ -122,7 +122,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
           title: const Text(
             'New thread',
             style: TextStyle(
-              color: Colors.black,
+              color: Colors.white,
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
@@ -134,7 +134,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.grey.shade200,
+                    color: Colors.grey.shade800,
                     width: 0.5,
                   ),
                 ),
@@ -170,14 +170,14 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                                 width: 2,
                                 height: 100,
                                 decoration: BoxDecoration(
-                                  color: Colors.grey.shade300,
+                                  color: Colors.grey.shade700,
                                 ),
                               ),
                               const SizedBox(height: 8),
                               // Small avatar at bottom
                               CircleAvatar(
                                 radius: 12,
-                                backgroundColor: Colors.grey.shade200,
+                                backgroundColor: Colors.grey.shade700,
                                 backgroundImage: const NetworkImage(
                                   'https://picsum.photos/100/100?random=user',
                                 ),
@@ -211,7 +211,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.zero,
                                   ),
-                                  style: const TextStyle(fontSize: 15),
+                                  style: const TextStyle(fontSize: 15, color: Colors.white),
                                 ),
                                 const SizedBox(height: 8),
                                 // Selected image
@@ -279,7 +279,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
                   border: Border(
-                    top: BorderSide(color: Colors.grey.shade200),
+                    top: BorderSide(color: Colors.grey.shade800),
                   ),
                 ),
                 child: SafeArea(
@@ -289,7 +289,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                       Text(
                         'Anyone can reply',
                         style: TextStyle(
-                          color: Colors.grey.shade600,
+                          color: Colors.grey.shade400,
                           fontSize: 15,
                         ),
                       ),
