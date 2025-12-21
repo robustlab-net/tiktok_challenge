@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PostsScreen extends StatelessWidget {
   const PostsScreen({super.key});
@@ -23,7 +25,9 @@ class NewThreadScreen extends StatefulWidget {
 
 class _NewThreadScreenState extends State<NewThreadScreen> {
   final TextEditingController _textController = TextEditingController();
+  final ImagePicker _imagePicker = ImagePicker();
   bool _hasText = false;
+  XFile? _selectedImage;
 
   @override
   void initState() {
@@ -39,6 +43,53 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
   void dispose() {
     _textController.dispose();
     super.dispose();
+  }
+
+  Future<void> _showImageSourceDialog() async {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.camera_alt),
+              title: const Text('Camera'),
+              onTap: () async {
+                Navigator.pop(context);
+                final XFile? image = await _imagePicker.pickImage(
+                  source: ImageSource.camera,
+                );
+                if (image != null) {
+                  setState(() {
+                    _selectedImage = image;
+                  });
+                }
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_library),
+              title: const Text('Library'),
+              onTap: () async {
+                Navigator.pop(context);
+                final XFile? image = await _imagePicker.pickImage(
+                  source: ImageSource.gallery,
+                );
+                if (image != null) {
+                  setState(() {
+                    _selectedImage = image;
+                  });
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -163,11 +214,55 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                                   style: const TextStyle(fontSize: 15),
                                 ),
                                 const SizedBox(height: 8),
+                                // Selected image
+                                if (_selectedImage != null) ...[
+                                  Stack(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image.file(
+                                          File(_selectedImage!.path),
+                                          width: double.infinity,
+                                          height: 300,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 8,
+                                        right: 8,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              _selectedImage = null;
+                                            });
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.all(6),
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey.shade800
+                                                  .withOpacity(0.8),
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: const Icon(
+                                              Icons.close,
+                                              color: Colors.white,
+                                              size: 18,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                ],
                                 // Attachment icon
-                                Icon(
-                                  FontAwesomeIcons.paperclip,
-                                  color: Colors.grey.shade400,
-                                  size: 20,
+                                GestureDetector(
+                                  onTap: _showImageSourceDialog,
+                                  child: Icon(
+                                    FontAwesomeIcons.paperclip,
+                                    color: Colors.grey.shade400,
+                                    size: 20,
+                                  ),
                                 ),
                               ],
                             ),

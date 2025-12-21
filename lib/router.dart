@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_challenge/features/authentication/main_navigation/main_navigation_screen.dart';
 import 'package:tiktok_challenge/features/settings/settings_screen.dart';
