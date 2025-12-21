@@ -36,7 +36,7 @@ class _PostWidgetState extends State<PostWidget> {
   }
 
   void _showPostOptions(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     showModalBottomSheet(
       context: context,
       backgroundColor: isDark ? Colors.grey.shade900 : Colors.white,
@@ -49,7 +49,7 @@ class _PostWidgetState extends State<PostWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     final hasStats = widget.post.replies > 0 || widget.post.likes > 0;
 
     return Container(
@@ -359,7 +359,7 @@ class _PostOptionsSheetState extends State<_PostOptionsSheet> {
   }
 
   Widget _buildMainOptions() {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
@@ -446,7 +446,7 @@ class _ReportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.9,
       child: Column(
@@ -609,7 +609,7 @@ class _OptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -642,7 +642,7 @@ class _ReportOptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return InkWell(
       onTap: onTap,
       child: Container(

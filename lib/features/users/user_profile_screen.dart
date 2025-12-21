@@ -14,7 +14,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -332,7 +332,7 @@ class _RepliesListView extends StatelessWidget {
       },
     ];
 
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
       color: isDark ? Colors.black : Colors.white,
       child: Column(
@@ -367,7 +367,7 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
       color: isDark ? Colors.black : Colors.white,
       child: Column(
@@ -478,7 +478,7 @@ class _ThreadItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -663,7 +663,7 @@ class _ReplyItemConnected extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: Row(

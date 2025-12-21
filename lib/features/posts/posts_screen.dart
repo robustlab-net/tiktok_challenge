@@ -46,7 +46,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
   }
 
   Future<void> _showImageSourceDialog() async {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     showModalBottomSheet(
       context: context,
       backgroundColor: isDark ? Colors.grey.shade900 : Colors.grey.shade100,
@@ -95,7 +95,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
       decoration: BoxDecoration(
         border: Border(
