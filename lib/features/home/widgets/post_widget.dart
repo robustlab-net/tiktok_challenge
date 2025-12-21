@@ -36,9 +36,10 @@ class _PostWidgetState extends State<PostWidget> {
   }
 
   void _showPostOptions(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? Colors.grey.shade900 : Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
       ),
@@ -48,13 +49,14 @@ class _PostWidgetState extends State<PostWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final hasStats = widget.post.replies > 0 || widget.post.likes > 0;
 
     return Container(
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Colors.grey.shade200,
+            color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
             width: 0.5,
           ),
         ),
@@ -102,7 +104,9 @@ class _PostWidgetState extends State<PostWidget> {
                         width: 2,
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
+                          color: isDark
+                              ? Colors.grey.shade700
+                              : Colors.grey.shade300,
                         ),
                       ),
                     ),
@@ -204,7 +208,9 @@ class _PostWidgetState extends State<PostWidget> {
                         Text(
                           widget.post.timeAgo,
                           style: TextStyle(
-                            color: Colors.grey.shade600,
+                            color: isDark
+                                ? Colors.grey.shade400
+                                : Colors.grey.shade600,
                             fontSize: 15,
                           ),
                         ),
@@ -213,7 +219,9 @@ class _PostWidgetState extends State<PostWidget> {
                           onTap: () => _showPostOptions(context),
                           child: Icon(
                             Icons.more_horiz,
-                            color: Colors.grey.shade600,
+                            color: isDark
+                                ? Colors.grey.shade400
+                                : Colors.grey.shade600,
                             size: 20,
                           ),
                         ),
@@ -307,7 +315,9 @@ class _PostWidgetState extends State<PostWidget> {
                         child: Text(
                           '${widget.post.replies} replies · ${widget.post.likes} likes',
                           style: TextStyle(
-                            color: Colors.grey.shade600,
+                            color: isDark
+                                ? Colors.grey.shade400
+                                : Colors.grey.shade600,
                             fontSize: 15,
                           ),
                         ),
@@ -349,6 +359,7 @@ class _PostOptionsSheetState extends State<_PostOptionsSheet> {
   }
 
   Widget _buildMainOptions() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
@@ -360,7 +371,7 @@ class _PostOptionsSheetState extends State<_PostOptionsSheet> {
             height: 4,
             margin: const EdgeInsets.only(bottom: 8),
             decoration: BoxDecoration(
-              color: Colors.grey.shade300,
+              color: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -435,6 +446,7 @@ class _ReportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.9,
       child: Column(
@@ -445,16 +457,17 @@ class _ReportScreen extends StatelessWidget {
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: Colors.grey.shade300,
+              color: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
           // Title
-          const Text(
+          Text(
             'Report',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w700,
+              color: isDark ? Colors.white : Colors.black,
             ),
           ),
           const SizedBox(height: 24),
@@ -463,11 +476,12 @@ class _ReportScreen extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               children: [
-                const Text(
+                Text(
                   'Why are you reporting this thread?',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
+                    color: isDark ? Colors.white : Colors.black,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -475,7 +489,7 @@ class _ReportScreen extends StatelessWidget {
                   "Your report is anonymous, except if you're reporting an intellectual property infringement. If someone is in immediate danger, call the local emergency services - don't wait.",
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.grey.shade600,
+                    color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                     height: 1.4,
                   ),
                 ),
@@ -595,17 +609,20 @@ class _OptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return InkWell(
       onTap: onTap,
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        color: Colors.grey.shade100,
+        color: isDark ? Colors.grey.shade800 : Colors.grey.shade100,
         child: Text(
           title,
           style: TextStyle(
             fontSize: 16,
-            color: isDestructive ? Colors.red : Colors.black,
+            color: isDestructive
+                ? Colors.red
+                : (isDark ? Colors.white : Colors.black),
           ),
         ),
       ),
@@ -625,13 +642,17 @@ class _ReportOptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return InkWell(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
           border: Border(
-            bottom: BorderSide(color: Colors.grey.shade200, width: 1),
+            bottom: BorderSide(
+              color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
+              width: 1,
+            ),
           ),
         ),
         child: Row(
@@ -640,10 +661,17 @@ class _ReportOptionTile extends StatelessWidget {
             Expanded(
               child: Text(
                 title,
-                style: const TextStyle(fontSize: 16),
+                style: TextStyle(
+                  fontSize: 16,
+                  color: isDark ? Colors.white : Colors.black,
+                ),
               ),
             ),
-            Icon(Icons.chevron_right, color: Colors.grey.shade400, size: 20),
+            Icon(
+              Icons.chevron_right,
+              color: isDark ? Colors.grey.shade500 : Colors.grey.shade400,
+              size: 20,
+            ),
           ],
         ),
       ),

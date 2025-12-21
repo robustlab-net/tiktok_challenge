@@ -9,7 +9,11 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const MainNavigationScreen(),
+      builder: (context, state) {
+        final tabParam = state.uri.queryParameters['tab'];
+        final initialIndex = tabParam != null ? int.tryParse(tabParam) : null;
+        return MainNavigationScreen(initialIndex: initialIndex);
+      },
     ),
     GoRoute(
       path: '/settings',

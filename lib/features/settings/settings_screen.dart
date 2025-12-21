@@ -66,7 +66,10 @@ class SettingsScreen extends StatelessWidget {
         leadingWidth: 80,
         leading: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () => context.go('/'),
+          onTap: () {
+            // Navigate to user profile screen (index 4 in MainNavigationScreen)
+            context.go('/?tab=4');
+          },
           child: Row(
             children: [
               const SizedBox(width: 8),

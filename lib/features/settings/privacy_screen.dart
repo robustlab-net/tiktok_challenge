@@ -15,27 +15,28 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? Colors.black : Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: isDark ? Colors.black : Colors.white,
         elevation: 0,
         leadingWidth: 80,
         leading: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () => context.go('/settings'),
-          child: const Row(
+          child: Row(
             children: [
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Icon(
                 Icons.arrow_back_ios,
-                color: Colors.black,
+                color: isDark ? Colors.white : Colors.black,
               ),
-              SizedBox(width: 2),
+              const SizedBox(width: 2),
               Text(
                 'Back',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: isDark ? Colors.white : Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
@@ -43,10 +44,10 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
             ],
           ),
         ),
-        title: const Text(
+        title: Text(
           'Privacy',
           style: TextStyle(
-            color: Colors.black,
+            color: isDark ? Colors.white : Colors.black,
             fontSize: 18,
             fontWeight: FontWeight.w600,
           ),
@@ -54,16 +55,21 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
       ),
       body: ListView(
         children: [
-          const Divider(height: 1),
+          Divider(height: 1, color: isDark ? Colors.grey.shade800 : Colors.grey.shade200),
           ListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const Icon(Icons.lock_outline, size: 28),
-            title: const Text(
+            leading: Icon(
+              Icons.lock_outline,
+              size: 28,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            title: Text(
               'Private profile',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
             trailing: CupertinoSwitch(
@@ -73,18 +79,23 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   _privateProfile = value;
                 });
               },
-              activeTrackColor: Colors.black,
+              activeTrackColor: isDark ? Colors.white : Colors.black,
             ),
           ),
           ListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const Icon(Icons.alternate_email, size: 28),
-            title: const Text(
+            leading: Icon(
+              Icons.alternate_email,
+              size: 28,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            title: Text(
               'Mentions',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
             trailing: Row(
@@ -93,12 +104,16 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                 Text(
                   'Everyone',
                   style: TextStyle(
-                    color: Colors.grey.shade600,
+                    color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                     fontSize: 15,
                   ),
                 ),
                 const SizedBox(width: 4),
-                const Icon(Icons.chevron_right, size: 20),
+                Icon(
+                  Icons.chevron_right,
+                  size: 20,
+                  color: isDark ? Colors.grey.shade500 : Colors.grey.shade400,
+                ),
               ],
             ),
             onTap: () {
@@ -108,15 +123,24 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
           ListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const Icon(Icons.volume_off_outlined, size: 28),
-            title: const Text(
+            leading: Icon(
+              Icons.volume_off_outlined,
+              size: 28,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            title: Text(
               'Muted',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
-            trailing: const Icon(Icons.chevron_right, size: 20),
+            trailing: Icon(
+              Icons.chevron_right,
+              size: 20,
+              color: isDark ? Colors.grey.shade500 : Colors.grey.shade400,
+            ),
             onTap: () {
               // TODO: Navigate to muted accounts
             },
@@ -124,15 +148,24 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
           ListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const Icon(Icons.visibility_off_outlined, size: 28),
-            title: const Text(
+            leading: Icon(
+              Icons.visibility_off_outlined,
+              size: 28,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            title: Text(
               'Hidden Words',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
-            trailing: const Icon(Icons.chevron_right, size: 20),
+            trailing: Icon(
+              Icons.chevron_right,
+              size: 20,
+              color: isDark ? Colors.grey.shade500 : Colors.grey.shade400,
+            ),
             onTap: () {
               // TODO: Navigate to hidden words
             },
@@ -140,15 +173,24 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
           ListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const Icon(Icons.people_outline, size: 28),
-            title: const Text(
+            leading: Icon(
+              Icons.people_outline,
+              size: 28,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            title: Text(
               'Profiles you follow',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
-            trailing: const Icon(Icons.chevron_right, size: 20),
+            trailing: Icon(
+              Icons.chevron_right,
+              size: 20,
+              color: isDark ? Colors.grey.shade500 : Colors.grey.shade400,
+            ),
             onTap: () {
               // TODO: Navigate to profiles you follow
             },
@@ -159,12 +201,12 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Other privacy settings',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.black,
+                    color: isDark ? Colors.white : Colors.black,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -172,7 +214,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   'Some settings, like restrict, apply to both Threads and Instagram and can be managed on Instagram.',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.grey.shade600,
+                    color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                     height: 1.4,
                   ),
                 ),
@@ -183,15 +225,24 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
           ListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const Icon(Icons.block_outlined, size: 28),
-            title: const Text(
+            leading: Icon(
+              Icons.block_outlined,
+              size: 28,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            title: Text(
               'Blocked profiles',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
-            trailing: const Icon(Icons.open_in_new, size: 20),
+            trailing: Icon(
+              Icons.open_in_new,
+              size: 20,
+              color: isDark ? Colors.grey.shade500 : Colors.grey.shade400,
+            ),
             onTap: () {
               // TODO: Navigate to blocked profiles (Instagram)
             },
@@ -199,15 +250,24 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
           ListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const Icon(FontAwesomeIcons.heart, size: 28),
-            title: const Text(
+            leading: Icon(
+              FontAwesomeIcons.heart,
+              size: 28,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            title: Text(
               'Hide likes',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
-            trailing: const Icon(Icons.open_in_new, size: 20),
+            trailing: Icon(
+              Icons.open_in_new,
+              size: 20,
+              color: isDark ? Colors.grey.shade500 : Colors.grey.shade400,
+            ),
             onTap: () {
               // TODO: Navigate to hide likes (Instagram)
             },
@@ -217,6 +277,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
+        backgroundColor: isDark ? Colors.black : Colors.white,
         currentIndex: 4,
         onTap: (index) {
           if (index == 2) {
@@ -227,7 +288,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
             context.go('/');
           }
         },
-        selectedItemColor: Colors.black,
+        selectedItemColor: isDark ? Colors.white : Colors.black,
         unselectedItemColor: Colors.grey,
         showSelectedLabels: false,
         showUnselectedLabels: false,
