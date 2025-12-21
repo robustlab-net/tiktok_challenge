@@ -46,9 +46,10 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
   }
 
   Future<void> _showImageSourceDialog() async {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.grey.shade900,
+      backgroundColor: isDark ? Colors.grey.shade900 : Colors.grey.shade100,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
@@ -94,35 +95,36 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Colors.grey.shade800,
+            color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
             width: 0.5,
           ),
         ),
       ),
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: isDark ? Colors.black : Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: isDark ? Colors.black : Colors.white,
           elevation: 0,
           leading: TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text(
+            child: Text(
               'Cancel',
               style: TextStyle(
-                color: Colors.white,
+                color: isDark ? Colors.white : Colors.black,
                 fontSize: 16,
               ),
             ),
           ),
           leadingWidth: 80,
-          title: const Text(
+          title: Text(
             'New thread',
             style: TextStyle(
-              color: Colors.white,
+              color: isDark ? Colors.white : Colors.black,
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
@@ -134,7 +136,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.grey.shade800,
+                    color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
                     width: 0.5,
                   ),
                 ),
@@ -170,14 +172,14 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                                 width: 2,
                                 height: 100,
                                 decoration: BoxDecoration(
-                                  color: Colors.grey.shade700,
+                                  color: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
                                 ),
                               ),
                               const SizedBox(height: 8),
                               // Small avatar at bottom
                               CircleAvatar(
                                 radius: 12,
-                                backgroundColor: Colors.grey.shade700,
+                                backgroundColor: isDark ? Colors.grey.shade700 : Colors.grey.shade200,
                                 backgroundImage: const NetworkImage(
                                   'https://picsum.photos/100/100?random=user',
                                 ),
@@ -211,7 +213,10 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.zero,
                                   ),
-                                  style: const TextStyle(fontSize: 15, color: Colors.white),
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: isDark ? Colors.white : Colors.black,
+                                  ),
                                 ),
                                 const SizedBox(height: 8),
                                 // Selected image
@@ -279,7 +284,9 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
                   border: Border(
-                    top: BorderSide(color: Colors.grey.shade800),
+                    top: BorderSide(
+                      color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
+                    ),
                   ),
                 ),
                 child: SafeArea(
@@ -289,7 +296,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
                       Text(
                         'Anyone can reply',
                         style: TextStyle(
-                          color: Colors.grey.shade400,
+                          color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                           fontSize: 15,
                         ),
                       ),

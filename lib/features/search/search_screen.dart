@@ -19,6 +19,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -43,8 +44,11 @@ class _SearchScreenState extends State<SearchScreen> {
               child: CupertinoSearchTextField(
                 controller: _searchController,
                 placeholder: 'Search',
-                style: const TextStyle(fontSize: 16, color: Colors.white),
-                backgroundColor: Colors.grey.shade900,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: isDark ? Colors.white : Colors.black,
+                ),
+                backgroundColor: isDark ? Colors.grey.shade900 : Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(10),
                 prefixInsets: const EdgeInsets.symmetric(horizontal: 12),
                 suffixInsets: const EdgeInsets.symmetric(horizontal: 8),
@@ -136,6 +140,7 @@ class _UserTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Column(
@@ -179,7 +184,7 @@ class _UserTile extends StatelessWidget {
                       displayName,
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey.shade400,
+                        color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -206,7 +211,7 @@ class _UserTile extends StatelessWidget {
                           '$followers followers',
                           style: TextStyle(
                             fontSize: 14,
-                            color: Colors.grey.shade400,
+                            color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                           ),
                         ),
                       ],
@@ -219,15 +224,17 @@ class _UserTile extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade700),
+                  border: Border.all(
+                    color: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
+                  ),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Text(
+                child: Text(
                   'Follow',
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: isDark ? Colors.white : Colors.black,
                   ),
                 ),
               ),
@@ -237,7 +244,7 @@ class _UserTile extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 60, top: 12),
             height: 0.5,
-            color: Colors.grey.shade800,
+            color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
           ),
         ],
       ),

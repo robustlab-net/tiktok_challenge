@@ -8,6 +8,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final posts = [
       Post(
         username: 'pubity',
@@ -96,8 +97,8 @@ class HomeScreen extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              backgroundColor: Colors.black,
-              surfaceTintColor: Colors.black,
+              backgroundColor: isDark ? Colors.black : Colors.white,
+              surfaceTintColor: isDark ? Colors.black : Colors.white,
               elevation: 0,
               floating: false,
               pinned: true,
@@ -120,12 +121,12 @@ class HomeScreen extends StatelessWidget {
                   final double topPadding = currentHeight < maxHeight ? 16 : 24;
 
                   return Container(
-                    color: Colors.black,
+                    color: isDark ? Colors.black : Colors.white,
                     alignment: Alignment.topCenter,
                     padding: EdgeInsets.only(top: topPadding),
                     child: FaIcon(
                       FontAwesomeIcons.at,
-                      color: Colors.white,
+                      color: isDark ? Colors.white : Colors.black,
                       size: iconSize.clamp(24, 32),
                     ),
                   );

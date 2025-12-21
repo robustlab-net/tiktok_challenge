@@ -12,6 +12,7 @@ class _AlertsScreenState extends State<AlertsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -138,7 +139,7 @@ class _AlertsScreenState extends State<AlertsScreen> {
                         _selectedTab,
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.grey.shade400,
+                          color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                         ),
                       ),
                     ),
@@ -163,16 +164,21 @@ class _TabButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: onTap,
       child: Container(
         width: 110,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.white : Colors.transparent,
+          color: isSelected
+              ? (isDark ? Colors.white : Colors.black)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: isSelected ? Colors.white : Colors.grey.shade700,
+            color: isSelected
+                ? (isDark ? Colors.white : Colors.black)
+                : (isDark ? Colors.grey.shade700 : Colors.grey.shade300),
           ),
         ),
         child: Center(
@@ -181,7 +187,9 @@ class _TabButton extends StatelessWidget {
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w600,
-              color: isSelected ? Colors.black : Colors.white,
+              color: isSelected
+                  ? (isDark ? Colors.black : Colors.white)
+                  : (isDark ? Colors.white : Colors.black),
             ),
           ),
         ),
@@ -213,6 +221,7 @@ class _ActivityItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Column(
@@ -236,7 +245,10 @@ class _ActivityItem extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: badgeColor,
                         shape: BoxShape.circle,
-                        border: Border.all(color: Colors.black, width: 2),
+                        border: Border.all(
+                          color: isDark ? Colors.black : Colors.white,
+                          width: 2,
+                        ),
                       ),
                       child: Icon(
                         badgeIcon,
@@ -268,7 +280,7 @@ class _ActivityItem extends StatelessWidget {
                           timeAgo,
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey.shade400,
+                            color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                           ),
                         ),
                       ],
@@ -280,7 +292,7 @@ class _ActivityItem extends StatelessWidget {
                         activityType,
                         style: TextStyle(
                           fontSize: 15,
-                          color: Colors.grey.shade400,
+                          color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                         ),
                       ),
                     ],
@@ -304,15 +316,17 @@ class _ActivityItem extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.shade700),
+                    border: Border.all(
+                      color: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Following',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: isDark ? Colors.white : Colors.black,
                     ),
                   ),
                 ),
@@ -323,7 +337,7 @@ class _ActivityItem extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 60, top: 12),
             height: 0.5,
-            color: Colors.grey.shade800,
+            color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
           ),
         ],
       ),

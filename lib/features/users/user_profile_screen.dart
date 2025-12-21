@@ -14,35 +14,36 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           // Top navigation bar
           SliverAppBar(
             floating: true,
-            backgroundColor: Colors.black,
+            backgroundColor: isDark ? Colors.black : Colors.white,
             elevation: 0,
             leading: IconButton(
-              icon: const FaIcon(
+              icon: FaIcon(
                 FontAwesomeIcons.globe,
-                color: Colors.white,
+                color: isDark ? Colors.white : Colors.black,
                 size: 24,
               ),
               onPressed: () {},
             ),
             actions: [
               IconButton(
-                icon: const FaIcon(
+                icon: FaIcon(
                   FontAwesomeIcons.instagram,
-                  color: Colors.white,
+                  color: isDark ? Colors.white : Colors.black,
                   size: 24,
                 ),
                 onPressed: () {},
               ),
               IconButton(
-                icon: const Icon(
+                icon: Icon(
                   FontAwesomeIcons.equals,
-                  color: Colors.white,
+                  color: isDark ? Colors.white : Colors.black,
                   size: 28,
                 ),
                 onPressed: () => context.go('/settings'),
@@ -88,14 +89,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     vertical: 4,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: Colors.grey.shade800,
+                                    color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Text(
                                     'threads.net',
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: Colors.grey.shade400,
+                                      color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                                     ),
                                   ),
                                 ),
@@ -123,7 +124,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               height: 30,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.grey.shade800,
+                                color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
                               ),
                               child: const Center(
                                 child: Text(
@@ -180,7 +181,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color: Colors.black,
+                                      color: isDark ? Colors.black : Colors.white,
                                       width: 2,
                                     ),
                                     image: const DecorationImage(
@@ -200,7 +201,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           '2 followers',
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey.shade400,
+                            color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                           ),
                         ),
                       ],
@@ -214,17 +215,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             height: 36,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: Colors.grey.shade700,
+                                color: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
                                 'Edit profile',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white,
+                                  color: isDark ? Colors.white : Colors.black,
                                 ),
                               ),
                             ),
@@ -236,17 +237,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             height: 36,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: Colors.grey.shade700,
+                                color: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
                                 'Share profile',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white,
+                                  color: isDark ? Colors.white : Colors.black,
                                 ),
                               ),
                             ),
@@ -331,8 +332,9 @@ class _RepliesListView extends StatelessWidget {
       },
     ];
 
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      color: Colors.black,
+      color: isDark ? Colors.black : Colors.white,
       child: Column(
         children: List.generate(replies.length, (index) {
           final reply = replies[index];
@@ -365,13 +367,14 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      color: Colors.black,
+      color: isDark ? Colors.black : Colors.white,
       child: Column(
         children: [
           Container(
             height: 1,
-            color: Colors.grey.shade800,
+            color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
           ),
           Row(
             children: [
@@ -384,7 +387,7 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
                       border: Border(
                         bottom: BorderSide(
                           color: selectedTab == 'Threads'
-                              ? Colors.white
+                              ? (isDark ? Colors.white : Colors.black)
                               : Colors.transparent,
                           width: 1.5,
                         ),
@@ -397,7 +400,7 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: selectedTab == 'Threads'
-                              ? Colors.white
+                              ? (isDark ? Colors.white : Colors.black)
                               : Colors.grey.shade500,
                         ),
                       ),
@@ -414,7 +417,7 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
                       border: Border(
                         bottom: BorderSide(
                           color: selectedTab == 'Replies'
-                              ? Colors.white
+                              ? (isDark ? Colors.white : Colors.black)
                               : Colors.transparent,
                           width: 1.5,
                         ),
@@ -427,7 +430,7 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: selectedTab == 'Replies'
-                              ? Colors.white
+                              ? (isDark ? Colors.white : Colors.black)
                               : Colors.grey.shade500,
                         ),
                       ),
@@ -475,12 +478,13 @@ class _ThreadItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Colors.grey.shade800,
+            color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
             width: 1.5,
           ),
         ),
@@ -516,14 +520,14 @@ class _ThreadItem extends StatelessWidget {
                           timeAgo,
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey.shade400,
+                            color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                           ),
                         ),
                         const SizedBox(width: 8),
                         Icon(
                           Icons.more_horiz,
                           size: 20,
-                          color: Colors.grey.shade400,
+                          color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                         ),
                       ],
                     ),
@@ -544,7 +548,7 @@ class _ThreadItem extends StatelessWidget {
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.grey.shade700,
+                        color: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -659,6 +663,7 @@ class _ReplyItemConnected extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: Row(
@@ -676,7 +681,7 @@ class _ReplyItemConnected extends StatelessWidget {
                   width: 2,
                   height: 160,
                   margin: const EdgeInsets.only(top: 8),
-                  color: Colors.grey.shade700,
+                  color: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
                 ),
             ],
           ),
@@ -703,14 +708,14 @@ class _ReplyItemConnected extends StatelessWidget {
                           timeAgo,
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey.shade400,
+                            color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                           ),
                         ),
                         const SizedBox(width: 8),
                         Icon(
                           Icons.more_horiz,
                           size: 20,
-                          color: Colors.grey.shade400,
+                          color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                         ),
                       ],
                     ),
@@ -731,7 +736,7 @@ class _ReplyItemConnected extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.grey.shade700,
+                      color: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -776,7 +781,7 @@ class _ReplyItemConnected extends StatelessWidget {
                           replyCount!,
                           style: TextStyle(
                             fontSize: 13,
-                            color: Colors.grey.shade400,
+                            color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                           ),
                         ),
                       ],
