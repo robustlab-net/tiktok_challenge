@@ -57,27 +57,28 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? Colors.black : Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: isDark ? Colors.black : Colors.white,
         elevation: 0,
         leadingWidth: 80,
         leading: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () => context.pop(),
-          child: const Row(
+          onTap: () => context.go('/'),
+          child: Row(
             children: [
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Icon(
                 Icons.arrow_back_ios,
-                color: Colors.black,
+                color: isDark ? Colors.white : Colors.black,
               ),
-              SizedBox(width: 2),
+              const SizedBox(width: 2),
               Text(
                 'Back',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: isDark ? Colors.white : Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
@@ -85,10 +86,10 @@ class SettingsScreen extends StatelessWidget {
             ],
           ),
         ),
-        title: const Text(
+        title: Text(
           'Settings',
           style: TextStyle(
-            color: Colors.black,
+            color: isDark ? Colors.white : Colors.black,
             fontSize: 18,
             fontWeight: FontWeight.w600,
           ),
@@ -215,6 +216,7 @@ class SettingsScreen extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
+        backgroundColor: isDark ? Colors.black : Colors.white,
         currentIndex: 4,
         onTap: (index) {
           if (index == 2) {
@@ -225,7 +227,7 @@ class SettingsScreen extends StatelessWidget {
             context.go('/');
           }
         },
-        selectedItemColor: Colors.black,
+        selectedItemColor: isDark ? Colors.white : Colors.black,
         unselectedItemColor: Colors.grey,
         showSelectedLabels: false,
         showUnselectedLabels: false,

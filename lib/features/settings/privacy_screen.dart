@@ -23,7 +23,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
         leadingWidth: 80,
         leading: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () => context.pop(),
+          onTap: () => context.go('/settings'),
           child: const Row(
             children: [
               SizedBox(width: 8),
