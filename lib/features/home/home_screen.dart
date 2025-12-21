@@ -92,12 +92,11 @@ class HomeScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.black,
               surfaceTintColor: Colors.white,
               elevation: 0,
               floating: false,

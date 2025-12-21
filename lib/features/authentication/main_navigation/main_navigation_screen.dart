@@ -54,9 +54,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.black,
         currentIndex: _selectedIndex,
         onTap: _onTap,
-        selectedItemColor: Colors.black,
+        selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey,
         showSelectedLabels: false,
         showUnselectedLabels: false,

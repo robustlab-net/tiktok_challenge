@@ -13,7 +13,9 @@ class TikTokApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'TikTok Clone',
       theme: ThemeData(
-        primaryColor: const Color(0xFF1DA1F2), // Twitter blue
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.black,
+        primaryColor: const Color(0xFF1DA1F2),
       ),
       routerConfig: router,
     );

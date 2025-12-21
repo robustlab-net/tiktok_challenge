@@ -13,7 +13,6 @@ class _AlertsScreenState extends State<AlertsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,8 +136,10 @@ class _AlertsScreenState extends State<AlertsScreen> {
                   : Center(
                       child: Text(
                         _selectedTab,
-                        style:
-                            const TextStyle(fontSize: 18, color: Colors.grey),
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey.shade400,
+                        ),
                       ),
                     ),
             ),
@@ -168,10 +169,10 @@ class _TabButton extends StatelessWidget {
         width: 110,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.black : Colors.transparent,
+          color: isSelected ? Colors.white : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: isSelected ? Colors.black : Colors.grey.shade300,
+            color: isSelected ? Colors.white : Colors.grey.shade700,
           ),
         ),
         child: Center(
@@ -180,7 +181,7 @@ class _TabButton extends StatelessWidget {
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w600,
-              color: isSelected ? Colors.white : Colors.black,
+              color: isSelected ? Colors.black : Colors.white,
             ),
           ),
         ),
@@ -235,7 +236,7 @@ class _ActivityItem extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: badgeColor,
                         shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 2),
+                        border: Border.all(color: Colors.black, width: 2),
                       ),
                       child: Icon(
                         badgeIcon,
@@ -267,7 +268,7 @@ class _ActivityItem extends StatelessWidget {
                           timeAgo,
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey.shade600,
+                            color: Colors.grey.shade400,
                           ),
                         ),
                       ],
@@ -279,7 +280,7 @@ class _ActivityItem extends StatelessWidget {
                         activityType,
                         style: TextStyle(
                           fontSize: 15,
-                          color: Colors.grey.shade600,
+                          color: Colors.grey.shade400,
                         ),
                       ),
                     ],
@@ -303,7 +304,7 @@ class _ActivityItem extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.shade300),
+                    border: Border.all(color: Colors.grey.shade700),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Text(
@@ -311,6 +312,7 @@ class _ActivityItem extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -321,7 +323,7 @@ class _ActivityItem extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 60, top: 12),
             height: 0.5,
-            color: Colors.grey.shade200,
+            color: Colors.grey.shade800,
           ),
         ],
       ),

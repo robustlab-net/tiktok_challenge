@@ -20,7 +20,6 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: SafeArea(
@@ -44,8 +43,8 @@ class _SearchScreenState extends State<SearchScreen> {
               child: CupertinoSearchTextField(
                 controller: _searchController,
                 placeholder: 'Search',
-                style: const TextStyle(fontSize: 16),
-                backgroundColor: Colors.grey.shade100,
+                style: const TextStyle(fontSize: 16, color: Colors.white),
+                backgroundColor: Colors.grey.shade900,
                 borderRadius: BorderRadius.circular(10),
                 prefixInsets: const EdgeInsets.symmetric(horizontal: 12),
                 suffixInsets: const EdgeInsets.symmetric(horizontal: 8),
@@ -180,7 +179,7 @@ class _UserTile extends StatelessWidget {
                       displayName,
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey.shade600,
+                        color: Colors.grey.shade400,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -207,7 +206,7 @@ class _UserTile extends StatelessWidget {
                           '$followers followers',
                           style: TextStyle(
                             fontSize: 14,
-                            color: Colors.grey.shade600,
+                            color: Colors.grey.shade400,
                           ),
                         ),
                       ],
@@ -220,7 +219,7 @@ class _UserTile extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: Colors.grey.shade700),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Text(
@@ -228,6 +227,7 @@ class _UserTile extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -237,7 +237,7 @@ class _UserTile extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 60, top: 12),
             height: 0.5,
-            color: Colors.grey.shade200,
+            color: Colors.grey.shade800,
           ),
         ],
       ),

@@ -15,18 +15,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           // Top navigation bar
           SliverAppBar(
             floating: true,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.black,
             elevation: 0,
             leading: IconButton(
               icon: const FaIcon(
                 FontAwesomeIcons.globe,
-                color: Colors.black,
+                color: Colors.white,
                 size: 24,
               ),
               onPressed: () {},
@@ -35,7 +34,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               IconButton(
                 icon: const FaIcon(
                   FontAwesomeIcons.instagram,
-                  color: Colors.black,
+                  color: Colors.white,
                   size: 24,
                 ),
                 onPressed: () {},
@@ -43,7 +42,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               IconButton(
                 icon: const Icon(
                   FontAwesomeIcons.equals,
-                  color: Colors.black,
+                  color: Colors.white,
                   size: 28,
                 ),
                 onPressed: () => context.go('/settings'),
@@ -52,9 +51,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           ),
           // Profile information
           SliverToBoxAdapter(
-            child: Container(
-              color: Colors.white,
-              child: Padding(
+            child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -258,7 +255,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     const SizedBox(height: 20),
                   ],
                 ),
-              ),
             ),
           ),
           // Tabs header
@@ -368,12 +364,12 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      color: Colors.white,
+      color: Colors.black,
       child: Column(
         children: [
           Container(
             height: 1,
-            color: Colors.grey.shade200,
+            color: Colors.grey.shade800,
           ),
           Row(
             children: [
@@ -386,7 +382,7 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
                       border: Border(
                         bottom: BorderSide(
                           color: selectedTab == 'Threads'
-                              ? Colors.black
+                              ? Colors.white
                               : Colors.transparent,
                           width: 1.5,
                         ),
@@ -399,7 +395,7 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: selectedTab == 'Threads'
-                              ? Colors.black
+                              ? Colors.white
                               : Colors.grey.shade500,
                         ),
                       ),
@@ -416,7 +412,7 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
                       border: Border(
                         bottom: BorderSide(
                           color: selectedTab == 'Replies'
-                              ? Colors.black
+                              ? Colors.white
                               : Colors.transparent,
                           width: 1.5,
                         ),
@@ -429,7 +425,7 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: selectedTab == 'Replies'
-                              ? Colors.black
+                              ? Colors.white
                               : Colors.grey.shade500,
                         ),
                       ),
