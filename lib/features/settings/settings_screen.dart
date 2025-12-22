@@ -67,8 +67,8 @@ class SettingsScreen extends StatelessWidget {
         leading: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
-            // Navigate to user profile screen (index 4 in MainNavigationScreen)
-            context.go('/?tab=4');
+            // 프로필에서 진입한 Settings이므로 Back 시 프로필 URL로 복귀
+            context.go('/profile');
           },
           child: Row(
             children: [

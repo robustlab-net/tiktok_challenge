@@ -5,16 +5,31 @@ import 'package:tiktok_challenge/features/settings/privacy_screen.dart';
 import 'package:tiktok_challenge/features/posts/posts_screen.dart';
 
 final router = GoRouter(
+  // 기본 경로는 홈(피드) 탭
   initialLocation: '/',
   routes: [
+    // Bottom navigation이 올라가는 메인 탭들
     GoRoute(
       path: '/',
-      builder: (context, state) {
-        final tabParam = state.uri.queryParameters['tab'];
-        final initialIndex = tabParam != null ? int.tryParse(tabParam) : null;
-        return MainNavigationScreen(initialIndex: initialIndex);
-      },
+      builder: (context, state) =>
+          const MainNavigationScreen(initialIndex: 0), // Home
     ),
+    GoRoute(
+      path: '/search',
+      builder: (context, state) =>
+          const MainNavigationScreen(initialIndex: 1), // Search
+    ),
+    GoRoute(
+      path: '/activity',
+      builder: (context, state) =>
+          const MainNavigationScreen(initialIndex: 3), // Activity(Alerts)
+    ),
+    GoRoute(
+      path: '/profile',
+      builder: (context, state) =>
+          const MainNavigationScreen(initialIndex: 4), // Profile
+    ),
+    // Settings 관련
     GoRoute(
       path: '/settings',
       builder: (context, state) => const SettingsScreen(),
@@ -23,6 +38,7 @@ final router = GoRouter(
       path: '/settings/privacy',
       builder: (context, state) => const PrivacyScreen(),
     ),
+    // 쓰기 화면은 기존처럼 모달로도 쓰고, URL로도 접근 가능
     GoRoute(
       path: '/new-thread',
       builder: (context, state) => const NewThreadScreen(),
