@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
 class PostsScreen extends StatelessWidget {
   const PostsScreen({super.key});
@@ -46,7 +48,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
   }
 
   Future<void> _showImageSourceDialog() async {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.read<DarkModeViewModel>().isDarkMode;
     showModalBottomSheet(
       context: context,
       backgroundColor: isDark ? Colors.grey.shade900 : Colors.grey.shade100,
@@ -95,7 +97,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     return Container(
       decoration: BoxDecoration(
         border: Border(

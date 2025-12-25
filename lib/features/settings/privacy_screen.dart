@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
 class PrivacyScreen extends StatefulWidget {
   const PrivacyScreen({super.key});
@@ -15,7 +17,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     return Scaffold(
       backgroundColor: isDark ? Colors.black : Colors.white,
       appBar: AppBar(
@@ -280,12 +282,22 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
         backgroundColor: isDark ? Colors.black : Colors.white,
         currentIndex: 4,
         onTap: (index) {
-          if (index == 2) {
-            // Show new thread screen as modal
-            context.go('/new-thread');
-          } else {
-            // Navigate back to home
-            context.go('/');
+          switch (index) {
+            case 0:
+              context.go('/');
+              break;
+            case 1:
+              context.go('/search');
+              break;
+            case 2:
+              context.go('/new-thread');
+              break;
+            case 3:
+              context.go('/activity');
+              break;
+            case 4:
+              context.go('/profile');
+              break;
           }
         },
         selectedItemColor: isDark ? Colors.white : Colors.black,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:tiktok_challenge/features/home/home_screen.dart';
 import 'package:tiktok_challenge/features/search/search_screen.dart';
 import 'package:tiktok_challenge/features/posts/posts_screen.dart';
 import 'package:tiktok_challenge/features/alerts/alerts_screen.dart';
 import 'package:tiktok_challenge/features/users/user_profile_screen.dart';
+import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   final int? initialIndex;
@@ -50,7 +52,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     return Scaffold(
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:tiktok_challenge/features/home/models/post_model.dart';
+import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
 class PostWidget extends StatefulWidget {
   final Post post;
@@ -36,7 +38,7 @@ class _PostWidgetState extends State<PostWidget> {
   }
 
   void _showPostOptions(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.read<DarkModeViewModel>().isDarkMode;
     showModalBottomSheet(
       context: context,
       backgroundColor: isDark ? Colors.grey.shade900 : Colors.white,
@@ -49,7 +51,7 @@ class _PostWidgetState extends State<PostWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     final hasStats = widget.post.replies > 0 || widget.post.likes > 0;
 
     return Container(
@@ -359,7 +361,7 @@ class _PostOptionsSheetState extends State<_PostOptionsSheet> {
   }
 
   Widget _buildMainOptions() {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
@@ -446,7 +448,7 @@ class _ReportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.9,
       child: Column(
@@ -609,7 +611,7 @@ class _OptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -642,7 +644,7 @@ class _ReportOptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     return InkWell(
       onTap: onTap,
       child: Container(

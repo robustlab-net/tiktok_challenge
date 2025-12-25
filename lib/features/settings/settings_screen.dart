@@ -278,12 +278,22 @@ class SettingsScreen extends StatelessWidget {
         backgroundColor: isDark ? Colors.black : Colors.white,
         currentIndex: 4,
         onTap: (index) {
-          if (index == 2) {
-            // Show new thread screen as modal
-            context.go('/new-thread');
-          } else {
-            // Navigate back to home
-            context.go('/');
+          switch (index) {
+            case 0:
+              context.go('/');
+              break;
+            case 1:
+              context.go('/search');
+              break;
+            case 2:
+              context.go('/new-thread');
+              break;
+            case 3:
+              context.go('/activity');
+              break;
+            case 4:
+              context.go('/profile');
+              break;
           }
         },
         selectedItemColor: isDark ? Colors.white : Colors.black,

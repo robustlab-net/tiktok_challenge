@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -19,7 +21,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -28,13 +30,14 @@ class _SearchScreenState extends State<SearchScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
             // Title
-            const Padding(
-              padding: EdgeInsets.all(16),
+            Padding(
+              padding: const EdgeInsets.all(16),
               child: Text(
                 'Search',
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
+                  color: isDark ? Colors.white : Colors.black,
                 ),
               ),
             ),
@@ -140,7 +143,7 @@ class _UserTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Column(
@@ -163,9 +166,10 @@ class _UserTile extends StatelessWidget {
                       children: [
                         Text(
                           username,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
+                            color: isDark ? Colors.white : Colors.black,
                           ),
                         ),
                         if (verified) ...[

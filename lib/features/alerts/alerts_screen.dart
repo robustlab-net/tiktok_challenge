@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
 class AlertsScreen extends StatefulWidget {
   const AlertsScreen({super.key});
@@ -12,20 +14,21 @@ class _AlertsScreenState extends State<AlertsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     return Scaffold(
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Title
-            const Padding(
-              padding: EdgeInsets.all(16),
+            Padding(
+              padding: const EdgeInsets.all(16),
               child: Text(
                 'Activity',
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
+                  color: isDark ? Colors.white : Colors.black,
                 ),
               ),
             ),
@@ -164,7 +167,7 @@ class _TabButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -221,7 +224,7 @@ class _ActivityItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Column(
@@ -270,9 +273,10 @@ class _ActivityItem extends StatelessWidget {
                       children: [
                         Text(
                           username,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
+                            color: isDark ? Colors.white : Colors.black,
                           ),
                         ),
                         const SizedBox(width: 6),
@@ -301,8 +305,9 @@ class _ActivityItem extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         content!,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 15,
+                          color: isDark ? Colors.white : Colors.black,
                         ),
                       ),
                     ],
