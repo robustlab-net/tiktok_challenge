@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -57,7 +59,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
     return Scaffold(
       backgroundColor: isDark ? Colors.black : Colors.white,
       appBar: AppBar(
@@ -101,15 +103,44 @@ class SettingsScreen extends StatelessWidget {
       body: ListView(
         children: [
           const Divider(height: 1),
+          SwitchListTile.adaptive(
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            value: context.watch<DarkModeViewModel>().isDarkMode,
+            onChanged: (value) =>
+                context.read<DarkModeViewModel>().setDarkMode(value),
+            title: Text(
+              'Dark mode',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
+              ),
+            ),
+            subtitle: Text(
+              'Enable dark mode for better viewing in low light.',
+              style: TextStyle(
+                fontSize: 14,
+                color: isDark ? Colors.grey[400] : Colors.grey[600],
+              ),
+            ),
+          ),
+          const Divider(height: 1),
+          const SizedBox(height: 8),
           ListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const Icon(Icons.person_add_outlined, size: 28),
-            title: const Text(
+            leading: Icon(
+              Icons.person_add_outlined,
+              size: 28,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            title: Text(
               'Follow and invite friends',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
             onTap: () {
@@ -119,12 +150,17 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const Icon(Icons.notifications_outlined, size: 28),
-            title: const Text(
+            leading: Icon(
+              Icons.notifications_outlined,
+              size: 28,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            title: Text(
               'Notifications',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
             onTap: () {
@@ -134,12 +170,17 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const Icon(Icons.lock_outline, size: 28),
-            title: const Text(
+            leading: Icon(
+              Icons.lock_outline,
+              size: 28,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            title: Text(
               'Privacy',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
             onTap: () => context.go('/settings/privacy'),
@@ -147,12 +188,17 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const Icon(Icons.account_circle_outlined, size: 28),
-            title: const Text(
+            leading: Icon(
+              Icons.account_circle_outlined,
+              size: 28,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            title: Text(
               'Account',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
             onTap: () {
@@ -162,12 +208,17 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const Icon(Icons.help_outline, size: 28),
-            title: const Text(
+            leading: Icon(
+              Icons.help_outline,
+              size: 28,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            title: Text(
               'Help',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
             onTap: () {
@@ -177,12 +228,17 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const Icon(Icons.info_outline, size: 28),
-            title: const Text(
+            leading: Icon(
+              Icons.info_outline,
+              size: 28,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            title: Text(
               'About',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
             onTap: () {

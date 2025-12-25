@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tiktok_challenge/features/settings/repositories/dark_mode_repository.dart';
+import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 import 'package:tiktok_challenge/router.dart';
 
-void main() {
-  runApp(const TikTokApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final preferences = await SharedPreferences.getInstance();
+  final darkModeRepository = DarkModeRepository(preferences);
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => DarkModeViewModel(darkModeRepository),
+      child: const TikTokApp(),
+    ),
+  );
 }
 
 class TikTokApp extends StatelessWidget {
@@ -24,7 +38,9 @@ class TikTokApp extends StatelessWidget {
         primaryColor: const Color(0xFF1DA1F2),
         useMaterial3: true,
       ),
-      themeMode: ThemeMode.system,
+      themeMode: context.watch<DarkModeViewModel>().isDarkMode
+          ? ThemeMode.dark
+          : ThemeMode.light,
       routerConfig: router,
     );
   }
