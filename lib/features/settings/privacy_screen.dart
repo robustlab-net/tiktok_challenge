@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
@@ -253,7 +252,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             leading: Icon(
-              FontAwesomeIcons.heart,
+              Icons.favorite_border,
               size: 28,
               color: isDark ? Colors.white : Colors.black,
             ),
@@ -275,56 +274,6 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
             },
           ),
           const SizedBox(height: 32),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: isDark ? Colors.black : Colors.white,
-        currentIndex: 4,
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              context.go('/');
-              break;
-            case 1:
-              context.go('/search');
-              break;
-            case 2:
-              context.go('/new-thread');
-              break;
-            case 3:
-              context.go('/activity');
-              break;
-            case 4:
-              context.go('/profile');
-              break;
-          }
-        },
-        selectedItemColor: isDark ? Colors.white : Colors.black,
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.house, size: 24),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.magnifyingGlass, size: 24),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.penToSquare, size: 24),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.heart, size: 24),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.solidUser, size: 24),
-            label: '',
-          ),
         ],
       ),
     );
