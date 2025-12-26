@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_challenge/features/home/models/post_model.dart';
 import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
-class PostWidget extends StatefulWidget {
+class PostWidget extends ConsumerStatefulWidget {
   final Post post;
 
   const PostWidget({
@@ -13,10 +13,10 @@ class PostWidget extends StatefulWidget {
   });
 
   @override
-  State<PostWidget> createState() => _PostWidgetState();
+  ConsumerState<PostWidget> createState() => _PostWidgetState();
 }
 
-class _PostWidgetState extends State<PostWidget> {
+class _PostWidgetState extends ConsumerState<PostWidget> {
   late final PageController _pageController;
   int _currentImageIndex = 0;
 
@@ -38,7 +38,7 @@ class _PostWidgetState extends State<PostWidget> {
   }
 
   void _showPostOptions(BuildContext context) {
-    final isDark = context.read<DarkModeViewModel>().isDarkMode;
+    final isDark = ref.read(darkModeProvider);
     showModalBottomSheet(
       context: context,
       backgroundColor: isDark ? Colors.grey.shade900 : Colors.white,
@@ -51,7 +51,7 @@ class _PostWidgetState extends State<PostWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+    final isDark = ref.watch(darkModeProvider);
     final hasStats = widget.post.replies > 0 || widget.post.likes > 0;
 
     return Container(
@@ -336,16 +336,16 @@ class _PostWidgetState extends State<PostWidget> {
 }
 
 // Bottom Sheet for Post Options
-class _PostOptionsSheet extends StatefulWidget {
+class _PostOptionsSheet extends ConsumerStatefulWidget {
   final String username;
 
   const _PostOptionsSheet({required this.username});
 
   @override
-  State<_PostOptionsSheet> createState() => _PostOptionsSheetState();
+  ConsumerState<_PostOptionsSheet> createState() => _PostOptionsSheetState();
 }
 
-class _PostOptionsSheetState extends State<_PostOptionsSheet> {
+class _PostOptionsSheetState extends ConsumerState<_PostOptionsSheet> {
   bool _showReportScreen = false;
 
   @override
@@ -361,7 +361,7 @@ class _PostOptionsSheetState extends State<_PostOptionsSheet> {
   }
 
   Widget _buildMainOptions() {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+    final isDark = ref.watch(darkModeProvider);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
@@ -441,14 +441,14 @@ class _PostOptionsSheetState extends State<_PostOptionsSheet> {
 }
 
 // Report Screen
-class _ReportScreen extends StatelessWidget {
+class _ReportScreen extends ConsumerWidget {
   final VoidCallback onBack;
 
   const _ReportScreen({required this.onBack});
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = ref.watch(darkModeProvider);
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.9,
       child: Column(
@@ -598,7 +598,7 @@ class _ReportScreen extends StatelessWidget {
 }
 
 // Option Tile for main options
-class _OptionTile extends StatelessWidget {
+class _OptionTile extends ConsumerWidget {
   final String title;
   final VoidCallback onTap;
   final bool isDestructive;
@@ -610,8 +610,8 @@ class _OptionTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = ref.watch(darkModeProvider);
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -633,7 +633,7 @@ class _OptionTile extends StatelessWidget {
 }
 
 // Report Option Tile
-class _ReportOptionTile extends StatelessWidget {
+class _ReportOptionTile extends ConsumerWidget {
   final String title;
   final VoidCallback onTap;
 
@@ -643,8 +643,8 @@ class _ReportOptionTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = ref.watch(darkModeProvider);
     return InkWell(
       onTap: onTap,
       child: Container(

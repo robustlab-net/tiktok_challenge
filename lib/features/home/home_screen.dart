@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_challenge/features/home/models/post_model.dart';
 import 'package:tiktok_challenge/features/home/widgets/post_widget.dart';
 import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = ref.watch(darkModeProvider);
     final posts = [
       Post(
         username: 'pubity',

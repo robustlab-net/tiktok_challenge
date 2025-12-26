@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends ConsumerState<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -21,7 +21,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+    final isDark = ref.watch(darkModeProvider);
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -124,7 +124,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 }
 
-class _UserTile extends StatelessWidget {
+class _UserTile extends ConsumerWidget {
   final String username;
   final String displayName;
   final String followers;
@@ -142,8 +142,8 @@ class _UserTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = ref.watch(darkModeProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Column(

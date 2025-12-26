@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
-class AlertsScreen extends StatefulWidget {
+class AlertsScreen extends ConsumerStatefulWidget {
   const AlertsScreen({super.key});
 
   @override
-  State<AlertsScreen> createState() => _AlertsScreenState();
+  ConsumerState<AlertsScreen> createState() => _AlertsScreenState();
 }
 
-class _AlertsScreenState extends State<AlertsScreen> {
+class _AlertsScreenState extends ConsumerState<AlertsScreen> {
   String _selectedTab = 'All';
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+    final isDark = ref.watch(darkModeProvider);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -154,7 +154,7 @@ class _AlertsScreenState extends State<AlertsScreen> {
   }
 }
 
-class _TabButton extends StatelessWidget {
+class _TabButton extends ConsumerWidget {
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
@@ -166,8 +166,8 @@ class _TabButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = ref.watch(darkModeProvider);
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -201,7 +201,7 @@ class _TabButton extends StatelessWidget {
   }
 }
 
-class _ActivityItem extends StatelessWidget {
+class _ActivityItem extends ConsumerWidget {
   final String username;
   final String timeAgo;
   final String activityType;
@@ -223,8 +223,8 @@ class _ActivityItem extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = ref.watch(darkModeProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Column(

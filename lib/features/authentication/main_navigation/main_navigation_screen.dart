@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_challenge/features/home/home_screen.dart';
 import 'package:tiktok_challenge/features/search/search_screen.dart';
 import 'package:tiktok_challenge/features/posts/posts_screen.dart';
@@ -8,16 +8,16 @@ import 'package:tiktok_challenge/features/alerts/alerts_screen.dart';
 import 'package:tiktok_challenge/features/users/user_profile_screen.dart';
 import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
-class MainNavigationScreen extends StatefulWidget {
+class MainNavigationScreen extends ConsumerStatefulWidget {
   final int? initialIndex;
 
   const MainNavigationScreen({super.key, this.initialIndex});
 
   @override
-  State<MainNavigationScreen> createState() => _MainNavigationScreenState();
+  ConsumerState<MainNavigationScreen> createState() => _MainNavigationScreenState();
 }
 
-class _MainNavigationScreenState extends State<MainNavigationScreen> {
+class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
   late int _selectedIndex;
 
   @override
@@ -52,7 +52,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+    final isDark = ref.watch(darkModeProvider);
     return Scaffold(
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

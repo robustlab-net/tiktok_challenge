@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   void _showLogoutDialog(BuildContext context) {
@@ -57,8 +57,8 @@ class SettingsScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = ref.watch(darkModeProvider);
     return Scaffold(
       backgroundColor: isDark ? Colors.black : Colors.white,
       appBar: AppBar(
@@ -105,9 +105,9 @@ class SettingsScreen extends StatelessWidget {
           SwitchListTile.adaptive(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            value: context.watch<DarkModeViewModel>().isDarkMode,
+            value: ref.watch(darkModeProvider),
             onChanged: (value) =>
-                context.read<DarkModeViewModel>().setDarkMode(value),
+                ref.read(darkModeProvider.notifier).setDarkMode(value),
             title: Text(
               'Dark mode',
               style: TextStyle(

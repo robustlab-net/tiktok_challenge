@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tiktok_challenge/features/settings/repositories/dark_mode_repository.dart';
 import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 import 'package:tiktok_challenge/router.dart';
 
@@ -9,21 +8,24 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final preferences = await SharedPreferences.getInstance();
-  final darkModeRepository = DarkModeRepository(preferences);
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => DarkModeViewModel(darkModeRepository),
+    ProviderScope(
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(preferences),
+      ],
       child: const TikTokApp(),
     ),
   );
 }
 
-class TikTokApp extends StatelessWidget {
+class TikTokApp extends ConsumerWidget {
   const TikTokApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDarkMode = ref.watch(darkModeProvider);
+
     return MaterialApp.router(
       title: 'TikTok Clone',
       theme: ThemeData(
@@ -38,9 +40,7 @@ class TikTokApp extends StatelessWidget {
         primaryColor: const Color(0xFF1DA1F2),
         useMaterial3: true,
       ),
-      themeMode: context.watch<DarkModeViewModel>().isDarkMode
-          ? ThemeMode.dark
-          : ThemeMode.light,
+      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       routerConfig: router,
     );
   }

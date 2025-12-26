@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
-class UserProfileScreen extends StatefulWidget {
+class UserProfileScreen extends ConsumerStatefulWidget {
   const UserProfileScreen({super.key});
 
   @override
-  State<UserProfileScreen> createState() => _UserProfileScreenState();
+  ConsumerState<UserProfileScreen> createState() => _UserProfileScreenState();
 }
 
-class _UserProfileScreenState extends State<UserProfileScreen> {
+class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
   String _selectedTab = 'Threads';
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+    final isDark = ref.watch(darkModeProvider);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -307,11 +307,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   }
 }
 
-class _RepliesListView extends StatelessWidget {
+class _RepliesListView extends ConsumerWidget {
   const _RepliesListView();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final replies = [
       {
         'username': 'john_mobbin',
@@ -334,7 +334,7 @@ class _RepliesListView extends StatelessWidget {
       },
     ];
 
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+    final isDark = ref.watch(darkModeProvider);
     return Container(
       color: isDark ? Colors.black : Colors.white,
       child: Column(
@@ -369,7 +369,9 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+    // Note: ref is not available in SliverPersistentHeaderDelegate
+    // We'll use MediaQuery as a workaround
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
       color: isDark ? Colors.black : Colors.white,
       child: Column(
@@ -459,7 +461,7 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 }
 
-class _ThreadItem extends StatelessWidget {
+class _ThreadItem extends ConsumerWidget {
   final String username;
   final String timeAgo;
   final String content;
@@ -479,8 +481,8 @@ class _ThreadItem extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = ref.watch(darkModeProvider);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -642,7 +644,7 @@ class _ThreadItem extends StatelessWidget {
   }
 }
 
-class _ReplyItemConnected extends StatelessWidget {
+class _ReplyItemConnected extends ConsumerWidget {
   final String username;
   final String timeAgo;
   final String content;
@@ -664,8 +666,8 @@ class _ReplyItemConnected extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = ref.watch(darkModeProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: Row(

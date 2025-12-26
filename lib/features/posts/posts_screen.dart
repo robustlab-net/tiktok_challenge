@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
 class PostsScreen extends StatelessWidget {
@@ -18,14 +18,14 @@ class PostsScreen extends StatelessWidget {
   }
 }
 
-class NewThreadScreen extends StatefulWidget {
+class NewThreadScreen extends ConsumerStatefulWidget {
   const NewThreadScreen({super.key});
 
   @override
-  State<NewThreadScreen> createState() => _NewThreadScreenState();
+  ConsumerState<NewThreadScreen> createState() => _NewThreadScreenState();
 }
 
-class _NewThreadScreenState extends State<NewThreadScreen> {
+class _NewThreadScreenState extends ConsumerState<NewThreadScreen> {
   final TextEditingController _textController = TextEditingController();
   final ImagePicker _imagePicker = ImagePicker();
   bool _hasText = false;
@@ -48,7 +48,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
   }
 
   Future<void> _showImageSourceDialog() async {
-    final isDark = context.read<DarkModeViewModel>().isDarkMode;
+    final isDark = ref.read(darkModeProvider);
     showModalBottomSheet(
       context: context,
       backgroundColor: isDark ? Colors.grey.shade900 : Colors.grey.shade100,
@@ -97,7 +97,7 @@ class _NewThreadScreenState extends State<NewThreadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.watch<DarkModeViewModel>().isDarkMode;
+    final isDark = ref.watch(darkModeProvider);
     return Container(
       decoration: BoxDecoration(
         border: Border(
