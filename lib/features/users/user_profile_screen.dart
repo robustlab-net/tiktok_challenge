@@ -267,6 +267,7 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
             pinned: true,
             delegate: _TabHeaderDelegate(
               selectedTab: _selectedTab,
+              isDark: isDark,
               onTabChanged: (tab) {
                 setState(() {
                   _selectedTab = tab;
@@ -359,19 +360,18 @@ class _RepliesListView extends ConsumerWidget {
 
 class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
   final String selectedTab;
+  final bool isDark;
   final Function(String) onTabChanged;
 
   _TabHeaderDelegate({
     required this.selectedTab,
+    required this.isDark,
     required this.onTabChanged,
   });
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    // Note: ref is not available in SliverPersistentHeaderDelegate
-    // We'll use MediaQuery as a workaround
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
       color: isDark ? Colors.black : Colors.white,
       child: Column(
@@ -457,7 +457,7 @@ class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(covariant _TabHeaderDelegate oldDelegate) {
-    return selectedTab != oldDelegate.selectedTab;
+    return selectedTab != oldDelegate.selectedTab || isDark != oldDelegate.isDark;
   }
 }
 
