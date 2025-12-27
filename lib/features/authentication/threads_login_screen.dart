@@ -10,8 +10,7 @@ class ThreadsLoginScreen extends ConsumerStatefulWidget {
   const ThreadsLoginScreen({super.key});
 
   @override
-  ConsumerState<ThreadsLoginScreen> createState() =>
-      _ThreadsLoginScreenState();
+  ConsumerState<ThreadsLoginScreen> createState() => _ThreadsLoginScreenState();
 }
 
 class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
@@ -98,7 +97,7 @@ class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
                   ),
                 ),
               ),
-              Gaps.v60,
+              Gaps.v120,
               // Email/Phone input
               TextField(
                 controller: _emailController,
@@ -237,10 +236,13 @@ class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.apps,
-                    size: 20,
-                    color: Colors.grey.shade600,
+                  Text(
+                    '∞',
+                    style: TextStyle(
+                      fontSize: Sizes.size20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                   Gaps.h5,
                   Text(
@@ -253,7 +255,7 @@ class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
                   ),
                 ],
               ),
-              Gaps.v32,
+              Gaps.v12,
             ],
           ),
         ),
