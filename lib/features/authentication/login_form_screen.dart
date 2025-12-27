@@ -1,24 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
+import 'package:tiktok_challenge/features/authentication/view_models/auth_view_model.dart';
 import 'package:tiktok_challenge/features/authentication/widgets/form_button.dart';
 
-class LoginFormScreen extends StatefulWidget {
+class LoginFormScreen extends ConsumerStatefulWidget {
   const LoginFormScreen({super.key});
 
   @override
-  State<LoginFormScreen> createState() => _LoginFormScreenState();
+  ConsumerState<LoginFormScreen> createState() => _LoginFormScreenState();
 }
 
-class _LoginFormScreenState extends State<LoginFormScreen> {
+class _LoginFormScreenState extends ConsumerState<LoginFormScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Map<String, String> formData = {};
 
-  void _onSubmitTap() {
+  Future<void> _onSubmitTap() async {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
+
+        // 로그인 실행
+        final success = await ref.read(authProvider.notifier).login(
+              email: formData['email'] ?? '',
+              password: formData['password'] ?? '',
+            );
+
+        if (success) {
+          // 홈 화면으로 이동
+          if (mounted) {
+            context.go('/');
+          }
+        } else {
+          // 에러 표시
+          final error = ref.read(authProvider).error;
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(error ?? '로그인에 실패했습니다.'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        }
       }
     }
   }

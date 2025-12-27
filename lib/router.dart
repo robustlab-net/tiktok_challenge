@@ -1,13 +1,19 @@
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_challenge/features/authentication/main_navigation/main_navigation_screen.dart';
+import 'package:tiktok_challenge/features/authentication/threads_login_screen.dart';
 import 'package:tiktok_challenge/features/settings/settings_screen.dart';
 import 'package:tiktok_challenge/features/settings/privacy_screen.dart';
 import 'package:tiktok_challenge/features/posts/posts_screen.dart';
 
 final router = GoRouter(
-  // 기본 경로는 홈(피드) 탭
-  initialLocation: '/',
+  // 앱 시작 시 signup 화면으로 이동
+  initialLocation: '/signup',
   routes: [
+    // 인증 화면
+    GoRoute(
+      path: '/signup',
+      builder: (context, state) => const ThreadsLoginScreen(),
+    ),
     // Bottom navigation이 올라가는 메인 탭들
     GoRoute(
       path: '/',

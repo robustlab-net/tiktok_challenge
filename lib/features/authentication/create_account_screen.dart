@@ -1,18 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
 import 'package:tiktok_challenge/features/authentication/customize_experience_screen.dart';
+import 'package:tiktok_challenge/features/authentication/view_models/signup_view_model.dart';
 
-class CreateAccountScreen extends StatefulWidget {
+class CreateAccountScreen extends ConsumerStatefulWidget {
   const CreateAccountScreen({super.key});
 
   @override
-  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
+  ConsumerState<CreateAccountScreen> createState() =>
+      _CreateAccountScreenState();
 }
 
-class _CreateAccountScreenState extends State<CreateAccountScreen> {
+class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
@@ -71,6 +74,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   void _onNextTap() {
     if (_isFormValid) {
+      // 회원가입 데이터 저장
+      ref.read(signUpDataProvider.notifier).setSignUpData(
+            name: _nameController.text,
+            email: _emailController.text,
+            dateOfBirth: _selectedDate,
+          );
+
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => CustomizeExperienceScreen(

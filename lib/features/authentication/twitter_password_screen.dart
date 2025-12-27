@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
-import 'package:tiktok_challenge/features/authentication/interests_screen.dart';
+import 'package:tiktok_challenge/features/authentication/view_models/auth_view_model.dart';
+import 'package:tiktok_challenge/features/authentication/view_models/signup_view_model.dart';
 
-class TwitterPasswordScreen extends StatefulWidget {
+class TwitterPasswordScreen extends ConsumerStatefulWidget {
   const TwitterPasswordScreen({super.key});
 
   @override
-  State<TwitterPasswordScreen> createState() => _TwitterPasswordScreenState();
+  ConsumerState<TwitterPasswordScreen> createState() =>
+      _TwitterPasswordScreenState();
 }
 
-class _TwitterPasswordScreenState extends State<TwitterPasswordScreen> {
+class _TwitterPasswordScreenState extends ConsumerState<TwitterPasswordScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _obscureText = true;
   bool _isPasswordValid = false;
@@ -44,13 +48,47 @@ class _TwitterPasswordScreenState extends State<TwitterPasswordScreen> {
     });
   }
 
-  void _onNextTap() {
-    if (_isPasswordValid) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const InterestsScreen(),
+  Future<void> _onNextTap() async {
+    if (!_isPasswordValid) return;
+
+    final signUpData = ref.read(signUpDataProvider);
+
+    if (signUpData == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('회원가입 정보를 찾을 수 없습니다. 다시 시도해주세요.'),
         ),
       );
+      return;
+    }
+
+    // 회원가입 실행
+    final success = await ref.read(authProvider.notifier).signUp(
+          name: signUpData.name,
+          email: signUpData.email,
+          dateOfBirth: signUpData.dateOfBirth,
+          password: _passwordController.text,
+        );
+
+    if (success) {
+      // 회원가입 데이터 초기화
+      ref.read(signUpDataProvider.notifier).clear();
+
+      // 홈 화면으로 이동
+      if (mounted) {
+        context.go('/');
+      }
+    } else {
+      // 에러 표시
+      final error = ref.read(authProvider).error;
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error ?? '회원가입에 실패했습니다.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 

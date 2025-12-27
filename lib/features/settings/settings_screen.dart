@@ -3,12 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tiktok_challenge/features/authentication/view_models/auth_view_model.dart';
 import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
-  void _showLogoutDialog(BuildContext context) {
+  void _showLogoutDialog(BuildContext context, WidgetRef ref) {
     if (Platform.isIOS) {
       showCupertinoDialog(
         context: context,
@@ -23,9 +24,12 @@ class SettingsScreen extends ConsumerWidget {
             ),
             CupertinoDialogAction(
               isDestructiveAction: true,
-              onPressed: () {
+              onPressed: () async {
                 Navigator.of(context).pop();
-                // TODO: Implement logout logic
+                await ref.read(authProvider.notifier).logout();
+                if (context.mounted) {
+                  context.go('/signup');
+                }
               },
               child: const Text('Log out'),
             ),
@@ -44,9 +48,12 @@ class SettingsScreen extends ConsumerWidget {
               child: const Text('Cancel'),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 Navigator.of(context).pop();
-                // TODO: Implement logout logic
+                await ref.read(authProvider.notifier).logout();
+                if (context.mounted) {
+                  context.go('/signup');
+                }
               },
               child: const Text('Log out'),
             ),
@@ -251,7 +258,7 @@ class SettingsScreen extends ConsumerWidget {
             child: Row(
               children: [
                 TextButton(
-                  onPressed: () => _showLogoutDialog(context),
+                  onPressed: () => _showLogoutDialog(context, ref),
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
                     alignment: Alignment.centerLeft,
