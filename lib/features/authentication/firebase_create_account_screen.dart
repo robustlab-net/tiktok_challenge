@@ -3,17 +3,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
-import 'package:tiktok_challenge/features/authentication/firebase_create_account_screen.dart';
 import 'package:tiktok_challenge/features/authentication/view_models/auth_view_model.dart';
 
-class ThreadsLoginScreen extends ConsumerStatefulWidget {
-  const ThreadsLoginScreen({super.key});
+class FirebaseCreateAccountScreen extends ConsumerStatefulWidget {
+  const FirebaseCreateAccountScreen({super.key});
 
   @override
-  ConsumerState<ThreadsLoginScreen> createState() => _ThreadsLoginScreenState();
+  ConsumerState<FirebaseCreateAccountScreen> createState() =>
+      _FirebaseCreateAccountScreenState();
 }
 
-class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
+class _FirebaseCreateAccountScreenState
+    extends ConsumerState<FirebaseCreateAccountScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -24,12 +25,18 @@ class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
     super.dispose();
   }
 
-  Future<void> _onLoginTap() async {
+  Future<void> _onCreateAccountTap() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill in all fields'),
+          backgroundColor: Colors.red,
+        ),
+      );
       return;
     }
 
-    final success = await ref.read(authProvider.notifier).login(
+    final success = await ref.read(authProvider.notifier).signUp(
           email: _emailController.text,
           password: _passwordController.text,
         );
@@ -43,7 +50,7 @@ class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(error ?? '로그인에 실패했습니다.'),
+            content: Text(error ?? '계정 생성에 실패했습니다.'),
             backgroundColor: Colors.red,
           ),
         );
@@ -51,33 +58,28 @@ class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
     }
   }
 
-  void _onCreateAccountTap() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const FirebaseCreateAccountScreen(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text(
+          'Create Account',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Colors.black),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: Sizes.size32),
           child: Column(
             children: [
-              Gaps.v20,
-              // Language selector
-              const Text(
-                'English (US)',
-                style: TextStyle(
-                  fontSize: Sizes.size14,
-                  color: Colors.black54,
-                ),
-              ),
-              const Spacer(),
+              Gaps.v40,
               // Threads logo
               Container(
                 width: 80,
@@ -97,12 +99,13 @@ class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
                   ),
                 ),
               ),
-              Gaps.v120,
-              // Email/Phone input
+              Gaps.v60,
+              // Email input
               TextField(
                 controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  hintText: 'Mobile number or email',
+                  hintText: 'Email',
                   hintStyle: TextStyle(
                     color: Colors.grey.shade400,
                     fontSize: Sizes.size16,
@@ -171,20 +174,20 @@ class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
                 ),
               ),
               Gaps.v16,
-              // Log in button
+              // Create account button
               GestureDetector(
-                onTap: _onLoginTap,
+                onTap: _onCreateAccountTap,
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
                     vertical: Sizes.size16,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF0095F6),
+                    color: Colors.black,
                     borderRadius: BorderRadius.circular(Sizes.size12),
                   ),
                   child: const Text(
-                    'Log in',
+                    'Create Account',
                     style: TextStyle(
                       fontSize: Sizes.size16,
                       fontWeight: FontWeight.w600,
@@ -194,68 +197,6 @@ class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
                   ),
                 ),
               ),
-              Gaps.v20,
-              // Forgot password
-              const Text(
-                'Forgot password?',
-                style: TextStyle(
-                  fontSize: Sizes.size14,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87,
-                ),
-              ),
-              const Spacer(),
-              // Create new account button
-              GestureDetector(
-                onTap: _onCreateAccountTap,
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: Sizes.size16,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey.shade300,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(Sizes.size12),
-                  ),
-                  child: const Text(
-                    'Create new account',
-                    style: TextStyle(
-                      fontSize: Sizes.size16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              Gaps.v32,
-              // Meta logo
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '∞',
-                    style: TextStyle(
-                      fontSize: Sizes.size20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
-                  Gaps.h5,
-                  Text(
-                    'Meta',
-                    style: TextStyle(
-                      fontSize: Sizes.size16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
-                ],
-              ),
-              Gaps.v12,
             ],
           ),
         ),

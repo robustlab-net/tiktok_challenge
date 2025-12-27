@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_challenge/features/authentication/models/user_model.dart';
 import 'package:tiktok_challenge/features/authentication/repositories/auth_repository.dart';
-import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
 
 class AuthState {
   final UserModel? user;
@@ -47,22 +46,17 @@ class AuthViewModel extends StateNotifier<AuthState> {
   }
 
   Future<bool> signUp({
-    required String name,
     required String email,
-    required String dateOfBirth,
     required String password,
   }) async {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
       final user = await _repository.signUp(
-        name: name,
         email: email,
-        dateOfBirth: dateOfBirth,
         password: password,
       );
 
-      await _repository.setCurrentUser(user);
       state = state.copyWith(user: user, isLoading: false);
       return true;
     } catch (e) {
@@ -86,7 +80,6 @@ class AuthViewModel extends StateNotifier<AuthState> {
         password: password,
       );
 
-      await _repository.setCurrentUser(user);
       state = state.copyWith(user: user, isLoading: false);
       return true;
     } catch (e) {
@@ -110,8 +103,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
 
 // Auth Repository Provider
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  return AuthRepository(prefs);
+  return AuthRepository();
 });
 
 // Auth ViewModel Provider
