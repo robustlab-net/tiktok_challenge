@@ -81,7 +81,7 @@ class _LoginFormScreenState extends ConsumerState<LoginFormScreen> {
                 ),
                 validator: (value) {
                   if (value != null && value.isEmpty) {
-                    return "Plase write your email";
+                    return "Please write your email";
                   }
                   return null;
                 },
@@ -108,7 +108,7 @@ class _LoginFormScreenState extends ConsumerState<LoginFormScreen> {
                 ),
                 validator: (value) {
                   if (value != null && value.isEmpty) {
-                    return "Plase write your password";
+                    return "Please write your password";
                   }
                   return null;
                 },
