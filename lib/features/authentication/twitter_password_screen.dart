@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
-import 'package:tiktok_challenge/features/authentication/view_models/auth_view_model.dart';
+import 'package:tiktok_challenge/features/authentication/repos/authentication_repo.dart';
 import 'package:tiktok_challenge/features/authentication/view_models/signup_view_model.dart';
 
 class TwitterPasswordScreen extends ConsumerStatefulWidget {
@@ -51,9 +51,9 @@ class _TwitterPasswordScreenState extends ConsumerState<TwitterPasswordScreen> {
   Future<void> _onNextTap() async {
     if (!_isPasswordValid) return;
 
-    final signUpData = ref.read(signUpDataProvider);
+    final signUpData = ref.read(signUpForm);
 
-    if (signUpData == null) {
+    if (signUpData["email"] == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('회원가입 정보를 찾을 수 없습니다. 다시 시도해주세요.'),
@@ -62,29 +62,32 @@ class _TwitterPasswordScreenState extends ConsumerState<TwitterPasswordScreen> {
       return;
     }
 
-    // 회원가입 실행
-    final success = await ref.read(authProvider.notifier).signUp(
-          name: signUpData.name,
-          email: signUpData.email,
-          dateOfBirth: signUpData.dateOfBirth,
-          password: _passwordController.text,
-        );
+    // 비밀번호 저장
+    ref.read(signUpForm.notifier).state = {
+      ...signUpData,
+      "password": _passwordController.text,
+    };
 
-    if (success) {
+    // 회원가입 실행
+    try {
+      await ref.read(authRepo).signUp(
+        signUpData["email"],
+        _passwordController.text,
+      );
+
       // 회원가입 데이터 초기화
-      ref.read(signUpDataProvider.notifier).clear();
+      ref.read(signUpForm.notifier).state = {};
 
       // 홈 화면으로 이동
       if (mounted) {
         context.go('/');
       }
-    } else {
+    } catch (e) {
       // 에러 표시
-      final error = ref.read(authProvider).error;
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(error ?? '회원가입에 실패했습니다.'),
+            content: Text(e.toString()),
             backgroundColor: Colors.red,
           ),
         );

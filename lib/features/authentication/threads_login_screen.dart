@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
 import 'package:tiktok_challenge/features/authentication/firebase_create_account_screen.dart';
-import 'package:tiktok_challenge/features/authentication/view_models/auth_view_model.dart';
+import 'package:tiktok_challenge/features/authentication/repos/authentication_repo.dart';
 
 class ThreadsLoginScreen extends ConsumerStatefulWidget {
   const ThreadsLoginScreen({super.key});
@@ -29,21 +29,20 @@ class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
       return;
     }
 
-    final success = await ref.read(authProvider.notifier).login(
-          email: _emailController.text,
-          password: _passwordController.text,
-        );
+    try {
+      await ref.read(authRepo).signIn(
+        _emailController.text,
+        _passwordController.text,
+      );
 
-    if (success) {
       if (mounted) {
         context.go('/');
       }
-    } else {
-      final error = ref.read(authProvider).error;
+    } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(error ?? '로그인에 실패했습니다.'),
+            content: Text(e.toString()),
             backgroundColor: Colors.red,
           ),
         );

@@ -75,11 +75,11 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
   void _onNextTap() {
     if (_isFormValid) {
       // 회원가입 데이터 저장
-      ref.read(signUpDataProvider.notifier).setSignUpData(
-            name: _nameController.text,
-            email: _emailController.text,
-            dateOfBirth: _selectedDate,
-          );
+      ref.read(signUpForm.notifier).state = {
+        "name": _nameController.text,
+        "email": _emailController.text,
+        "dateOfBirth": _selectedDate,
+      };
 
       Navigator.of(context).push(
         MaterialPageRoute(

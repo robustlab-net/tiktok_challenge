@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_challenge/constants/gaps.dart';
 import 'package:tiktok_challenge/constants/sizes.dart';
-import 'package:tiktok_challenge/features/authentication/view_models/auth_view_model.dart';
+import 'package:tiktok_challenge/features/authentication/repos/authentication_repo.dart';
 
 class FirebaseCreateAccountScreen extends ConsumerStatefulWidget {
   const FirebaseCreateAccountScreen({super.key});
@@ -36,21 +36,20 @@ class _FirebaseCreateAccountScreenState
       return;
     }
 
-    final success = await ref.read(authProvider.notifier).signUp(
-          email: _emailController.text,
-          password: _passwordController.text,
-        );
+    try {
+      await ref.read(authRepo).signUp(
+        _emailController.text,
+        _passwordController.text,
+      );
 
-    if (success) {
       if (mounted) {
         context.go('/');
       }
-    } else {
-      final error = ref.read(authProvider).error;
+    } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(error ?? '계정 생성에 실패했습니다.'),
+            content: Text(e.toString()),
             backgroundColor: Colors.red,
           ),
         );
