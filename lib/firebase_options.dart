@@ -41,20 +41,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDemoKey-ReplaceWithYourActualWebAPIKey',
-    appId: '1:123456789:web:abcdef123456',
-    messagingSenderId: '123456789',
-    projectId: 'your-project-id',
-    authDomain: 'your-project-id.firebaseapp.com',
-    storageBucket: 'your-project-id.appspot.com',
+    apiKey: 'AIzaSyCW3sXlnMSelL53TiS9Ng3JQ4breomClCc',
+    appId: '1:60933799462:web:57046ec937be571ae5f0e7',
+    messagingSenderId: '60933799462',
+    projectId: 'tiktok-challenge-zaxrok',
+    authDomain: 'tiktok-challenge-zaxrok.firebaseapp.com',
+    storageBucket: 'tiktok-challenge-zaxrok.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDemoKey-ReplaceWithYourActualAndroidAPIKey',
-    appId: '1:123456789:android:abcdef123456',
-    messagingSenderId: '123456789',
-    projectId: 'your-project-id',
-    storageBucket: 'your-project-id.appspot.com',
+    apiKey: 'AIzaSyBniBk79J4MOyeOfTg_b_JFlykn8BikqVo',
+    appId: '1:60933799462:android:b70236a677702f12e5f0e7',
+    messagingSenderId: '60933799462',
+    projectId: 'tiktok-challenge-zaxrok',
+    storageBucket: 'tiktok-challenge-zaxrok.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(

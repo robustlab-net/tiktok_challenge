@@ -64,20 +64,21 @@ class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Sizes.size32),
-          child: Column(
-            children: [
-              Gaps.v20,
-              // Language selector
-              const Text(
-                'English (US)',
-                style: TextStyle(
-                  fontSize: Sizes.size14,
-                  color: Colors.black54,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Sizes.size32),
+            child: Column(
+              children: [
+                Gaps.v20,
+                // Language selector
+                const Text(
+                  'English (US)',
+                  style: TextStyle(
+                    fontSize: Sizes.size14,
+                    color: Colors.black54,
+                  ),
                 ),
-              ),
-              const Spacer(),
+                Gaps.v60,
               // Threads logo
               Container(
                 width: 80,
@@ -204,7 +205,7 @@ class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
                   color: Colors.black87,
                 ),
               ),
-              const Spacer(),
+              Gaps.v60,
               // Create new account button
               GestureDetector(
                 onTap: _onCreateAccountTap,
@@ -255,9 +256,10 @@ class _ThreadsLoginScreenState extends ConsumerState<ThreadsLoginScreen> {
                   ),
                 ],
               ),
-              Gaps.v12,
+              Gaps.v32,
             ],
           ),
+        ),
         ),
       ),
     );

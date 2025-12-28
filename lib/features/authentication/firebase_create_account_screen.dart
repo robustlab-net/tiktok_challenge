@@ -75,10 +75,11 @@ class _FirebaseCreateAccountScreenState
         iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Sizes.size32),
-          child: Column(
-            children: [
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Sizes.size32),
+            child: Column(
+              children: [
               Gaps.v40,
               // Threads logo
               Container(
@@ -199,6 +200,7 @@ class _FirebaseCreateAccountScreenState
               ),
             ],
           ),
+        ),
         ),
       ),
     );

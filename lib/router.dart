@@ -1,14 +1,25 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_challenge/features/authentication/main_navigation/main_navigation_screen.dart';
 import 'package:tiktok_challenge/features/authentication/threads_login_screen.dart';
+import 'package:tiktok_challenge/features/authentication/repos/authentication_repo.dart';
 import 'package:tiktok_challenge/features/settings/settings_screen.dart';
 import 'package:tiktok_challenge/features/settings/privacy_screen.dart';
 import 'package:tiktok_challenge/features/posts/posts_screen.dart';
 
-final router = GoRouter(
-  // 앱 시작 시 signup 화면으로 이동
-  initialLocation: '/signup',
-  routes: [
+final routerProvider = Provider<GoRouter>((ref) {
+  return GoRouter(
+    initialLocation: '/',
+    redirect: (context, state) {
+      final isLoggedIn = ref.read(authRepo).isLoggedIn;
+      if (!isLoggedIn) {
+        if (state.matchedLocation != '/signup') {
+          return '/signup';
+        }
+      }
+      return null;
+    },
+    routes: [
     // 인증 화면
     GoRoute(
       path: '/signup',
@@ -50,4 +61,5 @@ final router = GoRouter(
       builder: (context, state) => const NewThreadScreen(),
     ),
   ],
-);
+  );
+});
