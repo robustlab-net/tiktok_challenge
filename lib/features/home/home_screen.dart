@@ -87,9 +87,9 @@ class HomeScreen extends ConsumerWidget {
                                     // Header
                                     Row(
                                       children: [
-                                        const Text(
-                                          'Anonymous',
-                                          style: TextStyle(
+                                        Text(
+                                          post.username,
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 15,
                                           ),

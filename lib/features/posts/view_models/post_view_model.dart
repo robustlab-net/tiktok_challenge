@@ -31,10 +31,14 @@ class PostViewModel extends AsyncNotifier<void> {
       return;
     }
 
+    // All posts are anonymous
+    const username = 'Anonymous';
+
     state = await AsyncValue.guard(
       () async => await _postRepo.createPost(
         text: text,
         userId: user.uid,
+        username: username,
         imageFile: imageFile,
       ),
     );

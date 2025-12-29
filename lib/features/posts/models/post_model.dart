@@ -3,6 +3,7 @@ class PostModel {
   final String text;
   final String? imageUrl;
   final String userId;
+  final String username;
   final int createdAt;
   final int likes;
   final int comments;
@@ -12,6 +13,7 @@ class PostModel {
     required this.text,
     this.imageUrl,
     required this.userId,
+    required this.username,
     required this.createdAt,
     this.likes = 0,
     this.comments = 0,
@@ -24,6 +26,7 @@ class PostModel {
       text: json['text'] as String,
       imageUrl: json['imageUrl'] as String?,
       userId: json['userId'] as String,
+      username: json['username'] as String? ?? 'Anonymous',
       createdAt: json['createdAt'] as int,
       likes: json['likes'] as int? ?? 0,
       comments: json['comments'] as int? ?? 0,
@@ -36,6 +39,7 @@ class PostModel {
       'text': text,
       'imageUrl': imageUrl,
       'userId': userId,
+      'username': username,
       'createdAt': createdAt,
       'likes': likes,
       'comments': comments,
@@ -48,6 +52,7 @@ class PostModel {
     String? text,
     String? imageUrl,
     String? userId,
+    String? username,
     int? createdAt,
     int? likes,
     int? comments,
@@ -57,6 +62,7 @@ class PostModel {
       text: text ?? this.text,
       imageUrl: imageUrl ?? this.imageUrl,
       userId: userId ?? this.userId,
+      username: username ?? this.username,
       createdAt: createdAt ?? this.createdAt,
       likes: likes ?? this.likes,
       comments: comments ?? this.comments,

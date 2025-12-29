@@ -7,11 +7,19 @@ class AuthenticationRepository {
   bool get isLoggedIn => user != null;
   User? get user => _firebaseAuth.currentUser;
 
-  Future<UserCredential> signUp(String email, String password) async {
-    return await _firebaseAuth.createUserWithEmailAndPassword(
+  Future<UserCredential> signUp(String email, String password, {String? username}) async {
+    final credential = await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
+
+    // Set displayName if username is provided
+    if (username != null && username.isNotEmpty && credential.user != null) {
+      await credential.user!.updateDisplayName(username);
+      await credential.user!.reload();
+    }
+
+    return credential;
   }
 
   Future<void> signOut() async {

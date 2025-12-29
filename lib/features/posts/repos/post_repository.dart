@@ -13,6 +13,7 @@ class PostRepository {
   Future<void> createPost({
     required String text,
     required String userId,
+    required String username,
     File? imageFile,
   }) async {
     try {
@@ -31,6 +32,7 @@ class PostRepository {
         'text': text,
         'imageUrl': imageUrl,
         'userId': userId,
+        'username': username,
         'createdAt': DateTime.now().millisecondsSinceEpoch,
         'likes': 0,
         'comments': 0,

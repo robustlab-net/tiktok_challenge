@@ -242,14 +242,18 @@ class _NewThreadScreenState extends ConsumerState<NewThreadScreen> {
                                 width: 2,
                                 height: 100,
                                 decoration: BoxDecoration(
-                                  color: isDark ? Colors.grey.shade700 : Colors.grey.shade300,
+                                  color: isDark
+                                      ? Colors.grey.shade700
+                                      : Colors.grey.shade300,
                                 ),
                               ),
                               const SizedBox(height: 8),
                               // Small avatar at bottom
                               CircleAvatar(
                                 radius: 12,
-                                backgroundColor: isDark ? Colors.grey.shade700 : Colors.grey.shade200,
+                                backgroundColor: isDark
+                                    ? Colors.grey.shade700
+                                    : Colors.grey.shade200,
                                 backgroundImage: const NetworkImage(
                                   'https://picsum.photos/100/100?random=user',
                                 ),
@@ -264,7 +268,7 @@ class _NewThreadScreenState extends ConsumerState<NewThreadScreen> {
                               children: [
                                 // Username
                                 const Text(
-                                  'jane_mobbin',
+                                  'Anonymous',
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -355,7 +359,8 @@ class _NewThreadScreenState extends ConsumerState<NewThreadScreen> {
                 decoration: BoxDecoration(
                   border: Border(
                     top: BorderSide(
-                      color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
+                      color:
+                          isDark ? Colors.grey.shade800 : Colors.grey.shade200,
                     ),
                   ),
                 ),
@@ -366,7 +371,9 @@ class _NewThreadScreenState extends ConsumerState<NewThreadScreen> {
                       Text(
                         'Anyone can reply',
                         style: TextStyle(
-                          color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
+                          color: isDark
+                              ? Colors.grey.shade400
+                              : Colors.grey.shade600,
                           fontSize: 15,
                         ),
                       ),

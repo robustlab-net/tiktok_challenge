@@ -73,6 +73,7 @@ class _TwitterPasswordScreenState extends ConsumerState<TwitterPasswordScreen> {
       await ref.read(authRepo).signUp(
         signUpData["email"],
         _passwordController.text,
+        username: signUpData["name"],
       );
 
       // 회원가입 데이터 초기화
