@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_challenge/features/settings/view_models/dark_mode_view_model.dart';
+import 'package:tiktok_challenge/features/posts/view_models/post_view_model.dart';
 
 class PostsScreen extends StatelessWidget {
   const PostsScreen({super.key});
@@ -30,6 +31,7 @@ class _NewThreadScreenState extends ConsumerState<NewThreadScreen> {
   final ImagePicker _imagePicker = ImagePicker();
   bool _hasText = false;
   XFile? _selectedImage;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -45,6 +47,72 @@ class _NewThreadScreenState extends ConsumerState<NewThreadScreen> {
   void dispose() {
     _textController.dispose();
     super.dispose();
+  }
+
+  Future<void> _onSubmit() async {
+    if (_textController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please write something'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      File? imageFile;
+      if (_selectedImage != null) {
+        imageFile = File(_selectedImage!.path);
+      }
+
+      await ref.read(postProvider.notifier).createPost(
+            text: _textController.text.trim(),
+            imageFile: imageFile,
+          );
+
+      final state = ref.read(postProvider);
+
+      if (state.hasError) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error: ${state.error}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } else {
+        if (mounted) {
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Post created successfully!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Exception: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   Future<void> _showImageSourceDialog() async {
@@ -303,22 +371,25 @@ class _NewThreadScreenState extends ConsumerState<NewThreadScreen> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: _hasText
-                            ? () {
-                                // Handle post
-                                Navigator.pop(context);
-                              }
-                            : null,
-                        child: Text(
-                          'Post',
-                          style: TextStyle(
-                            color: _hasText
-                                ? const Color(0xFF0095F6)
-                                : Colors.grey.shade400,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
+                        onTap: _hasText && !_isLoading ? _onSubmit : null,
+                        child: _isLoading
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Text(
+                                'Post',
+                                style: TextStyle(
+                                  color: _hasText
+                                      ? const Color(0xFF0095F6)
+                                      : Colors.grey.shade400,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
                       ),
                     ],
                   ),
